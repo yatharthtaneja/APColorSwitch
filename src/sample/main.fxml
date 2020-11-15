@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Arc?>
+
+<AnchorPane prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Arc id="topleftcurve" fx:id="topleftcurve" fill="#1f93ff00" layoutX="226.0" layoutY="250.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Arc id="toprightcurve" fx:id="toprightcurve" fill="#1f93ff00" layoutX="226.0" layoutY="250.0" length="90.0" radiusX="100.0" radiusY="100.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Arc id="bottomrightcurve" fx:id="bottomrightcurve" fill="#1f93ff00" layoutX="122.5" layoutY="250.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" AnchorPane.leftAnchor="225.5" />
+      <Arc id="bottomrleftcurve" fx:id="bottomleftcurve" fill="#1f93ff00" layoutX="226.0" layoutY="250.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Button fx:id="play" layoutX="200.0" layoutY="610.0" mnemonicParsing="false" onAction="#play" text="Button" />
+      <Arc id="topleftcurve" fx:id="topleftcurve1" fill="#1f93ff00" layoutX="225.0" layoutY="250.0" length="90.0" radiusX="70.0" radiusY="70.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Arc id="toprightcurve" fx:id="toprightcurve1" fill="#1f93ff00" layoutX="225.0" layoutY="250.0" length="90.0" radiusX="70.0" radiusY="70.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Arc id="bottomrightcurve" fx:id="bottomrightcurve1" fill="#1f93ff00" layoutX="225.0" layoutY="250.0" length="90.0" radiusX="70.0" radiusY="70.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+      <Arc id="bottomrleftcurve" fx:id="bottomleftcurve1" fill="#1f93ff00" layoutX="225.0" layoutY="250.0" length="90.0" radiusX="70.0" radiusY="70.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+   </children>
+</AnchorPane>
