@@ -21,7 +21,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Arc Example");
+        primaryStage.setTitle("ColorSwitch");
         Parent root =FXMLLoader.load(getClass().getResource("main.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
