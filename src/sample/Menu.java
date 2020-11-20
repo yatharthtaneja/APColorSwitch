@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -11,9 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,7 +61,17 @@ private Button LoadButton;
         addShadow(ExitButton);
         addShadow(SettingsButton);
         addShadowPlay(PlayButton);
+        SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                loadSettingsButton();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        topleftcurve.addEventHandler(MouseEvent.MOUSE_ENTERED,(MouseEvent e)->{
+            System.out.println(topleftcurve.getLayoutX()+" "+topleftcurve.getLayoutY());
 
+        });
     }
     public void addShadowPlay(Shape s1){
         DropShadow shadow= new DropShadow();
@@ -77,15 +92,18 @@ private Button LoadButton;
             button3.setTextFill(Color.valueOf("#ffffff"));
         });
 
-//Removing the shadow when the mouse cursor is off
         button3.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
             button3.setEffect(null);
             button3.setTextFill(Color.valueOf("#141518"));
         });
     }
     @FXML
-    public void loadSettingsButton(ActiveEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("GameSettings.fxml"));
-        menuAnchor.getChildren().setAll(pane);
+    public void loadSettingsButton() throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource("GameSettings.fxml"));
+        Scene menuScene = new Scene(pane);
+        Stage window = (Stage) menuAnchor.getScene().getWindow();
+
+        window.setScene(menuScene);
+        window.show();
     }
 }

@@ -5,12 +5,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -34,6 +39,7 @@ public class IntroScreen implements Initializable {
     setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
 
         moveBall(introBall, ring, 4, -100);
+        System.out.println(topleftcurve.getFill());
 //        moveBall(introBall, ring, 1, -200);
 
     }
@@ -88,8 +94,13 @@ st.setOnFinished(event -> {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
     public void loadMenu() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("menu.fxml"));
-        rootAnchorPane.getChildren().setAll(pane);
+        Parent pane = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        Scene menuScene = new Scene(pane);
+        Stage window = (Stage) (rootAnchorPane.getScene().getWindow());
+        window.setScene(menuScene);
+        window.show();
+//        rootAnchorPane.getChildren().setAll(pane);
     }
 }
