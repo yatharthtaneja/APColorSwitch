@@ -4,11 +4,14 @@ import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.shape.*;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,11 +20,41 @@ public class IntroScreen implements Initializable {
     private Group ring;
     @FXML
     private Arc topleftcurve;
+    @FXML
+    private Circle introBall;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//    rotateTransition(ring,4);
     setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
+
+        moveBall(introBall, ring, 6, -100);
+//        moveBall(introBall, ring, 1, -200);
+
+    }
+
+    public void moveBall(Circle c1, Group s1, int cycle , int movey){
+
+        Path path = new Path();
+        path.getElements().add(new MoveTo(0,0));
+        path.getElements().add(new VLineTo(movey));
+        PathTransition pt = new PathTransition();
+        pt.setNode(c1);
+        pt.setDuration(Duration.millis(500));
+        pt.setPath(path);
+        pt.setAutoReverse(true);
+        pt.setCycleCount(cycle);
+        Path path2 = new Path();
+        path2.getElements().add(new MoveTo(0,0));
+        path2.getElements().add(new VLineTo(2.6*movey));
+        PathTransition pt2 = new PathTransition();
+        pt2.setNode(c1);
+        pt2.setDuration(Duration.millis(500));
+        pt2.setPath(path2);
+        pt2.setAutoReverse(true);
+        pt2.setCycleCount(1);
+        
+SequentialTransition st = new SequentialTransition(pt,pt2);
+st.play();
     }
 
     public void rotateTransition(Group g1,int duration){
