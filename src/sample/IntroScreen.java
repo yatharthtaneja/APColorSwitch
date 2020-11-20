@@ -2,8 +2,10 @@ package sample;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
@@ -12,10 +14,14 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IntroScreen implements Initializable {
+    @FXML
+    private AnchorPane rootAnchorPane;
+
     @FXML
     private Group ring;
     @FXML
@@ -52,9 +58,16 @@ public class IntroScreen implements Initializable {
         pt2.setPath(path2);
         pt2.setAutoReverse(true);
         pt2.setCycleCount(1);
-        
+
 SequentialTransition st = new SequentialTransition(pt,pt2);
 st.play();
+st.setOnFinished(event -> {
+    try {
+        loadMenu();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+});
     }
 
     public void rotateTransition(Group g1,int duration){
@@ -74,5 +87,9 @@ st.play();
                 new KeyFrame(Duration.seconds(duration), new KeyValue(rt2.angleProperty(),end)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+    public void loadMenu() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        rootAnchorPane.getChildren().setAll(pane);
     }
 }
