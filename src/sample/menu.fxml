@@ -42,9 +42,9 @@
       </Group>
       <Circle fill="#3e3e3e" layoutX="225.0" layoutY="352.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fill="WHITE" layoutX="232.0" layoutY="345.0" points="-50.0, 40.0, 50.0, 40.0, 0.24470138549804688, -27.494670867919922" rotate="90.0" scaleX="0.7" scaleY="0.7" scaleZ="0.7" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="INSIDE" strokeWidth="5.0" />
-      <Button layoutX="137.0" layoutY="500.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" text="Load Saved Game" />
-      <Button layoutX="137.0" layoutY="566.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" text="Statistics" />
-      <Button layoutX="137.0" layoutY="634.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" text="Settings" />
-      <Button layoutX="137.0" layoutY="703.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" text="Exit" />
+      <Button layoutX="137.0" layoutY="566.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" stylesheets="@button.css" text="Statistics" textFill="#fdfdfd" />
+      <Button fx:id="LoadButton" layoutX="137.0" layoutY="500.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Load Saved Game" textFill="#1e1e1e" />
+      <Button layoutX="137.0" layoutY="634.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" stylesheets="@button.css" text="Settings" textFill="#fdfdfd" />
+      <Button layoutX="137.0" layoutY="703.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" stylesheets="@button.css" text="Exit" textFill="#fdfdfd" />
    </children>
 </AnchorPane>

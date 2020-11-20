@@ -1,0 +1,28 @@
+/*.button*/
+/*{*/
+    /*-fx-padding: 8 15 15 15;*/
+    /*-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;*/
+    /*-fx-background-radius: 8;*/
+    /*-fx-background-color:*/
+    /*        linear-gradient(from 0% 93% to 0% 100%, #2b5876 0%, #4e4376 100%),*/
+    /*        #3a7bd5,*/
+    /*        #00d2ff,*/
+    /*        radial-gradient(center 50% 50%, radius 100%, #34e89e, #0f3443);*/
+    /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );*/
+    /*-fx-font-weight: bold;*/
+    /*-fx-font-size: 1.1em;*/
+#LoadButton {
+    -fx-background-color:
+            linear-gradient(#B5EDD0, #34e89e),
+            /*linear-gradient(#ffef84, #f2ba44),*/
+            /*linear-gradient(#ffea6a, #efaa22),*/
+            /*linear-gradient(#34e89e 0%, #f8c202 50%, #B5EDD0 100%)*/
+            linear-gradient(from 25% 25% to 100% 100%, #B5EDD0, #34e89e);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    /*-fx-text-fill: #654b00;*/
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+}
+/*}*/

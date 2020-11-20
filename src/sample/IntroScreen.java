@@ -33,7 +33,7 @@ public class IntroScreen implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
 
-        moveBall(introBall, ring, 6, -100);
+        moveBall(introBall, ring, 4, -100);
 //        moveBall(introBall, ring, 1, -200);
 
     }
