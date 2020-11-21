@@ -13,7 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -53,9 +56,10 @@ private Button LoadButton;
     public void initialize(URL url, ResourceBundle resourceBundle) {
     IntroScreen obj = new IntroScreen();
 
-    obj.setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
+        obj.setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
         obj.setRotate(ring11,0,360,3,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
         obj.setRotate(ring2,360,0,3,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
+//        obj.setRotate(Cross,360,0,3,crossC.getCenterX(),crossC.getCenterY());
         addShadow(LoadButton);
         addShadow(StatisticsButton);
         addShadow(ExitButton);
@@ -63,15 +67,19 @@ private Button LoadButton;
         addShadowPlay(PlayButton);
         SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                loadSettingsButton();
+                loadButton("GameSettings.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
-        topleftcurve.addEventHandler(MouseEvent.MOUSE_ENTERED,(MouseEvent e)->{
-            System.out.println(topleftcurve.getLayoutX()+" "+topleftcurve.getLayoutY());
-
+        PlayButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                loadButton("play.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
+
     }
     public void addShadowPlay(Shape s1){
         DropShadow shadow= new DropShadow();
@@ -97,13 +105,15 @@ private Button LoadButton;
             button3.setTextFill(Color.valueOf("#141518"));
         });
     }
+
     @FXML
-    public void loadSettingsButton() throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource("GameSettings.fxml"));
+    public void loadButton(String s) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource(s));
         Scene menuScene = new Scene(pane);
         Stage window = (Stage) menuAnchor.getScene().getWindow();
-
+//        System.out.println(window.getMaxHeight());
         window.setScene(menuScene);
         window.show();
     }
+
 }

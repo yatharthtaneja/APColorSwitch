@@ -6,6 +6,7 @@
 <?import javafx.scene.shape.Arc?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -13,7 +14,7 @@
    <children>
       <Group fx:id="ring" layoutX="171.0" layoutY="277.0">
          <children>
-            <Arc id="topleftcurve" fx:id="topleftcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+            <Arc id="topleftcurve" fx:id="topleftcurve" fill="#007ee500" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
             <Arc id="toprightcurve" fx:id="toprightcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
             <Arc id="bottomrightcurve" fx:id="bottomrightcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
@@ -40,11 +41,19 @@
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve1" fill="#1f93ff00" layoutX="87.0" layoutY="88.0" length="90.0" radiusX="80.0" radiusY="80.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
          </children>
       </Group>
-      <Circle fill="#3e3e3e" layoutX="225.0" layoutY="352.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="PlayButton" fill="WHITE" layoutX="232.0" layoutY="345.0" points="-50.0, 40.0, 50.0, 40.0, 0.24470138549804688, -27.494670867919922" rotate="90.0" scaleX="0.7" scaleY="0.7" scaleZ="0.7" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="INSIDE" strokeWidth="5.0" />
       <Button fx:id="StatisticsButton" layoutX="138.0" layoutY="555.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Statistics" textFill="#1e1e1e" />
       <Button fx:id="LoadButton" layoutX="138.0" layoutY="484.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Load Saved Game" textFill="#1e1e1e" />
       <Button fx:id="SettingsButton" layoutX="137.0" layoutY="626.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Settings" textFill="#1e1e1e" />
       <Button fx:id="ExitButton" layoutX="138.0" layoutY="699.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Exit" textFill="#1e1e1e" />
+      <Group fx:id="Cross" layoutX="-153.0" layoutY="-84.0">
+         <children>
+            <Circle fx:id="crossC" fill="#3e3e3e" layoutX="371.0" layoutY="233.0" radius="16.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#f6df0e" layoutX="401.0" layoutY="73.0" />
+            <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#8c13fb" layoutX="401.0" layoutY="157.0" rotate="90.0" />
+            <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#ff0080" layoutX="317.0" layoutY="157.0" rotate="180.0" />
+            <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#35e2f2" layoutX="317.0" layoutY="73.0" rotate="270.0" />
+         </children>
+      </Group>
    </children>
 </AnchorPane>

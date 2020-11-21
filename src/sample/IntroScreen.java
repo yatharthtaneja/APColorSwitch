@@ -40,6 +40,7 @@ public class IntroScreen implements Initializable {
 
         moveBall(introBall, ring, 4, -100);
         System.out.println(topleftcurve.getFill());
+
 //        moveBall(introBall, ring, 1, -200);
 
     }
@@ -102,5 +103,8 @@ st.setOnFinished(event -> {
         window.setScene(menuScene);
         window.show();
 //        rootAnchorPane.getChildren().setAll(pane);
+    }
+    public Group getGroup(){
+        return ring;
     }
 }
