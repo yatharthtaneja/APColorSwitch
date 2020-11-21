@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.PathTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -9,8 +10,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.net.URL;
@@ -21,10 +25,14 @@ public class Play implements Initializable {
     private AnchorPane playPane;
     @FXML
     private Pane rootPane;
+    @FXML
+    private Circle circle;
+    @FXML
+    private Group group1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        String path = "M 375.6 185.6 c 37.2 38 55.2 71.6 94 71.6 s 70 -31.2 70 -70 s -31.2 -70.4 -70 -70 c -38.8 0.4 -53.2 28.8 -88.4 68.4 c -35.6 35.2 -62.8 71.6 -101.6 71.6 s -70 -31.2 -70 -70 s 31.2 -70 70 -70 S 344.8 154.4 375.6 185.6 z";
         Arc arc = new Arc();
         arc.setRadiusX(100.0f);
         arc.setRadiusY(100.0f);
@@ -58,13 +66,17 @@ public class Play implements Initializable {
         arc2.setStrokeWidth(15.0f);
         Group ring = new Group(arc,arc2);
 //        System.out.println("arc1 X:"+);
+        SVGPath infinity= new SVGPath();
+        infinity.setContent(path);
+        infinity.setLayoutX(-400);
+        infinity.setLayoutY(-300);
+        PathTransition transition= new PathTransition();
+        transition.setPath(infinity);
+        transition.setNode(group1);
+        transition.setDuration(Duration.seconds(6));
+        transition.setCycleCount(PathTransition.INDEFINITE);
+        transition.play();
+//            rootPane.getChildren().setAll(ring);
 
-
-        for(int i=0;i<100;i++) {
-            arc.setCenterY(200+i);
-//            ring.get
-
-            rootPane.getChildren().setAll(ring);
-        }
     }
 }

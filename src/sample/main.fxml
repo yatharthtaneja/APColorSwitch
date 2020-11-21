@@ -3,12 +3,11 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Arc?>
-<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Arc id="topleftcurve" fx:id="topleftcurve" fill="#1f93ff00" layoutX="225.0" layoutY="220.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
       <Arc id="toprightcurve" fx:id="toprightcurve" fill="#1f93ff00" layoutX="225.0" layoutY="220.0" length="90.0" radiusX="100.0" radiusY="100.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
@@ -22,24 +21,10 @@
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve1" fill="#1f93ff00" layoutX="77.0" layoutY="77.0" length="90.0" radiusX="70.0" radiusY="70.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" style="-fx-stroke-dash-array: 3;" />
          </children>
       </Group>
-      <Group layoutX="206.0" layoutY="382.0">
-         <children>
-            <Polygon fx:id="p4" fill="#35e2f2" layoutX="-42.0" layoutY="130.0" points="-50.0, 40.0, -150.0, 40.0, -150.0, 14.0, -50.0, 14.0, -38, 26.800018310546875" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="0.0" />
-            <Polygon fx:id="p1" fill="#f6df0e" layoutX="14.0" layoutY="74.0" points="-50.0, 40.0, -150.0, 40.0, -150.0, 14.0, -50.0, 14.0, -38, 26.800018310546875" rotate="90.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="0.0" />
-            <Polygon fx:id="p3" fill="#ff0080" layoutX="14.0" layoutY="186.0" points="-50.0, 40.0, -150.0, 40.0, -150.0, 14.0, -50.0, 14.0, -38, 26.800018310546875" rotate="270.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="0.0" />
-            <Polygon fx:id="p2" fill="#8c13fb" layoutX="70.0" layoutY="130.0" points="-50.0, 40.0, -150.0, 40.0, -150.0, 14.0, -50.0, 14.0, -38, 26.800018310546875" rotate="180.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="0.0" />
-         </children>
-      </Group>
-      <Group layoutX="65.5" layoutY="61.0">
-         <children>
-            <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="284.0" layoutX="134.0" layoutY="134.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
-            <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="#35e2f2" height="284.0" layoutX="35.5" stroke="BLACK" strokeType="INSIDE" width="17.0" />
-            <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="284.0" layoutX="169.0" layoutY="-100.0" rotate="270.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
-            <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="218.0" layoutX="268.0" layoutY="51.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
-         </children>
-      </Group>
+      <Group layoutX="206.0" layoutY="382.0" />
+      <Group layoutX="65.5" layoutY="61.0" />
       <Text fx:id="status" fill="WHITE" layoutX="294.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="96.89996337890614" />
-      <Group fx:id="colorBall" layoutX="146.0" layoutY="339.0">
+      <Group fx:id="colorBall" layoutX="3.0" layoutY="80.0">
          <children>
             <Arc id="topleftcurve" fx:id="topleftcurve11" fill="#35e0f0" layoutX="77.0" layoutY="77.0" length="90.0" radiusX="15.0" radiusY="15.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="0.0" type="ROUND" />
             <Arc id="toprightcurve" fx:id="toprightcurve11" fill="#f5de0f" layoutX="77.0" layoutY="77.0" length="90.0" radiusX="15.0" radiusY="15.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" type="ROUND" />
@@ -47,7 +32,6 @@
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve11" fill="#ff0080" layoutX="77.0" layoutY="77.0" length="90.0" radiusX="15.0" radiusY="15.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="0.0" type="ROUND" />
          </children>
       </Group>
-      <SVGPath content="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723" fill="WHITE" fillRule="EVEN_ODD" layoutX="332.0" layoutY="520.0" scaleX="3.0" scaleY="3.0" scaleZ="3.0" />
       <Group layoutX="1.0" layoutY="463.0">
          <children>
             <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#f6df0e" layoutX="341.0" layoutY="57.0" />
@@ -56,6 +40,14 @@
             <SVGPath content="M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80" fill="#35e2f2" layoutX="257.0" layoutY="57.0" rotate="270.0" />
          </children>
       </Group>
-      <SVGPath content="M 53.052 23.775 l -15.393 -2.01 L 30.987 7.71 c -0.393 -0.825 -1.581 -0.825 -1.974 0 L 22.341 21.765 l -15.393 2.01 C 6.042 23.892 5.676 24.999 6.339 25.62 l 11.28 10.704 L 14.772 51.63 c -0.168 0.891 0.783 1.575 1.599 1.137 L 30 45.327 l 13.629 7.437 c 0.819 0.459 1.761 -0.267 1.599 -1.137 l -2.847 -15.309 l 11.28 -10.704 C 54.324 24.999 53.958 23.892 53.052 23.775" fill="#ffffff" layoutX="309.0" layoutY="408.0" />
+      <SVGPath content="M 53.052 23.775 l -15.393 -2.01 L 30.987 7.71 c -0.393 -0.825 -1.581 -0.825 -1.974 0 L 22.341 21.765 l -15.393 2.01 C 6.042 23.892 5.676 24.999 6.339 25.62 l 11.28 10.704 L 14.772 51.63 c -0.168 0.891 0.783 1.575 1.599 1.137 L 30 45.327 l 13.629 7.437 c 0.819 0.459 1.761 -0.267 1.599 -1.137 l -2.847 -15.309 l 11.28 -10.704 C 54.324 24.999 53.958 23.892 53.052 23.775" fill="#ffffff" layoutX="354.0" layoutY="244.0" />
+      <Group layoutX="17.0" layoutY="517.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0080" height="175.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35e2f2" height="175.0" layoutX="101.0" layoutY="-13.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6df0e" height="175.0" layoutX="176.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8c13fb" height="175.0" layoutX="75.0" layoutY="162.0" rotate="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+         </children>
+      </Group>
         </children>
 </AnchorPane>
