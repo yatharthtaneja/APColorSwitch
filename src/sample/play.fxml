@@ -13,9 +13,6 @@
             <Group fx:id="group1" layoutX="189.0" layoutY="452.0">
                <children>
                   <Circle fx:id="circle" fill="DODGERBLUE" layoutX="24.0" layoutY="24.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="circle1" fill="DODGERBLUE" layoutX="48.0" layoutY="36.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="circle11" fill="DODGERBLUE" layoutX="72.0" layoutY="60.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="circle2" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </Group>
          </children>

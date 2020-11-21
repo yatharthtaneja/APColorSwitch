@@ -87,7 +87,7 @@ st.setOnFinished(event -> {
         rt.play();
     }
     public void setRotate(Group a1, int start, int end, int duration , double centerx , double centery) {
-        System.out.println("Center x: "+ centerx+" Center Y:" + centery);
+//        System.out.println("Center x: "+ centerx+" Center Y:" + centery);
         Rotate rt2 = new Rotate(0,centerx,centery);
         a1.getTransforms().add(rt2);
         Timeline timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),start)),

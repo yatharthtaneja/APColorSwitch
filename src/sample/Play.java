@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.FillTransition;
 import javafx.animation.PathTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
@@ -64,19 +66,50 @@ public class Play implements Initializable {
         arc2.setStrokeLineCap(StrokeLineCap.BUTT);
         arc2.setStrokeMiterLimit(0.0f);
         arc2.setStrokeWidth(15.0f);
-        Group ring = new Group(arc,arc2);
-//        System.out.println("arc1 X:"+);
-        SVGPath infinity= new SVGPath();
-        infinity.setContent(path);
-        infinity.setLayoutX(-400);
-        infinity.setLayoutY(-300);
-        PathTransition transition= new PathTransition();
-        transition.setPath(infinity);
-        transition.setNode(group1);
-        transition.setDuration(Duration.seconds(6));
-        transition.setCycleCount(PathTransition.INDEFINITE);
-        transition.play();
-//            rootPane.getChildren().setAll(ring);
+        Group ring2 = new Group(arc,arc2);
+        Rectangle r1= makeRect(0,440);
+        Rectangle r2= makeRect(90,440);
+        Rectangle r3= makeRect(180,440);
+        Rectangle r4= makeRect(270,440);
+        Rectangle r5= makeRect(360,440);
+        r2.setFill(Color.PURPLE);
+        r4.setFill(Color.PURPLE);
 
+
+        Group ring = new Group(r1,r2,r3,r4,r5);
+
+//        System.out.println("arc1 X:"+);
+//        SVGPath infinity= new SVGPath();
+//        infinity.setContent(path);
+//        infinity.setLayoutX(-400);
+//        infinity.setLayoutY(-300);
+//        PathTransition transition= new PathTransition();
+//        transition.setPath(infinity);
+//        transition.setNode(group1);
+//        transition.setDuration(Duration.seconds(6));
+//        transition.setCycleCount(PathTransition.INDEFINITE);
+//        transition.play();
+//        rootPane.getChildren().setAll(ring);
+         rootPane.getChildren().add(ring);
+//        FillTransition fill = new FillTransition();
+//        fill.setShape(r3);
+//        fill.setDuration(Duration.seconds(4));
+//        fill.setFromValue(Color.CRIMSON);
+//        fill.setToValue(Color.ROYALBLUE);
+//        fill.setCycleCount(FillTransition.INDEFINITE);
+//        fill.play();
+        
+
+//        rootPane.getChildren().add(ring2);
+
+    }
+    public Rectangle makeRect(double x, double y){
+        Rectangle rect = new Rectangle();
+        rect.setX(x);
+        rect.setY(y);
+        rect.setHeight(30);
+        rect.setWidth(90);
+        rect.setFill(Color.BLUE);
+        return rect;
     }
 }
