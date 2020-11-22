@@ -21,21 +21,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Arc arc = new Arc();
-//        arc.setRadiusX(100.0f);
-//        arc.setRadiusY(100.0f);
-//        arc.setStartAngle(90.0f);
-//        arc.setType(ArcType.ROUND);
-////        arc.setLayoutX(54.0f);
-////        arc.setLayoutY(74.0f);
-//        arc.setCenterX(200);
-//        arc.setCenterY(200);
-//        arc.setFill(Color.BLUE);
-//        arc.setLength(90.0f);
-//        arc.setStroke(Color.valueOf("#35e2f2"));
-//        arc.setStrokeLineCap(StrokeLineCap.BUTT);
-//        arc.setStrokeMiterLimit(0.0f);
-//        arc.setStrokeWidth(15.0f);
 
         primaryStage.setTitle("ColorSwitch");
         Parent root =FXMLLoader.load(getClass().getResource("IntroScreen.fxml"));

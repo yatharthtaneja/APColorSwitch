@@ -79,6 +79,21 @@ private Button LoadButton;
                 ioException.printStackTrace();
             }
         });
+        StatisticsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                loadButton("Stats.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        LoadButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                loadButton("LoadGame.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
 
     }
     public void addShadowPlay(Shape s1){
