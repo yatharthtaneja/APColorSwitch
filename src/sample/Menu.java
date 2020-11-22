@@ -94,7 +94,11 @@ private Button LoadButton;
             }
         });
 
+        ExitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            Stage window = (Stage) menuAnchor.getScene().getWindow();
+            window.close();
 
+        });
     }
     public void addShadowPlay(Shape s1){
         DropShadow shadow= new DropShadow();

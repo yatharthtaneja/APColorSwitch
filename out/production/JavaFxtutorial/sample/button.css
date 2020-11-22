@@ -100,4 +100,51 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+#pauseButton{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#StartButton{
+    -fx-background-color:linear-gradient(#56CCF2, #2F80ED),
+    linear-gradient(from 25% 25% to 100% 100%, #56CCF2, #0074FF);
+    /*-fx-border-color: transparent;*/
+
+    -fx-opacity: 0.8;
+
+    -fx-text-fill: WHITESMOKE;
+    -fx-font-size: 30px;
+    -fx-font-weight: Bold;
+}
+#restartButton{
+    -fx-background-color: #0074FF;
+    -fx-background-color:linear-gradient(#B32D2C, #2F80ED),
+    linear-gradient(from 25% 25% to 100% 100%, #B32D2C, #0074FF);
+    -fx-opacity: 0.8;
+    -fx-border-color: transparent;
+    -fx-text-fill: WHITESMOKE;
+    -fx-font-size: 20px;
+    -fx-font-weight: Bold;
+}
+#ResumeButton {
+    -fx-background-color: linear-gradient(#45B649, #34e89e),
+    linear-gradient(from 25% 25% to 100% 100%, #45B649, #34e89e);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0, 1, 2, 3, 0;
+
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+}
+#SaveGame {
+    -fx-background-color: linear-gradient(#45B649, #34e89e),
+    linear-gradient(from 25% 25% to 100% 100%, #45B649, #34e89e);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0, 1, 2, 3, 0;
+
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+}
 /*}*/

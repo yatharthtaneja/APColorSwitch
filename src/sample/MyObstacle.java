@@ -1,9 +1,6 @@
 package sample;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -52,6 +49,16 @@ public class MyObstacle extends Application {
         return group;
 
     }
+    public void rotateTransition(Group g1,int duration){
+        RotateTransition rt = new RotateTransition();
+        rt.setAxis(Rotate.Z_AXIS);
+        rt.setByAngle(360);
+        rt.setCycleCount(Animation.INDEFINITE);
+        rt.setDuration(Duration.seconds(duration));
+        rt.setInterpolator(Interpolator.LINEAR);
+        rt.setNode(g1);
+        rt.play();
+    }
     public void setarcY(Group g1,double Centery){
         System.out.println(g1.getChildren().get(0).getLayoutX());
         g1.getChildren().get(0).setTranslateY(Centery);
@@ -72,10 +79,10 @@ public class MyObstacle extends Application {
     }
     public Group MakeCross(double X , double Y){
         myShape shape= new myShape();
-        Shape shape1= shape.MakePentagon("#35e2f2",X+60.1040764008,Y-60.1040764008,0);
-        Shape shape2= shape.MakePentagon("#f6df0e",X+60.1040764008,Y+60.1040764008,90);
-        Shape shape3= shape.MakePentagon("#8c13fb",X-60.1040764008,Y+60.1040764008,180);
-        Shape shape4= shape.MakePentagon("#ff0080",X-60.1040764008,Y-60.1040764008,270);
+        Shape shape1= shape.MakePentagon("#35e2f2",X+42.5,Y-42.5,0);
+        Shape shape2= shape.MakePentagon("#f6df0e",X+42.5,Y+42.5,90);
+        Shape shape3= shape.MakePentagon("#8c13fb",X-42.5,Y+42.5,180);
+        Shape shape4= shape.MakePentagon("#ff0080",X-42.5,Y-42.5,270);
         Group group = new Group(shape1,shape2,shape3,shape4);
         return group;
     }
