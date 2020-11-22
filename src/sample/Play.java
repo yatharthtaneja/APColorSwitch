@@ -77,15 +77,26 @@ public class Play implements Initializable {
         Colors.add(Color.HOTPINK);
         Colors.add(Color.PURPLE);
         Colors.add(Color.YELLOW);
-//        Rectangle curr=new Rectangle(175,0-50-Obstacles.size()*250,100,50);
         MyObstacle obj= new MyObstacle();
         Group curr= obj.MakeringObstacle(225,0-ringobstacles.size()*250);
-        Group curr2= obj.MakeCross(100,0-ringobstacles.size()*400);
-        obj.rotateTransition(curr,4);
-        int index=(int)(Math.random()*4);
-//        curr.setFill(Colors.get(index));
         ringobstacles.add(curr);
+        Group curr2= obj.MakeCross(100,0-ringobstacles.size()*300);
         ringobstacles.add(curr2);
+
+        Group curr3 =obj.MakeSquareTrap(225,0-ringobstacles.size()*225);
+        ringobstacles.add(curr3);
+
+        Group curr4 =obj.MakeLine2a(0-ringobstacles.size()*250);
+        ringobstacles.add(curr4);
+
+        Group curr5 =obj.MakeLine(0-ringobstacles.size()*250);
+        obj.MoveLine2(curr4,4,-450);
+        obj.MoveLine(curr5,4);
+        obj.rotateTransition(curr,4);
+        obj.rotateTransition(curr2,4);
+        obj.rotateTransition(curr3,5);
+        ringobstacles.add(curr5);
+
     }
 
     public void CheckCollision(){
@@ -176,7 +187,7 @@ public class Play implements Initializable {
         Root.getChildren().remove(Restart);
         Root.getChildren().removeAll(ringobstacles);
         ringobstacles.clear();
-        for(int i=0;i<20;i++)
+        for(int i=0;i<2;i++)
             AddObj2();
         l1.setText("Press Up key to start");
         l1.setScaleX(2);

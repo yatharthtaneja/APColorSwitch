@@ -15,10 +15,10 @@ public class myShape extends Application {
     public void start(Stage stage) {
         //Drawing Circle1
 
-        Shape shape= MakePentagon("#35e2f2",235,150,0);
-        Shape shape2= MakePentagon("#f6df0e",235,235,90);
-        Shape shape3= MakePentagon("#8c13fb",150,235,180);
-        Shape shape4= MakePentagon("#ff0080",150,150,270);
+        Shape shape= MakeRectangle("#35e2f2",150,150,0);
+        Shape shape2= MakeRectangle("#f6df0e",150,150,90);
+        Shape shape3= MakeRectangle("#8c13fb",150,150,180);
+        Shape shape4= MakeRectangle("#ff0080",150,150,270);
 
         //        Creating a Group object
         Group root = new Group(shape,shape2,shape3,shape4);
@@ -80,6 +80,26 @@ public class myShape extends Application {
         path.setFill(Color.valueOf(s));
         path.setRotate(Start_angle);
         return path;
+    }
+    public Shape MakeRectangle(String s1,double x, double y,int start_angle){
+        javafx.scene.shape.Rectangle rect = new javafx.scene.shape.Rectangle(x,y,25,175);
+        rect.setArcHeight(20);
+        rect.setWidth(20);
+        rect.setFill(Color.valueOf(s1));
+        rect.rotateProperty().setValue(start_angle);
+        rect.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
+        return rect;
+
+//            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0080" height="175.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+    }
+    public Shape MakeRectangle2(String s,double Xpos,double Ypos){
+//        Shape shape;
+
+        javafx.scene.shape.Rectangle shape = new javafx.scene.shape.Rectangle(Xpos,Ypos,112.5,12.5);
+
+        shape.setFill(Color.web(s));
+        shape.setStroke(Color.web(s));
+        return shape;
     }
     public static void main(String args[]){
         launch(args);
