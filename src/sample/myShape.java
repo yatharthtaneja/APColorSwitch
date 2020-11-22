@@ -15,16 +15,16 @@ public class myShape extends Application {
     public void start(Stage stage) {
         //Drawing Circle1
 
-        Shape shape= MakeArc("#35e2f2",150,150,0);
-        Shape shape2= MakeArc("#f6df0e",150,150,90);
-        Shape shape3= MakeArc("#8c13fb",150,150,180);
-        Shape shape4= MakeArc("#ff0080",150,150,270);
+        Shape shape= MakePentagon("#35e2f2",235,150,0);
+        Shape shape2= MakePentagon("#f6df0e",235,235,90);
+        Shape shape3= MakePentagon("#8c13fb",150,235,180);
+        Shape shape4= MakePentagon("#ff0080",150,150,270);
 
         //        Creating a Group object
         Group root = new Group(shape,shape2,shape3,shape4);
 //Group root = new Group(arc1,arc2);
         //Creating a scene object
-        Scene scene = new Scene(root, 600, 300);
+        Scene scene = new Scene(root, 450, 800);
 
         //Setting title to the Stage
         stage.setTitle("Subtraction Example");
@@ -42,15 +42,19 @@ public class myShape extends Application {
         arc2.setRadiusY(85.0f);
         arc2.setStartAngle(Start_angle);
         arc2.setType(ArcType.ROUND);
-        arc2.setCenterX(Centerx);
-        arc2.setCenterY(Centery);
+//        arc2.setCenterX(Centerx);
+//        arc2.setCenterY(Centery);
+        arc2.setLayoutY(Centery);
+        arc2.setLayoutX(Centerx);
         arc2.setLength(90.0f);
         arc2.setStroke(Color.valueOf(c1));
 
         Arc arc1= new Arc();
         //Setting the position of the circle
-        arc1.setCenterX(Centerx);
-        arc1.setCenterY(Centery);
+//        arc1.setCenterX(Centerx);
+//        arc1.setCenterY(Centery);
+        arc1.setLayoutY(Centery);
+        arc1.setLayoutX(Centerx);
         arc1.setRadiusX(100.0f);
         arc1.setRadiusY(100.0f);
         arc1.setStartAngle(Start_angle);
@@ -67,6 +71,15 @@ public class myShape extends Application {
         shape.setFill(Color.valueOf(c1));
         return shape;
 
+    }
+    public Shape MakePentagon(String s,double Centerx,double Centery,int Start_angle){
+        SVGPath path = new SVGPath();
+        path.setContent("M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80");
+        path.setLayoutX(Centerx);
+        path.setLayoutY(Centery);
+        path.setFill(Color.valueOf(s));
+        path.setRotate(Start_angle);
+        return path;
     }
     public static void main(String args[]){
         launch(args);

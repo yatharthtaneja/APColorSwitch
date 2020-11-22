@@ -21,11 +21,14 @@ public class MyObstacle extends Application {
     public void start(Stage stage) {
 
 
-        Group root= MakeringObstacle(225,250);
-        setarcY(root,50);
-        System.out.println(root.getLayoutX());
-        System.out.println(root.getChildren().get(0).getLayoutX());
-        RotateArc(root,360,0,4,225,300);
+        Group root1= MakeringObstacle(225,250);
+        Group root2=MakeCross(225,150);
+        Group root = new Group(root1,root2);
+        setarcY(root1,50);
+
+//        System.out.println(root.getLayoutY());
+//        System.out.println(root.getChildren().get(3).getLayoutY());
+        RotateArc(root1,360,0,4,225,300);
 
         Scene scene = new Scene(root, 450, 800);
         stage.setTitle("Obstacle Example");
@@ -50,7 +53,7 @@ public class MyObstacle extends Application {
 
     }
     public void setarcY(Group g1,double Centery){
-//        System.out.println(g1.getChildren().get(0).getLayoutX());
+        System.out.println(g1.getChildren().get(0).getLayoutX());
         g1.getChildren().get(0).setTranslateY(Centery);
         g1.getChildren().get(1).setTranslateY(Centery);
         g1.getChildren().get(2).setTranslateY(Centery);
@@ -66,6 +69,15 @@ public class MyObstacle extends Application {
         new KeyFrame(Duration.seconds(duration), new KeyValue(rt2.angleProperty(),end)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+    public Group MakeCross(double X , double Y){
+        myShape shape= new myShape();
+        Shape shape1= shape.MakePentagon("#35e2f2",X+60.1040764008,Y-60.1040764008,0);
+        Shape shape2= shape.MakePentagon("#f6df0e",X+60.1040764008,Y+60.1040764008,90);
+        Shape shape3= shape.MakePentagon("#8c13fb",X-60.1040764008,Y+60.1040764008,180);
+        Shape shape4= shape.MakePentagon("#ff0080",X-60.1040764008,Y-60.1040764008,270);
+        Group group = new Group(shape1,shape2,shape3,shape4);
+        return group;
     }
     public static void main(String args[]){
         launch(args);
