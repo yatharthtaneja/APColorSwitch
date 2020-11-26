@@ -79,9 +79,14 @@ private Button LoadButton;
         });
         PlayButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                loadButton("play.fxml");
+//                loadButton("play.fxml");
+                PlayGame game = new PlayGame();
+                game.setStage(stage);
+                game.start(stage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
         StatisticsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
