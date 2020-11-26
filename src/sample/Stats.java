@@ -21,6 +21,10 @@ public class Stats implements Initializable {
     private Button hbutton;
     @FXML
     private AnchorPane statsPane;
+    private Stage stage;
+    public void setStage(Stage stage){
+        this.stage=stage;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,11 +47,13 @@ public class Stats implements Initializable {
 
     }
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) statsPane.getScene().getWindow();
-//        System.out.println(window.getMaxHeight());
-        window.setScene(menuScene);
-        window.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        Menu controller = (Menu) loader.getController();
+        controller.setStage(this.stage);
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

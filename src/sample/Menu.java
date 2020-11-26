@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.source.util.ParameterNameProvider;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,6 +52,10 @@ private Button LoadButton;
     private Button StatisticsButton;
     @FXML
     private Shape PlayButton;
+    private Stage stage;
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,12 +132,33 @@ private Button LoadButton;
 
     @FXML
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) menuAnchor.getScene().getWindow();
-//        System.out.println(window.getMaxHeight());
-        window.setScene(menuScene);
-        window.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        if(s.equals("GameSettings.fxml")){
+            GameSettings controller = (GameSettings) loader.getController();
+            controller.setStage(this.stage);
+        }
+        else if(s.equals("Play.fxml")){
+            Play controller = (Play) loader.getController();
+            controller.setStage(this.stage);
+
+        }
+        else if(s.equals("LoadGame.fxml")){
+            LoadGame controller = (LoadGame) loader.getController();
+            controller.setStage(this.stage);
+
+        }
+        else if(s.equals("Stats.fxml")){
+            Stats controller = (Stats) loader.getController();
+            controller.setStage(this.stage);
+
+        }
+
+
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
 }

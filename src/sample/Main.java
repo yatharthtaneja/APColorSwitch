@@ -23,10 +23,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         primaryStage.setTitle("ColorSwitch");
-//        primaryStage.setHeight(800);
-//        primaryStage.setWidth(450);
-        Parent root =FXMLLoader.load(getClass().getResource("IntroScreen.fxml"));
-//        Group root= new Group(arc);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("IntroScreen.fxml"));
+        Parent root =loader.load();
+        IntroScreen controller = (IntroScreen) loader.getController();
+        controller.setStage(primaryStage);
+
         Scene scene = new Scene(root,450,800);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

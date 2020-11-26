@@ -54,12 +54,14 @@ public class Play implements Initializable {
     @FXML
     private AnchorPane playPane;
 //    Stage MainStage= (Stage) playPane.getScene().getWindow();
-    Stage MainStage;
+    private Stage MainStage;
     @FXML
     private Pane rootPane;
     @FXML
     private Button StartButton;
-
+    public void setStage(Stage stage){
+        this.MainStage=stage;
+    }
     public void AddObj(){
         ArrayList<Color> Colors=new ArrayList<>();
         Colors.add(Color.AQUA);
@@ -210,101 +212,11 @@ public class Play implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 //        StartButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
-//
-//
-//        MainStage= (Stage) playPane.getScene().getWindow();
-//        Root=new Group();
-//
-//        MainStage.setWidth(width);
-//        MainStage.setHeight(height);
-//        MainStage.setResizable(false);
-//
-//        Ball=new Circle();
-//        Ball.setRadius(20);
-//        Ball.setCenterX(width/2);
-//        Ball.setCenterY(2*height/3);
-//        Ball.setFill(Color.AQUA);
-//
-//        Obstacles=new ArrayList<>();
-//        Timer=new Timeline();
-//        Timer.setCycleCount(Animation.INDEFINITE);
-//
-//        Restart=new javafx.scene.control.Button("Restart Game");
-//        Restart.setTranslateX(width/2-50);
-//        Restart.setTranslateY(height/2);
-//        Restart.setPrefSize(100,50);
-//
-//        GameOver=false;
-//        ymotion=0;
-//
-//        l1=new javafx.scene.control.Label();l2=new Label();
-//
-//        KeyFrame KF1=new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                ticks++;
-//                if(ticks%2==0 && ymotion<15){
-//                    ymotion+=2;
-//                }
-//                int y=(int)Ball.getCenterY()+ymotion;
-//                Ball.setCenterY(y);
-//                MainScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-//                    @Override
-//                    public void handle(KeyEvent keyEvent) {
-//                        String code=keyEvent.getCode().toString();
-//                        if(code.equals("UP")){
-//                            Jump();
-//                        }
-//                    }
-//                });
-//                CheckCollision();
-//                if(GameOver){
-//                    if(!Root.getChildren().contains(l2))
-//                        Root.getChildren().addAll(l2,Restart);
-//                    Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                        @Override
-//                        public void handle(MouseEvent mouseEvent) {
-//                            Root.getChildren().remove(Restart);
-//                            Root.getChildren().remove(l2);
-//                            StartGame();
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//
-//        KeyFrame KF2 =new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                for (int i=0;i<Obstacles.size();i++){
-//                    Rectangle obj=Obstacles.get(i);
-//                    if(Ball.getCenterY()<height/2) {
-//                        obj.setY(obj.getY() + 5);
-//                    }
-//                }
-//                for (int i=0;i<Obstacles.size();i++){
-//                    Rectangle obj=Obstacles.get(i);
-//                    if(obj.getY()+obj.getHeight()>height)
-//                        Obstacles.remove(i);
-//                }
-//            }
-//        });
-//        Timer.getKeyFrames().addAll(KF1,KF2);
-//        Root.getChildren().addAll(Ball);
-//        MainScene=new Scene(Root);
-//        MainScene.setFill(Color.valueOf("#141518"));
-//        StartGame();
-//        MainStage.setScene(MainScene);
-////        primaryStage.setHeight(height);
-////        primaryStage.setWidth(width);
-//        MainStage.show();
-//        });
-
-        StartButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
 
 
-            MainStage= (Stage) playPane.getScene().getWindow();
+//            MainStage= (Stage) playPane.getScene().getWindow();
             Root=new Group();
             Button pauseButton= new Button();
 //            pauseButton.setText("Pause");
@@ -349,7 +261,8 @@ public class Play implements Initializable {
             Root.getChildren().add(score);
 //            MainStage.setWidth(width);
 //            MainStage.setHeight(height);
-            MainStage.setResizable(false);
+
+//            MainStage.setResizable(false);
 
             Ball=new Circle();
             Ball.setRadius(20);
@@ -431,7 +344,7 @@ public class Play implements Initializable {
 //        primaryStage.setHeight(height);
 //        primaryStage.setWidth(width);
             MainStage.show();
-        });
+//        });
     }
 
     public void addImage(Button b1,String path){

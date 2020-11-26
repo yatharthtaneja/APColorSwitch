@@ -23,6 +23,10 @@ public class HowToplay implements Initializable {
     @FXML
     private AnchorPane howPane;
 
+    private Stage stage;
+    public void setStage(Stage stage){
+        this.stage=stage;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/back_white.png");
@@ -43,11 +47,13 @@ public class HowToplay implements Initializable {
 
     }
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) howPane.getScene().getWindow();
-//        System.out.println(window.getMaxHeight());
-        window.setScene(menuScene);
-        window.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameSettings.fxml"));
+        Parent root =loader.load();
+        GameSettings controller = (GameSettings) loader.getController();
+        controller.setStage(stage);
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

@@ -32,7 +32,10 @@ public class LoadGame implements Initializable {
     private Shape l3;
     @FXML
     private Shape l4;
-
+    private Stage stage;
+    public void setStage(Stage stage){
+        this.stage=stage;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/home_white.png");
@@ -58,12 +61,14 @@ public class LoadGame implements Initializable {
 
     }
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) loadPane.getScene().getWindow();
-//        System.out.println(window.getMaxHeight());
-        window.setScene(menuScene);
-        window.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        Menu controller = (Menu) loader.getController();
+        controller.setStage(this.stage);
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
     public void addShadow(Shape s1) {
         DropShadow shadow = new DropShadow();

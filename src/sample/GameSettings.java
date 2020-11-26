@@ -33,7 +33,10 @@ public class GameSettings implements Initializable {
     private Button mbutton;
     @FXML
     private AnchorPane settingsPane;
-
+private Stage stage;
+public void setStage(Stage stage){
+    this.stage=stage;
+}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Menu obj = new Menu();
@@ -78,11 +81,25 @@ public class GameSettings implements Initializable {
 
     }
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) settingsPane.getScene().getWindow();
-//        System.out.println(window.getMaxHeight());
-        window.setScene(menuScene);
-        window.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        if(s.equals("menu.fxml")){
+            Menu controller = (Menu) loader.getController();
+            controller.setStage(this.stage);
+        }
+        else if(s.equals("HowToplay.fxml")){
+            HowToplay controller = (HowToplay) loader.getController();
+            controller.setStage(this.stage);
+
+        }
+        else if(s.equals("Developers.fxml")){
+            Developers controller = (Developers) loader.getController();
+            controller.setStage(this.stage);
+
+        }
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

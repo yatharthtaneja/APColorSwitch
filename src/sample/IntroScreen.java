@@ -33,6 +33,10 @@ public class IntroScreen implements Initializable {
     private Arc topleftcurve;
     @FXML
     private Circle introBall;
+    private Stage stage;
+    public void setStage(Stage stage){
+        this.stage=stage;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,13 +101,16 @@ st.setOnFinished(event -> {
     }
 
     public void loadMenu() throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource("menu.fxml"));
-        Scene menuScene = new Scene(pane);
-        Stage window = (Stage) (rootAnchorPane.getScene().getWindow());
-        window.setScene(menuScene);
-        window.show();
-//        rootAnchorPane.getChildren().setAll(pane);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        Parent root =loader.load();
+        Menu controller = (Menu) loader.getController();
+        controller.setStage(stage);
+        Scene scene = new Scene(root,450,800);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
+
     public Group getGroup(){
         return ring;
     }
