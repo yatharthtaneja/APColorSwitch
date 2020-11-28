@@ -19,7 +19,6 @@ public class myShape extends Application {
         Shape shape2= MakeRectangle("#f6df0e",150,150,90);
         Shape shape3= MakeRectangle("#8c13fb",150,150,180);
         Shape shape4= MakeRectangle("#ff0080",150,150,270);
-
         //        Creating a Group object
         Group root = new Group(shape,shape2,shape3,shape4);
 //Group root = new Group(arc1,arc2);
@@ -61,13 +60,9 @@ public class myShape extends Application {
         arc1.setType(ArcType.ROUND);
         arc1.setLength(90.0f);
 
-        //Setting the color of the circle
-        arc1.setFill(Color.DARKSLATEBLUE);
-
         //Performing subtraction operation on the circle
         Shape shape = Shape.subtract(arc1, arc2);
-
-//        Setting the fill color to the result
+        //Setting the fill color to the result
         shape.setFill(Color.valueOf(c1));
         return shape;
 
@@ -89,14 +84,10 @@ public class myShape extends Application {
         rect.rotateProperty().setValue(start_angle);
         rect.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
         return rect;
-
 //            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0080" height="175.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
     }
     public Shape MakeRectangle2(String s,double Xpos,double Ypos){
-//        Shape shape;
-
         javafx.scene.shape.Rectangle shape = new javafx.scene.shape.Rectangle(Xpos,Ypos,112.5,12.5);
-
         shape.setFill(Color.web(s));
         shape.setStroke(Color.web(s));
         return shape;

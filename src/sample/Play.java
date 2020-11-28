@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,18 +18,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
-import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -40,17 +33,15 @@ public class Play implements Initializable {
     int height=800;
     int width=450;
     Scene MainScene;
-
     Timeline Timer;
     Circle Ball;
-    Rectangle obstacle1;
     ArrayList<Rectangle> Obstacles;
     ArrayList<Group> ringobstacles;
     Label l1,l2;
     boolean GameOver;
     Button Restart;
     Group Root;
-    int ticks=0,ymotion;
+    int ticks,ymotion;
     @FXML
     private AnchorPane playPane;
 //    Stage MainStage= (Stage) playPane.getScene().getWindow();
@@ -73,32 +64,21 @@ public class Play implements Initializable {
         curr.setFill(Colors.get(index));
         Obstacles.add(curr);
     }
+
     public void AddObj2(){
-        ArrayList<Color> Colors=new ArrayList<>();
-        Colors.add(Color.AQUA);
-        Colors.add(Color.HOTPINK);
-        Colors.add(Color.PURPLE);
-        Colors.add(Color.YELLOW);
         MyObstacle obj= new MyObstacle();
-        Group curr= obj.MakeringObstacle(225,0-ringobstacles.size()*250);
+        Group curr= obj.MakeringObstacle(225, -ringobstacles.size() * 250);
         ringobstacles.add(curr);
-        Group curr2= obj.MakeCross(100,0-ringobstacles.size()*300);
+        Group curr2= obj.MakeCross(100, -ringobstacles.size() * 300);
         ringobstacles.add(curr2);
-
-        Group curr3 =obj.MakeSquareTrap(225,0-ringobstacles.size()*225);
+        Group curr3 =obj.MakeSquareTrap(225, -ringobstacles.size() * 225);
         ringobstacles.add(curr3);
-
-        Group curr4 =obj.MakeLine2a(0-ringobstacles.size()*250);
+        Group curr4 =obj.MakeLine2a(-ringobstacles.size() * 250);
         ringobstacles.add(curr4);
-
-        Group curr5 =obj.MakeLine(0-ringobstacles.size()*250);
-        obj.MoveLine2(curr4,4,-450);
-        obj.MoveLine(curr5,4);
         obj.rotateTransition(curr,4);
+        obj.MoveLine2(curr4,4,-450);
         obj.rotateTransition(curr2,4);
         obj.rotateTransition(curr3,5);
-        ringobstacles.add(curr5);
-
     }
 
     public void CheckCollision(){
@@ -118,15 +98,15 @@ public class Play implements Initializable {
             }
         }
     }
+
     public void CheckRingCollision(){
-        for (Group obj:ringobstacles){
-            for(int i=0;i<obj.getChildren().size();i++){
-                Shape s1= (Shape) obj.getChildren().get(i);
-            if(s1.getBoundsInParent().intersects(Ball.getBoundsInParent())&&(!s1.getFill().equals(Ball.getFill()))){
+        for (int j=0;j<3;j++){
+            for(int i=0;i<ringobstacles.get(j).getChildren().size();i++){
+                Shape s1= (Shape)ringobstacles.get(j).getChildren().get(i);
+                if(Shape.intersect(Ball,s1).getBoundsInLocal().getWidth()!=-1&&(!s1.getFill().equals(Ball.getFill()))){
 //                    if(!s1.getFill().equals(Ball.getFill())){
                         System.out.println("BAll color :"+ Ball.getFill()+ "Ring Color"+s1.getFill());
                         GameOver=true;
-
 //                    }
                 }
             }
@@ -143,6 +123,7 @@ public class Play implements Initializable {
             }
         }
     }
+
     public void Jump(){
         if (!GameOver){
             if (ymotion>0)
@@ -164,7 +145,6 @@ public class Play implements Initializable {
         l1.setText("Press Up key to start");
         l1.setScaleX(2);
         l1.setScaleY(2);
-
         l1.setLayoutX(MainStage.getWidth()/2-55);
         l1.setLayoutY(MainStage.getHeight()/2-50);
         l1.setTextFill(Color.WHITESMOKE);
@@ -189,12 +169,10 @@ public class Play implements Initializable {
         Root.getChildren().remove(Restart);
         Root.getChildren().removeAll(ringobstacles);
         ringobstacles.clear();
-        for(int i=0;i<2;i++)
-            AddObj2();
+        AddObj2();
         l1.setText("Press Up key to start");
         l1.setScaleX(2);
         l1.setScaleY(2);
-
         l1.setLayoutX(MainStage.getWidth()/2-55);
         l1.setLayoutY(MainStage.getHeight()/2-50);
         l1.setTextFill(Color.WHITESMOKE);
@@ -213,14 +191,14 @@ public class Play implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
 //        StartButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
 
 
 //            MainStage= (Stage) playPane.getScene().getWindow();
+
             Root=new Group();
             Button pauseButton= new Button();
-//            pauseButton.setText("Pause");
-//            pauseButton.setTextFill(Color.WHITESMOKE);
             pauseButton.setPrefHeight(50);
             pauseButton.setPrefWidth(50);
             pauseButton.setLayoutX(375);
@@ -229,15 +207,7 @@ public class Play implements Initializable {
             pauseButton.setId("pauseButton");
             Root.getStylesheets().add("sample/button.css");
             Root.getChildren().add(pauseButton);
-//            pauseButton.setOnAction(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent event) {
-////                    System.out.println("Chala kuch");
-//                loadButton("pause.fxml");
-//                }
-//            });
             pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
-
                 Parent pane = null;
                 try {
                     pane = FXMLLoader.load(getClass().getResource("pause.fxml"));
@@ -245,11 +215,9 @@ public class Play implements Initializable {
                     ioException.printStackTrace();
                 }
                 Scene menuScene = new Scene(pane);
-
                 MainStage.setScene(menuScene);
                 MainStage.show();
             });
-
 
             Label score = new Label("0");
             score.setLayoutX(10);
@@ -259,10 +227,6 @@ public class Play implements Initializable {
             score.setTextFill(Color.WHITESMOKE);
             score.setFont(new Font("Cambria", 36));
             Root.getChildren().add(score);
-//            MainStage.setWidth(width);
-//            MainStage.setHeight(height);
-
-//            MainStage.setResizable(false);
 
             Ball=new Circle();
             Ball.setRadius(20);
@@ -282,6 +246,7 @@ public class Play implements Initializable {
 
             GameOver=false;
             ymotion=0;
+            ticks=0;
 
             l1=new javafx.scene.control.Label();l2=new Label();
 
@@ -289,7 +254,7 @@ public class Play implements Initializable {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     ticks++;
-                    if(ticks%2==0 && ymotion<15){
+                    if(ticks%2==0 && ymotion<20){
                         ymotion+=2;
                     }
                     int y=(int)Ball.getCenterY()+ymotion;
@@ -322,16 +287,16 @@ public class Play implements Initializable {
             KeyFrame KF2 =new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    for (int i=0;i<ringobstacles.size();i++){
-                        Group obj=ringobstacles.get(i);
-                        if(Ball.getCenterY()<height/2) {
+                    if(Ball.getCenterY()<height/2) {
+                        for (int i=0;i<ringobstacles.size();i++){
+                            Group obj=ringobstacles.get(i);
                             obj.setLayoutY(obj.getLayoutY() + 5);
                         }
                     }
-                    for (int i=0;i<ringobstacles.size();i++){
-                        Group obj=ringobstacles.get(i);
-                        if(obj.getLayoutY()>height)
-                            ringobstacles.remove(i);
+                    if(ringobstacles.get(0).getLayoutY()>height) {
+                        ringobstacles.remove(0);
+                        if(ringobstacles.size()<3)
+                            AddObj2();
                     }
                 }
             });
@@ -341,8 +306,6 @@ public class Play implements Initializable {
             MainScene.setFill(Color.valueOf("#141518"));
             StartGame2();
             MainStage.setScene(MainScene);
-//        primaryStage.setHeight(height);
-//        primaryStage.setWidth(width);
             MainStage.show();
 //        });
     }
