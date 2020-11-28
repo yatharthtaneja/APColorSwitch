@@ -152,9 +152,13 @@ public class PlayGame extends Application {
     }
 
     public void loadButton(String s) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(s));
-        Scene menuScene = new Scene(pane);
-        MainStage.setScene(menuScene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        Menu controller = (Menu) loader.getController();
+        controller.setStage(this.MainStage);
+        Scene scene = new Scene(root,450,800);
+        MainStage.setScene(scene);
+        MainStage.setResizable(false);
         MainStage.show();
     }
 
@@ -171,17 +175,7 @@ public class PlayGame extends Application {
         pauseButton.setId("pauseButton");
         Root.getStylesheets().add("sample/button.css");
         Root.getChildren().add(pauseButton);
-        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
-            Parent pane = null;
-            try {
-                pane = FXMLLoader.load(getClass().getResource("pause.fxml"));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            Scene menuScene = new Scene(pane);
-            MainStage.setScene(menuScene);
-            MainStage.show();
-        });
+
 
         Label score = new Label("0");
         score.setLayoutX(10);
@@ -272,5 +266,55 @@ public class PlayGame extends Application {
         StartGame2();
         MainStage.setScene(MainScene);
         MainStage.show();
+
+        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
+
+            Scene currScene = MainStage.getScene();
+
+            Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
+            Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
+            Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
+            Timer.pause();
+            addImage(HomeButton,"sample/Assets/home_white.png");
+            Label l3= new Label();
+            l3.setText("Pause Menu");
+            l3.setFont(Font.font("Futura Light BT"));
+            l3.setLayoutX(MainStage.getWidth()/2-35);
+            l3.setLayoutY(120);
+            l3.setTextFill(Color.WHITESMOKE);
+            l3.setScaleY(4);
+            l3.setScaleX(4);
+            Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
+            PauseMenu.getStylesheets().add("sample/button.css");
+
+            Scene PauseScene = new Scene(PauseMenu,450,800);
+            PauseScene.setFill(Color.valueOf("#141518"));
+            MainStage.setScene(PauseScene);
+            resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
+                MainStage.setScene(currScene);
+                Timer.play();
+
+            });
+            HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
+                try {
+                    loadButton("menu.fxml");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+
+        });
+
+
+    }
+    public Button MakeButton(double h,double w,double x, double y,String text,String ID){
+        Button button= new Button();
+        button.setPrefHeight(h);
+        button.setPrefWidth(w);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setText(text);
+        button.setId(ID);
+        return button;
     }
 }
