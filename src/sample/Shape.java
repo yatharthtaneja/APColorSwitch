@@ -2,7 +2,7 @@ package sample;
 
 import javafx.scene.paint.Color;
 
-public class Shape {
+public class Shape extends javafx.scene.shape.Shape {//Extends Shape to make it a Node
     private double Xpos;
     private double Ypos;
     private Color Colour;
