@@ -19,7 +19,6 @@ public class myShape extends Application {
         Shape shape2= MakeRectangle("#f6df0e",150,150,90);
         Shape shape3= MakeRectangle("#8c13fb",150,150,180);
         Shape shape4= MakeRectangle("#ff0080",150,150,270);
-
         //        Creating a Group object
         Group root = new Group(shape,shape2,shape3,shape4);
 //Group root = new Group(arc1,arc2);

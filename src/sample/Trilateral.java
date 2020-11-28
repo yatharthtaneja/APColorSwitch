@@ -1,4 +1,5 @@
 package sample;
 
-public class Trilateral {
+public class Trilateral extends Obstacle{
+    
 }
