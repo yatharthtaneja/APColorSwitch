@@ -95,4 +95,21 @@ public class myShape extends Application {
     public static void main(String args[]){
         launch(args);
     }
+    public Shape MakeCircle(String s,double Xpos,double Ypos){
+        Circle circle = new Circle();
+
+        //Setting the position of the circle
+        circle.setCenterX(Xpos);
+        circle.setCenterY(Ypos);
+
+        //Setting the radius of the circle
+        circle.setRadius(15.0f);
+
+        //Setting the color of the circle
+        circle.setFill(Color.valueOf(s));
+
+        //Setting the stroke width of the circle
+        circle.setStrokeWidth(0);
+        return circle;
+    }
 }
