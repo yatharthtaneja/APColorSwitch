@@ -136,7 +136,7 @@ public class PlayGame extends Application {
         if (!GameOver){
             if (ymotion>0)
                 ymotion=0;
-            ymotion-=10;
+            ymotion-=8;
         }
     }
 
@@ -265,7 +265,7 @@ public class PlayGame extends Application {
         MainStage.setResizable(false);
 
         Ball=new Circle();
-        Ball.setRadius(20);
+        Ball.setRadius(8);
         Ball.setCenterX(width/2);
         Ball.setCenterY(2*height/3);
         Ball.setFill(Color.valueOf("#35e2f2"));

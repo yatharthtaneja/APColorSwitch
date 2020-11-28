@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 public class IntroScreen implements Initializable {
     @FXML
     private AnchorPane rootAnchorPane;
-
     @FXML
     private Group ring;
     @FXML
