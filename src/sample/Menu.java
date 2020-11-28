@@ -62,8 +62,8 @@ private Button LoadButton;
     IntroScreen obj = new IntroScreen();
 
         obj.setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
-        obj.setRotate(ring11,0,360,3,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
-        obj.setRotate(ring2,360,0,3,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
+        obj.setRotate(ring11,0,360,5,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
+        obj.setRotate(ring2,360,0,4,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
 //        obj.setRotate(Cross,360,0,3,crossC.getCenterX(),crossC.getCenterY());
         addShadow(LoadButton);
         addShadow(StatisticsButton);
@@ -79,9 +79,14 @@ private Button LoadButton;
         });
         PlayButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                loadButton("play.fxml");
+//                loadButton("play.fxml");
+                PlayGame game = new PlayGame();
+                game.setStage(stage);
+                game.start(stage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
         StatisticsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{

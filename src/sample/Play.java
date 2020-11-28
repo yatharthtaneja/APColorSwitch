@@ -318,15 +318,7 @@ public class Play implements Initializable {
         b1.setGraphic(view);
 
     }
-    public Rectangle makeRect(double x, double y){
-        Rectangle rect = new Rectangle();
-        rect.setX(x);
-        rect.setY(y);
-        rect.setHeight(30);
-        rect.setWidth(90);
-        rect.setFill(Color.BLUE);
-        return rect;
-    }
+
     public void loadButton(String s) throws IOException {
         Parent pane = FXMLLoader.load(getClass().getResource(s));
         Scene menuScene = new Scene(pane);
