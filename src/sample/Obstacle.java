@@ -30,4 +30,5 @@ public abstract class Obstacle implements SceneElements {
     public void setObstacle(Group group){
         Obstacle=group;
     }
+    public abstract void Move();
 }
