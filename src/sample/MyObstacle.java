@@ -18,16 +18,18 @@ public class MyObstacle extends Application {
     public void start(Stage stage) {
 
 
-        Group root1= MakeringObstacle(225,250);
-        Group root3= MakeSquareTrap(225,150);
-        Group root2=MakeCross(225,150);
+        Group root1= MakeringObstacle(225,400);
+        Group root3= MakeSquareTrap(225,400);
+        Group root2=MakeCross(225,400);
         Group root = new Group(root1,root2,root3);
-        setarcY(root1,50);
-        rotateTransition(root2,5);
+//        setarcY(root1,50);
+        rotateTransition(root3,5);
+        rotateTransition(root1,4);
+        rotateTransition(root2,6);
 
 //        System.out.println(root.getLayoutY());
 //        System.out.println(root.getChildren().get(3).getLayoutY());
-        RotateArc(root1,360,0,4,225,300);
+//        RotateArc(root1,360,0,4,225,300);
 
         Scene scene = new Scene(root, 450, 800);
         stage.setTitle("Obstacle Example");
@@ -81,19 +83,19 @@ public class MyObstacle extends Application {
     }
     public Group MakeCross(double X , double Y){
         myShape shape= new myShape();
-        Shape shape1= shape.MakePentagon("#35e2f2",X+42.5,Y-42.5,0);
-        Shape shape2= shape.MakePentagon("#f6df0e",X+42.5,Y+42.5,90);
-        Shape shape3= shape.MakePentagon("#8c13fb",X-42.5,Y+42.5,180);
-        Shape shape4= shape.MakePentagon("#ff0080",X-42.5,Y-42.5,270);
+        Shape shape1= shape.MakePentagon("#35e2f2",X+32.5,Y-162,0);
+        Shape shape2= shape.MakePentagon("#f6df0e",X+32.5,Y-77.5,90);
+        Shape shape3= shape.MakePentagon("#8c13fb",X-52.5,Y-77.5,180);
+        Shape shape4= shape.MakePentagon("#ff0080",X-52.5,Y-162,270);
         Group group = new Group(shape1,shape2,shape3,shape4);
         return group;
     }
     public Group MakeSquareTrap(double x, double y){
         myShape shape= new myShape();
-        Shape shape1= shape.MakeRectangle("#35e2f2",x+87.5,y,0);
-        Shape shape2= shape.MakeRectangle("#f6df0e",x,y+87.5,90);
-        Shape shape3= shape.MakeRectangle("#8c13fb",x-87.5,y,180);
-        Shape shape4= shape.MakeRectangle("#ff0080",x,y-87.5,270);
+        Shape shape1= shape.MakeRectangle("#35e2f2",x+77.5,y-87.5,0);
+        Shape shape2= shape.MakeRectangle("#f6df0e",x-10,y,90);
+        Shape shape3= shape.MakeRectangle("#8c13fb",x-97.5,y-87.5,0);
+        Shape shape4= shape.MakeRectangle("#ff0080",x-10,y-175,90);
         Group group = new Group(shape1,shape2,shape3,shape4);
         return group;
     }

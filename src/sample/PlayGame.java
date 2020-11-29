@@ -59,21 +59,21 @@ public class PlayGame extends Application {
 
     public void AddObj2(){
         MyObstacle obj= new MyObstacle();
-        Group curr0= obj.MakeringObstacle(225, 250);
-        ringobstacles.add(curr0);
-        Group curr= obj.MakeringObstacle(225, -ringobstacles.size() * 250);
+//        Group curr0= obj.MakeringObstacle(225, -ringobstacles.size() *250);
+//        ringobstacles.add(curr0);
+        Group curr= obj.MakeringObstacle(225, -ringobstacles.size() * 450);
         ringobstacles.add(curr);
-//        Group curr2= obj.MakeCross(100, -ringobstacles.size() * 300);
-//        ringobstacles.add(curr2);
-        Group curr3 =obj.MakeSquareTrap(225, (-ringobstacles.size() +1)* 225);
+        Group curr2= obj.MakeCross(100, -ringobstacles.size() * 450);
+        ringobstacles.add(curr2);
+        Group curr3 =obj.MakeSquareTrap(225, (-ringobstacles.size())* 450);
         ringobstacles.add(curr3);
-        Group curr4 =obj.MakeLine2a(-ringobstacles.size() * 250);
+        Group curr4 =obj.MakeLine2a(-ringobstacles.size() * 450);
         ringobstacles.add(curr4);
         obj.rotateTransition(curr,4);
-        obj.rotateTransition(curr0,4);
+//        obj.rotateTransition(curr0,4);
 
         obj.MoveLine2(curr4,4,-450);
-//        obj.rotateTransition(curr2,4);
+        obj.rotateTransition(curr2,4);
         obj.rotateTransition(curr3,5);
 
     }

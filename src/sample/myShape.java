@@ -86,6 +86,16 @@ public class myShape extends Application {
         return rect;
 //            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0080" height="175.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
     }
+    public Shape MakeRectangle3(String s1,double x, double y,int start_angle){
+        javafx.scene.shape.Rectangle rect = new javafx.scene.shape.Rectangle(x,y,175,25);
+        rect.setArcHeight(20);
+        rect.setWidth(20);
+        rect.setFill(Color.valueOf(s1));
+        rect.rotateProperty().setValue(start_angle);
+        rect.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
+        return rect;
+//            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0080" height="175.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="25.0" />
+    }
     public Shape MakeRectangle2(String s,double Xpos,double Ypos){
         javafx.scene.shape.Rectangle shape = new javafx.scene.shape.Rectangle(Xpos,Ypos,112.5,12.5);
         shape.setFill(Color.web(s));
