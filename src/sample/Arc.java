@@ -3,7 +3,7 @@ package sample;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
-public class Arc extends Shape {
+public class Arc extends sample.Shape {
     public Arc(double centerx,double centery,int startangle){
         super(centerx,centery);
         javafx.scene.shape.Arc arc2 = new javafx.scene.shape.Arc();

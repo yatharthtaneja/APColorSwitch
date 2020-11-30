@@ -1,8 +1,9 @@
 package sample;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 
-public class Shape extends javafx.scene.shape.Shape {//Extends Shape to make it a Node
+public class Shape {
     private double Xpos;
     private double Ypos;
     private Color Colour;
@@ -41,3 +42,4 @@ public class Shape extends javafx.scene.shape.Shape {//Extends Shape to make it 
         this.shape=shape;
     }
 }
+

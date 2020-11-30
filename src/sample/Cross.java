@@ -7,15 +7,18 @@ import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 public class Cross extends Obstacle{
     Cross(double x,double y){
+        setListOfShapes(new ArrayList<>());
         setXpos(x);setYpos(y);
-        sample.Shape shape1= new Pentagon(x+42.5,y-42.5,Color.web("#35e2f2"),0);
-        sample.Shape shape2= new Pentagon(x+42.5,y+42.5,Color.web("#f6df0e"),90);
-        sample.Shape shape3= new Pentagon(x-42.5,y+42.5,Color.web("#8c13fb"),180);
-        sample.Shape shape4= new Pentagon(x-42.5,y-42.5,Color.web("#ff0080"),270);
+        sample.Shape shape1= new Pentagon(x+42.5,y-42.5,0,Color.web("#35e2f2"));
+        sample.Shape shape2= new Pentagon(x+42.5,y+42.5,90,Color.web("#f6df0e"));
+        sample.Shape shape3= new Pentagon(x-42.5,y+42.5,180,Color.web("#8c13fb"));
+        sample.Shape shape4= new Pentagon(x-42.5,y-42.5,270,Color.web("#ff0080"));
         AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);
-        setObstacle(new Group(shape1,shape2,shape3,shape4));
+        setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()));
     }
     @Override
     public void Move(){

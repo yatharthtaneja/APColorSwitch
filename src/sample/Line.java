@@ -7,13 +7,18 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 public class Line extends Obstacle{
+    public Line(){
+        setListOfShapes(new ArrayList<>());
+    }
     @Override
     public void Move() {
         ;
     }
 }
-class UnidirectionalLine extends Line{
+class UnidirectionalLine extends sample.Line{
     boolean Left;
     UnidirectionalLine(double y,boolean left){
         Left=left;
@@ -28,7 +33,8 @@ class UnidirectionalLine extends Line{
             Shape shape7 = new Rectangle( 675,y,Color.web("#8c13fb"));
             Shape shape8 = new Rectangle( 787.5,y,Color.web("#ff0080"));
             AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);AddShape(shape5);AddShape(shape6);AddShape(shape7);AddShape(shape8);
-            setObstacle(new Group(shape1,shape2,shape3,shape4,shape5,shape6,shape7,shape8));
+            setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()
+                    ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()));
         }
         else{
             Shape shape1 = new Rectangle( -450,y,Color.web("#35e2f2"));
@@ -40,7 +46,8 @@ class UnidirectionalLine extends Line{
             Shape shape7 = new Rectangle( 225,y,Color.web("#8c13fb"));
             Shape shape8 = new Rectangle( 337.5,y,Color.web("#ff0080"));
             AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);AddShape(shape5);AddShape(shape6);AddShape(shape7);AddShape(shape8);
-            setObstacle(new Group(shape1,shape2,shape3,shape4,shape5,shape6,shape7,shape8));
+            setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()
+                    ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()));
         }
     }
     @Override
@@ -58,7 +65,7 @@ class UnidirectionalLine extends Line{
         translateTransition.play();
     }
 }
-class BidirectionalLine extends Line {
+class BidirectionalLine extends sample.Line {
     BidirectionalLine(double y){
         setXpos(0);setYpos(y);
         Shape shape1 = new Rectangle( -450,y,Color.web("#35e2f2"));
@@ -74,7 +81,9 @@ class BidirectionalLine extends Line {
         Shape shape11 = new Rectangle( 675,y,Color.web("#8c13fb"));
         Shape shape12 = new Rectangle( 787.5,y,Color.web("#ff0080"));
         AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);AddShape(shape5);AddShape(shape6);AddShape(shape7);AddShape(shape8);AddShape(shape9);AddShape(shape10);AddShape(shape11);AddShape(shape12);
-        setObstacle(new Group(shape1,shape2,shape3,shape4,shape5,shape6,shape7,shape8,shape9,shape10,shape11,shape12));
+        setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()
+                ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()
+                ,shape9.getShape(),shape10.getShape(),shape11.getShape(),shape12.getShape()));
     }
     @Override
     public void Move(){

@@ -14,7 +14,7 @@ public class Pentagon extends sample.Shape {
         path.setRotate(startangle);
         setShape(path);
     }
-    public Pentagon(double x,double y,Color col,int startangle){
+    public Pentagon(double x,double y,int startangle,Color col){
         super(x,y,col);
         SVGPath path = new SVGPath();
         path.setContent("M 30 80 L 30 80 L -30 140 L -30 160 L -10 160 L 50 100 A 10 10 90 0 0 30 80");
