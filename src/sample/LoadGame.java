@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +37,12 @@ public class LoadGame implements Initializable {
     public void setStage(Stage stage){
         this.stage=stage;
     }
+    @FXML
+    private Text text;
+    private static boolean lightmode;
+    public void setTheme(boolean s){
+        this.lightmode=s;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/home_white.png");
@@ -43,6 +50,16 @@ public class LoadGame implements Initializable {
         addShadow(l4);
         addShadow(l3);
         addShadow(l2);
+        if(lightmode){
+            loadPane.setStyle("-fx-background-color: #FFFFF0");
+            addImage(hbutton,"sample/Assets/home.png");
+            text.setFill(Color.valueOf("#141518"));
+        }
+        else{
+            loadPane.setStyle("-fx-background-color: #141518");
+            addImage(hbutton,"sample/Assets/home_white.png");
+            text.setFill(Color.valueOf("#FFFFFF"));
+        }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 loadButton("menu.fxml");

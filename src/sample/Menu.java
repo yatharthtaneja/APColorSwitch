@@ -80,15 +80,18 @@ private Button LoadButton;
             menuAnchor.setStyle("-fx-background-color: #FFFFF0");
             text.setFill(Color.valueOf("#141518"));
             PlayButton.setFill(Color.valueOf("#141518"));
-
         }
         else{
-
             menuAnchor.setStyle("-fx-background-color: #141518");
             text.setFill(Color.valueOf("#FFFFFF"));
             PlayButton.setFill(Color.valueOf("#FFFFFF"));
+        }
+        try {
+            themeChanger("Stats.fxml");
+            themeChanger("LoadGame.fxml");
 
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
@@ -193,19 +196,15 @@ private Button LoadButton;
     public void themeChanger(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("GameSettings.fxml")){
-            GameSettings controller = (GameSettings) loader.getController();
-        }
-        else if(s.equals("Play.fxml")){
-            Play controller = (Play) loader.getController();
 
-        }
-        else if(s.equals("LoadGame.fxml")){
+        if(s.equals("LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
+            controller.setTheme(lightmode);
 
         }
         else if(s.equals("Stats.fxml")){
             Stats controller = (Stats) loader.getController();
+            controller.setTheme(lightmode);
 
         }
 

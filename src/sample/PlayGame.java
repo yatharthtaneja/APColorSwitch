@@ -98,7 +98,10 @@ public class PlayGame extends Application {
                 l2.setText("Game Over");
                 l2.setLayoutX(MainStage.getWidth()/2-35);
                 l2.setLayoutY(MainStage.getHeight()/2-50);
-                l2.setTextFill(Color.WHITESMOKE);
+                if(lightmode)
+                    l2.setTextFill(Color.valueOf("#141518"));
+                else
+                    l2.setTextFill(Color.WHITESMOKE);
                 l2.setScaleY(4);
                 l2.setScaleX(4);
             }
@@ -129,7 +132,11 @@ public class PlayGame extends Application {
 
         l1.setLayoutX(MainStage.getWidth()/2-55);
         l1.setLayoutY(MainStage.getHeight()/2-50);
-        l1.setTextFill(Color.WHITESMOKE);
+        if(lightmode)
+            l1.setTextFill(Color.valueOf("#141518"));
+        else
+            l1.setTextFill(Color.WHITESMOKE);
+
         Timer.pause();
         Root.getChildren().add(l1);
         MainScene.setOnKeyReleased(keyEvent -> {
@@ -171,7 +178,11 @@ public class PlayGame extends Application {
         pauseButton.setPrefWidth(50);
         pauseButton.setLayoutX(375);
         pauseButton.setLayoutY(10);
-        addImage(pauseButton,"sample/Assets/pause_white.png");
+        if(lightmode)
+            addImage(pauseButton,"sample/Assets/pause.png");
+        else
+            addImage(pauseButton,"sample/Assets/pause_white.png");
+
         pauseButton.setId("pauseButton");
         Root.getStylesheets().add("sample/button.css");
         Root.getChildren().add(pauseButton);
@@ -182,8 +193,15 @@ public class PlayGame extends Application {
         score.setLayoutY(15);
         score.prefHeight(50);
         score.prefHeight(50);
-        score.setTextFill(Color.WHITESMOKE);
         score.setFont(new Font("Cambria", 36));
+
+        if(lightmode)
+            score.setTextFill(Color.valueOf("#141518"));
+
+        else
+            score.setTextFill(Color.WHITESMOKE);
+
+
         Root.getChildren().add(score);
         MainStage.setResizable(false);
 
@@ -274,20 +292,31 @@ public class PlayGame extends Application {
             Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
             Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
             Timer.pause();
-            addImage(HomeButton,"sample/Assets/home_white.png");
+            if(lightmode)
+                addImage(HomeButton,"sample/Assets/home.png");
+            else
+                addImage(HomeButton,"sample/Assets/home_white.png");
+
             Label l3= new Label();
             l3.setText("Pause Menu");
             l3.setFont(Font.font("Futura Light BT"));
             l3.setLayoutX(MainStage.getWidth()/2-35);
             l3.setLayoutY(120);
-            l3.setTextFill(Color.WHITESMOKE);
+            if(lightmode)
+                l3.setTextFill(Color.valueOf("#141518"));
+            else
+                l3.setTextFill(Color.WHITESMOKE);
             l3.setScaleY(4);
             l3.setScaleX(4);
             Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
             PauseMenu.getStylesheets().add("sample/button.css");
 
             Scene PauseScene = new Scene(PauseMenu,450,800);
-            PauseScene.setFill(Color.valueOf("#141518"));
+            if(lightmode)
+                PauseScene.setFill(Color.valueOf("#fffff0"));
+            else
+                PauseScene.setFill(Color.valueOf("#141518"));
+
             MainStage.setScene(PauseScene);
             resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
                 MainStage.setScene(currScene);
@@ -451,7 +480,11 @@ public class PlayGame extends Application {
                 l2.setText("Game Over");
                 l2.setLayoutX(MainStage.getWidth()/2-35);
                 l2.setLayoutY(MainStage.getHeight()/2-50);
-                l2.setTextFill(Color.WHITESMOKE);
+                if(lightmode)
+                    l2.setTextFill(Color.valueOf("#141518"));
+                else
+                    l2.setTextFill(Color.WHITESMOKE);
+
                 l2.setScaleY(4);
                 l2.setScaleX(4);
             }
