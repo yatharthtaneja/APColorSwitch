@@ -56,6 +56,10 @@ public class PlayGame extends Application {
     public void setStage(Stage stage){
         this.MainStage=stage;
     }
+    private static boolean lightmode;
+    public void setTheme(boolean s){
+        this.lightmode=s;
+    }
 
     public void AddObj2(){
         MyObstacle obj= new MyObstacle();
@@ -256,7 +260,10 @@ public class PlayGame extends Application {
         Timer.getKeyFrames().addAll(KF1,KF2);
         Root.getChildren().addAll(Ball);
         MainScene=new Scene(Root,450,800);
-        MainScene.setFill(Color.valueOf("#141518"));
+        if(lightmode)
+            MainScene.setFill(Color.valueOf("#fffff0"));
+        else
+            MainScene.setFill(Color.valueOf("#141518"));
         StartGame2();
         MainStage.setScene(MainScene);
         MainStage.show();

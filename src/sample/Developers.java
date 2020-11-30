@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,9 +27,29 @@ public class Developers implements Initializable {
     public void setStage(Stage stage){
         this.stage=stage;
     }
+    @FXML
+    private Text text;
+    private static boolean lightmode;
+    public void setTheme(boolean s){
+        this.lightmode=s;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addImage(hbutton,"sample/Assets/back_white.png");
+//        addImage(hbutton,"sample/Assets/back_white.png");
+        if(lightmode){
+            developerPane.setStyle("-fx-background-color: #FFFFF0");
+            addImage(hbutton,"sample/Assets/back-arrow.png");
+            text.setFill(Color.valueOf("#141518"));
+
+        }
+        else{
+
+            developerPane.setStyle("-fx-background-color: #141518");
+            addImage(hbutton,"sample/Assets/back_white.png");
+            text.setFill(Color.valueOf("#FFFFFF"));
+
+
+        }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 loadButton("GameSettings.fxml");
@@ -35,6 +57,7 @@ public class Developers implements Initializable {
                 ioException.printStackTrace();
             }
         });
+
     }
     public void addImage(Button b1,String path){
         Image img = new Image(path);
@@ -49,6 +72,7 @@ public class Developers implements Initializable {
         Parent root =loader.load();
         GameSettings controller = (GameSettings) loader.getController();
         controller.setStage(stage);
+        controller.setTheme(lightmode);
         Scene scene = new Scene(root,450,800);
         stage.setScene(scene);
         stage.setResizable(false);

@@ -18,7 +18,7 @@
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
          </children>
       </Group>
-      <Text fill="WHITE" layoutX="113.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOR SWITCH" textAlignment="CENTER" wrappingWidth="223.0504150390625">
+      <Text fx:id="text" fill="WHITE" layoutX="113.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOR SWITCH" textAlignment="CENTER" wrappingWidth="223.0504150390625">
          <font>
             <Font name="Futura Light BT" size="49.0" />
          </font>

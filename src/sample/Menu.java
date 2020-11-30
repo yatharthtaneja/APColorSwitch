@@ -18,6 +18,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -56,7 +57,12 @@ private Button LoadButton;
     public void setStage(Stage stage){
         this.stage = stage;
     }
-
+    @FXML
+    private Text text;
+    private static boolean lightmode;
+    public void setTheme(boolean s){
+        this.lightmode=s;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     IntroScreen obj = new IntroScreen();
@@ -70,6 +76,21 @@ private Button LoadButton;
         addShadow(ExitButton);
         addShadow(SettingsButton);
         addShadowPlay(PlayButton);
+        if(lightmode){
+            menuAnchor.setStyle("-fx-background-color: #FFFFF0");
+            text.setFill(Color.valueOf("#141518"));
+            PlayButton.setFill(Color.valueOf("#141518"));
+
+        }
+        else{
+
+            menuAnchor.setStyle("-fx-background-color: #141518");
+            text.setFill(Color.valueOf("#FFFFFF"));
+            PlayButton.setFill(Color.valueOf("#FFFFFF"));
+
+
+        }
+
         SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 loadButton("GameSettings.fxml");
@@ -82,6 +103,7 @@ private Button LoadButton;
 //                loadButton("play.fxml");
                 PlayGame game = new PlayGame();
                 game.setStage(stage);
+                game.setTheme(lightmode);
                 game.start(stage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -118,6 +140,9 @@ private Button LoadButton;
         });
         s1.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e)->{
             s1.setEffect(null);
+            if(lightmode)
+                s1.setFill(Color.valueOf("#141518"));
+            else
             s1.setFill(Color.valueOf("#ffffff"));
         });
     }
@@ -164,6 +189,26 @@ private Button LoadButton;
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+    public void themeChanger(String s) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        if(s.equals("GameSettings.fxml")){
+            GameSettings controller = (GameSettings) loader.getController();
+        }
+        else if(s.equals("Play.fxml")){
+            Play controller = (Play) loader.getController();
+
+        }
+        else if(s.equals("LoadGame.fxml")){
+            LoadGame controller = (LoadGame) loader.getController();
+
+        }
+        else if(s.equals("Stats.fxml")){
+            Stats controller = (Stats) loader.getController();
+
+        }
+
     }
 
 }
