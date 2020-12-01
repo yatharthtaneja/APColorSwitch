@@ -484,7 +484,7 @@ public class PlayGame extends Application {
             });
 
         });
-    }
+    }*/
     public void CheckCollision(){
         if(Powerups.size()>0){
             if(Shape.intersect(Ball,Powerups.get(0).getObject()).getBoundsInLocal().getWidth()!=-1){
@@ -564,55 +564,85 @@ public class PlayGame extends Application {
             }
         });
     }
-   
-     */
+
     public void AddObstacle(){
-        int index=(int)(Math.random()*5);
+        int index=(int)(Math.random()*6);
+        double y;
         if (index==0){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            Ring ring=new Ring(225,-Obstacles.size()*250);
+            Ring ring=new Ring(225,y);
+            ring.Move();
             Obstacles.add(ring);
             Root.getChildren().add(ring.getObstacle());
         }
         else if(index==1){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            Cross cross=new Cross(100,-Obstacles.size()*250);
+            Cross cross=new Cross(100,y);
+            cross.Move();
             Obstacles.add(cross);
             Root.getChildren().add(cross.getObstacle());
         }
         else if(index==2){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            UnidirectionalLine left=new UnidirectionalLine(-Obstacles.size()*250,true);
+            UnidirectionalLine left=new UnidirectionalLine(y,true);
+            left.Move();
             Obstacles.add(left);
             Root.getChildren().add(left.getObstacle());
         }
         else if(index==3){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            UnidirectionalLine right=new UnidirectionalLine(-Obstacles.size()*250,false);
+            UnidirectionalLine right=new UnidirectionalLine(y,false);
+            right.Move();
             Obstacles.add(right);
             Root.getChildren().add(right.getObstacle());
         }
         else if(index==4){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            BidirectionalLine bidirectionalline=new BidirectionalLine(-Obstacles.size()*250);
+            BidirectionalLine bidirectionalline=new BidirectionalLine(y);
+            bidirectionalline.Move();
             Obstacles.add(bidirectionalline);
             Root.getChildren().add(bidirectionalline.getObstacle());
         }
         else if(index==5){
-            Star star=new Star(-Obstacles.size()*125);
+            if(Obstacles.size()==0)
+                y=75;
+            else
+                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+            Star star=new Star(y);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
-            SquareTrap squaretrap=new SquareTrap(225,-Obstacles.size()*250);
+            SquareTrap squaretrap=new SquareTrap(225,y);
+            squaretrap.Move();
             Obstacles.add(squaretrap);
             Root.getChildren().add(squaretrap.getObstacle());
         }
