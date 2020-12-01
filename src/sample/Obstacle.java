@@ -45,5 +45,10 @@ public abstract class Obstacle implements SceneElements {
         if (ListOfShapes!=null)
             ListOfShapes.add(shape);
     }
+    public void incrementYpos(double change){
+        if(Obstacle!=null)
+            Obstacle.setLayoutY(Obstacle.getLayoutY()+change);
+        Ypos+=change;
+    }
     public abstract void Move();
 }

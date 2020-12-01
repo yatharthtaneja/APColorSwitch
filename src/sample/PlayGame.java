@@ -52,11 +52,11 @@ public class PlayGame extends Application {
     private Group Root;
     private double ticks=0,Gravity;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
+    private static boolean lightmode;
 
     public void setStage(Stage stage){
         this.MainStage=stage;
     }
-    private static boolean lightmode;
     public void setTheme(boolean s){
         this.lightmode=s;
     }
@@ -87,7 +87,6 @@ public class PlayGame extends Application {
             for(int i=0;i<ringobstacles.get(j).getChildren().size();i++){
                 Shape s1= (Shape)ringobstacles.get(j).getChildren().get(i);
                 if(Shape.intersect(Ball,s1).getBoundsInLocal().getWidth()!=-1&&(!s1.getFill().equals(Ball.getFill()))){
-                    System.out.println("BAll color :"+ Ball.getFill()+ "Ring Color"+s1.getFill());
                     GameOver=true;
                 }
             }
@@ -111,7 +110,7 @@ public class PlayGame extends Application {
         if (!GameOver){
             if (Gravity>0)
                 Gravity=0;
-            Gravity-=9;
+            Gravity-=8.5;
         }
     }
 
@@ -168,7 +167,7 @@ public class PlayGame extends Application {
         MainStage.setResizable(false);
         MainStage.show();
     }
-
+    /*
     @Override
     public void start(Stage MainStage) throws Exception {
         Root=new Group();
@@ -199,7 +198,6 @@ public class PlayGame extends Application {
 
         else
             score.setTextFill(Color.WHITESMOKE);
-
 
         Root.getChildren().add(score);
         MainStage.setResizable(false);
@@ -331,7 +329,7 @@ public class PlayGame extends Application {
             });
 
         });
-    }
+    }*/
 
     public Button MakeButton(double h,double w,double x, double y,String text,String ID){
         Button button= new Button();
@@ -343,7 +341,7 @@ public class PlayGame extends Application {
         button.setId(ID);
         return button;
     }
-    /*@Override
+    @Override
     public void start(Stage MainStage) throws Exception {
         Root=new Group();
         Button pauseButton= new Button();
@@ -369,7 +367,8 @@ public class PlayGame extends Application {
         Ball.setRadius(12);
         Ball.setFill(Colors[(int)Math.random()*4]);
 
-        Obstacles=new ArrayList<>();Powerups=new ArrayList<>();
+        Obstacles=new ArrayList<>();
+        Powerups=new ArrayList<>();
         Timer=new Timeline();
         Timer.setCycleCount(Animation.INDEFINITE);
 
@@ -382,17 +381,16 @@ public class PlayGame extends Application {
         GameOver=false;
         Gravity=0;
         ticks=0;
-        l1=new javafx.scene.control.Label();l2=new javafx.scene.control.Label();
+        l1=new Label();l2=new Label();
 
         KeyFrame KF1=new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 ticks++;
-                if(ticks%2==0 && Gravity<20){
-                    Gravity+=2;ticks=0;
+                if(ticks%2==0 && Gravity<15){
+                    Gravity+=2;
                 }
-                double y=Ball.getCenterY()+Gravity;
-                Ball.setCenterY(y);
+                Ball.setCenterY(Ball.getCenterY()+Gravity);
                 MainScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent keyEvent) {
@@ -402,7 +400,8 @@ public class PlayGame extends Application {
                         }
                     }
                 });
-                CheckCollision();
+                CheckObstacleCollision();
+                CheckPowerupCollision();
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
                         Root.getChildren().addAll(l2,Restart);
@@ -420,24 +419,19 @@ public class PlayGame extends Application {
         KeyFrame KF2 =new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(Ball.getCenterY()<425) {
-                    int i=0;int j=0;
-                    while(i<Obstacles.size()||j<Powerups.size()){
-                        if(i<Obstacles.size()){
-                            Obstacles.get(i).setYpos(Obstacles.get(i).getYpos()+4);
-                            i++;
-                        }
-                        if(j<Powerups.size()){
-                            Powerups.get(j).setYpos(Powerups.get(j).getYpos()+4);
-                            j++;
-                        }
+                if(Ball.getCenterY()<390) {
+                    for (int i=0;i<Obstacles.size();i++){
+                        Obstacles.get(i).incrementYpos(4);
+                    }
+                    for (int i=0;i<Powerups.size();i++){
+                        Powerups.get(i).incrementYpos(4);
                     }
                 }
-                if(Obstacles.size()>0){
-                    if(Obstacles.get(0).getYpos()>height)
-                        Obstacles.remove(0);
+                if(Obstacles.get(0).getYpos()>height) {
+                    Root.getChildren().remove(Obstacles.get(0).getObstacle());
+                    Obstacles.remove(0);
                     if(Obstacles.size()<3)
-                        AddObstacle();
+                        AddObstacleandPowerup();
                 }
             }
         });
@@ -448,85 +442,90 @@ public class PlayGame extends Application {
         BeginGame();
         MainStage.setScene(MainScene);
         MainStage.show();
-        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
-            Scene currScene = MainStage.getScene();
-            Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
-            Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
-            Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
-            Timer.pause();
-            addImage(HomeButton,"sample/Assets/home_white.png");
-            Label l3= new Label();
-            l3.setText("Pause Menu");
-            l3.setFont(Font.font("Futura Light BT"));
-            l3.setLayoutX(MainStage.getWidth()/2-35);
-            l3.setLayoutY(120);
-            l3.setTextFill(Color.WHITESMOKE);
-            l3.setScaleY(4);
-            l3.setScaleX(4);
-            Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
-            PauseMenu.getStylesheets().add("sample/button.css");
-
-            Scene PauseScene = new Scene(PauseMenu,450,800);
-            PauseScene.setFill(Color.valueOf("#141518"));
-
-            MainStage.setScene(PauseScene);
-            resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
-                MainStage.setScene(currScene);
-                Timer.play();
-
-            });
-            HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
-                try {
-                    loadButton("menu.fxml");
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
-
-        });
-    }*/
-    public void CheckCollision(){
-        if(Powerups.size()>0){
-            if(Shape.intersect(Ball,Powerups.get(0).getObject()).getBoundsInLocal().getWidth()!=-1){
-                Powerups.get(0).Collide();
-                if(Powerups.get(0).getClass()==ColourBooster.class){
-                    int i=(int)Math.random()*4;
-                    while(Ball.getFill()==Colors[i]){
-                        i=(int)Math.random()*4;
+    }
+    public void CheckObstacleCollision(){
+        outer:for (int j=0;j<3;j++) {
+            if(Obstacles.size()>j) {
+                for (int i = 0; i < Obstacles.get(j).getListOfShapes().size(); i++) {
+                    Shape s1 = (Shape) Obstacles.get(j).getListOfShapes().get(i).getShape();
+                    if (Shape.intersect(Ball, s1).getBoundsInLocal().getWidth() != -1 && (!(s1.getFill().equals(Ball.getFill())))) {
+                        GameOver = true;
+                        break outer;
                     }
-                    Ball.setFill(Colors[i]);
                 }
-                else{
+            }
+        }
+        if(Ball.getCenterY()>height-12||Ball.getCenterY()<12)
+            GameOver=true;
+        if(GameOver){
+            Ball.setCenterY(height-Ball.getRadius());
+            l2.setText("Game Over");
+            l2.setLayoutX(MainStage.getWidth()/2-35);
+            l2.setLayoutY(MainStage.getHeight()/2-50);
+            l2.setTextFill(Color.WHITESMOKE);
+            l2.setScaleY(4);
+            l2.setScaleX(4);
+        }
+    }
+    public void CheckPowerupCollision(){
+        if(Powerups.size()>0){
+            Shape s1=Powerups.get(0).getObject();
+            if (Shape.intersect(Ball, s1).getBoundsInLocal().getWidth()!=-1){
+                //Powerups.get(0).Collision();
+                if (Powerups.get(0).getClass()==ColourBooster.class){
+                    int index=(int)(Math.random()*4);
+                    while(Ball.getFill()==Colors[index]){
+                        index=(int)(Math.random()*4);
+                    }
+                    Ball.setFill(Colors[index]);
+                    Ball.setStroke(Colors[index]);
+                }
+                else if(Powerups.get(0).getClass()==Star.class){
                     score.setText(Integer.toString(Integer.parseInt(score.getText())+1));
                 }
+                Root.getChildren().remove(Powerups.get(0).getObject());
                 Powerups.remove(0);
             }
         }
-        for (int j=0;j<3;j++){
-            if(Obstacles.size()>j){
-                Group CurrObstacle=Obstacles.get(j).getObstacle();
-                for(int i=0;i<CurrObstacle.getChildren().size();i++){
-                    Shape s1= (Shape)CurrObstacle.getChildren().get(i);
-                    if(Shape.intersect(Ball,s1).getBoundsInLocal().getWidth()!=-1&&(!s1.getFill().equals(Ball.getFill()))){
-                        GameOver=true;
-                    }
-                }
-            }
-            if(Ball.getCenterY()>height-12||Ball.getCenterY()<12)
-                GameOver=true;
-            if(GameOver){
-                Ball.setCenterY(height-Ball.getRadius());
-                l2.setText("Game Over");
-                l2.setLayoutX(MainStage.getWidth()/2-35);
-                l2.setLayoutY(MainStage.getHeight()/2-50);
-                if(lightmode)
-                    l2.setTextFill(Color.valueOf("#141518"));
+    }
+    public void AddObstacleandPowerup(){
+        int index=(int)(Math.random()*2);
+        double y=50;
+        Star star = null;
+        ColourBooster colourbooster=null;
+        Obstacle obstacle=null;
+        if (index==0){
+            if(Obstacles.size()!=0) {
+                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
                 else
-                    l2.setTextFill(Color.WHITESMOKE);
-                l2.setScaleY(4);
-                l2.setScaleX(4);
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
+            star=new Star(y);
+            colourbooster=new ColourBooster(y-200);
+            obstacle=new Ring(225,y);
         }
+        else if(index==1){
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
+            }
+            star=new Star(y);
+            colourbooster=new ColourBooster(y-225);
+            obstacle=new SquareTrap(225,y);
+        }
+        else if(index==2){
+            ;
+        }
+        Powerups.add(star);
+        Root.getChildren().add(star.getObject());
+        Powerups.add(colourbooster);
+        Root.getChildren().add(colourbooster.getObject());
+        obstacle.Move();
+        Obstacles.add(obstacle);
+        Root.getChildren().add(obstacle.getObstacle());
     }
     public void BeginGame(){
         Ball.setCenterX(width/2);
@@ -543,9 +542,10 @@ public class PlayGame extends Application {
             Root.getChildren().remove(Powerups.get(0).getObject());
             Powerups.remove(0);
         }
-        for (int i=0;i<5;i++){
-            AddObstacle();
+        for (int i=0;i<2;i++){
+            AddObstacleandPowerup();
         }
+        score.setText("0");
         l1.setText("Press Up key to start");
         l1.setScaleX(2);
         l1.setScaleY(2);
@@ -570,9 +570,9 @@ public class PlayGame extends Application {
         double y;
         if (index==0){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()-200;
             Star star=new Star(y);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
@@ -583,9 +583,9 @@ public class PlayGame extends Application {
         }
         else if(index==1){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()-200;
             Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
@@ -596,9 +596,9 @@ public class PlayGame extends Application {
         }
         else if(index==2){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()-200;
             Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
@@ -609,9 +609,9 @@ public class PlayGame extends Application {
         }
         else if(index==3){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()+200;
             Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
@@ -622,9 +622,9 @@ public class PlayGame extends Application {
         }
         else if(index==4){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()+200;
             Star star=new Star(y-40);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());
@@ -635,9 +635,9 @@ public class PlayGame extends Application {
         }
         else if(index==5){
             if(Obstacles.size()==0)
-                y=75;
+                y=0;
             else
-                y=Obstacles.get(Obstacles.size()-1).getObstacle().getLayoutY()+200;
+                y=Obstacles.get(Obstacles.size()-1).getYpos()+200;
             Star star=new Star(y);
             Powerups.add(star);
             Root.getChildren().add(star.getObject());

@@ -32,5 +32,10 @@ public abstract class Powerups implements SceneElements{
     public void setObject(Shape shape){
         Object=shape;
     }
+    public void incrementYpos(double change){
+        Ypos+=change;
+        if (Object!=null)
+            Object.setLayoutY(Object.getLayoutY()+change);
+    }
     public abstract void Collide();
 }

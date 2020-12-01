@@ -8,10 +8,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 
 public class SquareTrap extends Obstacle{
     public SquareTrap(double x,double y){
-        myShape shape= new myShape();
+        setListOfShapes(new ArrayList<>());
         Shape shape1= new Rectangle(x+77.5,y-87.5,25,175,0,Color.web("#35e2f2"));
         Shape shape2= new Rectangle(x-10,y,25,175,90,Color.web("#f6df0e"));
         Shape shape3= new Rectangle(x-97.5,y-87.5,25,175,0,Color.web("#8c13fb"));
