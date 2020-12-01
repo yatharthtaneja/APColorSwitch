@@ -608,5 +608,13 @@ public class PlayGame extends Application {
             Obstacles.add(bidirectionalline);
             Root.getChildren().add(bidirectionalline.getObstacle());
         }
+        else if(index==5){
+            Star star=new Star(-Obstacles.size()*125);
+            Powerups.add(star);
+            Root.getChildren().add(star.getObject());
+            SquareTrap squaretrap=new SquareTrap(225,-Obstacles.size()*250);
+            Obstacles.add(squaretrap);
+            Root.getChildren().add(squaretrap.getObstacle());
+        }
     }
 }

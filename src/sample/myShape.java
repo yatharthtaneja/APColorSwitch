@@ -81,6 +81,7 @@ public class myShape extends Application {
         rect.setArcHeight(20);
         rect.setWidth(20);
         rect.setFill(Color.valueOf(s1));
+        rect.setStroke(Color.valueOf(s1));
         rect.rotateProperty().setValue(start_angle);
         rect.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
         return rect;
@@ -91,6 +92,7 @@ public class myShape extends Application {
         rect.setArcHeight(20);
         rect.setWidth(20);
         rect.setFill(Color.valueOf(s1));
+        rect.setStroke(Color.valueOf(s1));
         rect.rotateProperty().setValue(start_angle);
         rect.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
         return rect;

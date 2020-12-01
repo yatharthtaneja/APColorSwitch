@@ -27,4 +27,12 @@ public class Rectangle extends Shape{
         shape.setStroke(col);
         setShape(shape);
     }
+    public Rectangle(double x, double y,double width,double height,int startangle,Color col){
+        super(x,y,col);
+        javafx.scene.shape.Rectangle shape = new javafx.scene.shape.Rectangle(x,y,width,height);
+        shape.setFill(col);
+        shape.setStroke(col);
+        shape.rotateProperty().setValue(startangle);
+        setShape(shape);
+    }
 }
