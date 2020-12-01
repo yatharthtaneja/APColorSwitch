@@ -15,8 +15,6 @@ public abstract class Obstacle implements SceneElements {
     }
     @Override
     public void setXpos(double x){
-        if(Obstacle!=null)
-            Obstacle.setLayoutX(x);
         Xpos=x;
     }
     @Override
@@ -25,8 +23,6 @@ public abstract class Obstacle implements SceneElements {
     }
     @Override
     public void setYpos(double y){
-        if(Obstacle!=null)
-            Obstacle.setLayoutY(y);
         Ypos=y;
     }
     public ArrayList<Shape> getListOfShapes(){

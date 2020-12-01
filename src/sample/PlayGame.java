@@ -76,38 +76,11 @@ public class PlayGame extends Application {
         ringobstacles.add(curr4);
         obj.rotateTransition(curr,6);
 //        obj.rotateTransition(curr0,4);
-
         obj.MoveLine2(curr4,4,-450);
         obj.rotateTransition(curr2,4);
         obj.rotateTransition(curr3,5);
-
     }
 
-    public void CheckRingCollision(){
-        for (int j=0;j<3;j++){
-            for(int i=0;i<ringobstacles.get(j).getChildren().size();i++){
-                Shape s1= (Shape)ringobstacles.get(j).getChildren().get(i);
-                if(Shape.intersect(Ball,s1).getBoundsInLocal().getWidth()!=-1&&(!s1.getFill().equals(Ball.getFill()))){
-                    GameOver=true;
-                }
-            }
-            if(Ball.getCenterY()>height-10||Ball.getCenterY()<10)
-                GameOver=true;
-            if(GameOver){
-                Ball.setCenterY(height-Ball.getRadius());
-
-                l2.setText("Game Over");
-                l2.setLayoutX(MainStage.getWidth()/2-35);
-                l2.setLayoutY(MainStage.getHeight()/2-50);
-                if(lightmode)
-                    l2.setTextFill(Color.valueOf("#141518"));
-                else
-                    l2.setTextFill(Color.WHITESMOKE);
-                l2.setScaleY(4);
-                l2.setScaleX(4);
-            }
-        }
-    }
     public void Jump(){
         if (!GameOver){
             if (Gravity>0)
@@ -450,6 +423,54 @@ public class PlayGame extends Application {
         BeginGame();
         MainStage.setScene(MainScene);
         MainStage.show();
+
+//        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
+//            Scene currScene = MainStage.getScene();
+//            Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
+//            Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
+//            Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
+//            Timer.pause();
+//            if(lightmode)
+//                addImage(HomeButton,"sample/Assets/home.png");
+//            else
+//                addImage(HomeButton,"sample/Assets/home_white.png");
+//
+//            Label l3= new Label();
+//            l3.setText("Pause Menu");
+//            l3.setFont(Font.font("Futura Light BT"));
+//            l3.setLayoutX(MainStage.getWidth()/2-35);
+//            l3.setLayoutY(120);
+//            if(lightmode)
+//                l3.setTextFill(Color.valueOf("#141518"));
+//            else
+//                l3.setTextFill(Color.WHITESMOKE);
+//            l3.setScaleY(4);
+//            l3.setScaleX(4);
+//            Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
+//            PauseMenu.getStylesheets().add("sample/button.css");
+//
+//            Scene PauseScene = new Scene(PauseMenu,450,800);
+//            if(lightmode)
+//                PauseScene.setFill(Color.valueOf("#fffff0"));
+//            else
+//                PauseScene.setFill(Color.valueOf("#141518"));
+//
+//            MainStage.setScene(PauseScene);
+//            resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
+//                MainStage.setScene(currScene);
+//                Timer.play();
+//
+//            });
+//            HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
+//                try {
+//                    loadButton("menu.fxml");
+//                } catch (IOException ioException) {
+//                    ioException.printStackTrace();
+//                }
+//            });
+//
+//        });
+
     }
     public void CheckObstacleCollision(){
         outer:for (int j=0;j<3;j++) {
@@ -497,12 +518,12 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=(int)(Math.random()*2);
+        int index=(int)(Math.random()*3);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
         Obstacle obstacle=null;
-        if (index==0){
+        if (index==0){//SingleRing Anticlockwise
             if(Obstacles.size()!=0) {
                 if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
@@ -524,16 +545,24 @@ public class PlayGame extends Application {
             colourbooster=new ColourBooster(y-225);
             obstacle=new SquareTrap(225,y);
         }
-        else if(index==2){
-            ;
+        else if(index==2){//Cross Clockwise
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+            }
+            star=new Star(y-100);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new Cross(125,y);
         }
+        obstacle.Move();
+        Obstacles.add(obstacle);
+        Root.getChildren().add(obstacle.getObstacle());
         Powerups.add(star);
         Root.getChildren().add(star.getObject());
         Powerups.add(colourbooster);
         Root.getChildren().add(colourbooster.getObject());
-        obstacle.Move();
-        Obstacles.add(obstacle);
-        Root.getChildren().add(obstacle.getObstacle());
     }
     public void BeginGame(){
         alreadyExecuted= false;
@@ -551,9 +580,9 @@ public class PlayGame extends Application {
             Root.getChildren().remove(Powerups.get(0).getObject());
             Powerups.remove(0);
         }
-        for (int i=0;i<2;i++){
-            AddObstacleandPowerup();
-        }
+        AddObstacleandPowerup();
+        AddObstacleandPowerup();
+        AddObstacleandPowerup();
         score.setText("0");
         l1.setText("Press Up key to start");
         l1.setScaleX(2);

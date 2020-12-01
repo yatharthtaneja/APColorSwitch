@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class SquareTrap extends Obstacle{
     public SquareTrap(double x,double y){
+        setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Shape shape1= new Rectangle(x+77.5,y-87.5,17.5,175,0,Color.web("#35e2f2"));
         Shape shape2= new Rectangle(x-10,y,17.5,175,90,Color.web("#f6df0e"));
