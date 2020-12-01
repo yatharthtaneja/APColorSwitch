@@ -18,14 +18,16 @@ public class MyObstacle extends Application {
     public void start(Stage stage) {
 
 
-        Group root1= MakeringObstacle(225,400);
-        Group root3= MakeSquareTrap(225,400);
+        Group root1= MakeringObstacleB(225,400);
+        Group root3= MakeringObstacleA(225,400);
+//
+//        Group root3= MakeSquareTrap(225,400);
         Group root2=MakeCross(225,400);
-        Group root = new Group(root1,root2,root3);
+        Group root = new Group(root1,root3);
 //        setarcY(root1,50);
-        rotateTransition(root3,5);
+        rotateTransition(root3,4);
         rotateTransition(root1,4);
-        rotateTransition(root2,6);
+        rotateTransition(root2,4);
 
 //        System.out.println(root.getLayoutY());
 //        System.out.println(root.getChildren().get(3).getLayoutY());
@@ -50,6 +52,33 @@ public class MyObstacle extends Application {
         Shape s4=shape.MakeArc("#ff0080",Centerx,Centery,270);
 
         Group group = new Group(s1,s2,s3,s4);
+        return group;
+
+    }
+    public Group MakeringObstacleA(double Centerx, double Centery){
+
+        myShape shape = new myShape();
+
+        Shape s1=shape.MakeArc2("#35e2f2",Centerx-90,Centery,0);
+        Shape s2=shape.MakeArc2("#f6df0e",Centerx-90,Centery,90);
+        Shape s3=shape.MakeArc2("#8c13fb",Centerx-90,Centery,180);
+        Shape s4=shape.MakeArc2("#ff0080",Centerx-90,Centery,270);
+//make it to separate calls a and b and then combine them
+        Group group = new Group(s1,s2,s3,s4);
+        return group;
+
+    }
+    public Group MakeringObstacleB(double Centerx, double Centery){
+
+        myShape shape = new myShape();
+
+//make it to separate calls a and b and then combine them
+        Shape s5=shape.MakeArc2("#35e2f2",Centerx+90,Centery,180);
+        Shape s6=shape.MakeArc2("#f6df0e",Centerx+90,Centery,270);
+        Shape s7=shape.MakeArc2("#8c13fb",Centerx+90,Centery,0);
+        Shape s8=shape.MakeArc2("#ff0080",Centerx+90,Centery,90);
+
+        Group group = new Group(s5,s6,s7,s8);
         return group;
 
     }

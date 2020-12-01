@@ -27,7 +27,7 @@ public class Ring extends Obstacle{
         Rotate rt2 = new Rotate(0,getXpos(),getYpos());
         getObstacle().getTransforms().add(rt2);
         Timeline timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),360)),
-                new KeyFrame(Duration.seconds(2), new KeyValue(rt2.angleProperty(),0)));
+                new KeyFrame(Duration.seconds(4), new KeyValue(rt2.angleProperty(),0)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }

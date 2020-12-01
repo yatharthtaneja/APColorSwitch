@@ -41,17 +41,11 @@ public class myShape extends Application {
         arc2.setRadiusY(85.0f);
         arc2.setStartAngle(Start_angle);
         arc2.setType(ArcType.ROUND);
-//        arc2.setCenterX(Centerx);
-//        arc2.setCenterY(Centery);
         arc2.setLayoutY(Centery);
         arc2.setLayoutX(Centerx);
         arc2.setLength(90.0f);
         arc2.setStroke(Color.valueOf(c1));
-
         Arc arc1= new Arc();
-        //Setting the position of the circle
-//        arc1.setCenterX(Centerx);
-//        arc1.setCenterY(Centery);
         arc1.setLayoutY(Centery);
         arc1.setLayoutX(Centerx);
         arc1.setRadiusX(100.0f);
@@ -59,10 +53,31 @@ public class myShape extends Application {
         arc1.setStartAngle(Start_angle);
         arc1.setType(ArcType.ROUND);
         arc1.setLength(90.0f);
-
-        //Performing subtraction operation on the circle
         Shape shape = Shape.subtract(arc1, arc2);
-        //Setting the fill color to the result
+        shape.setFill(Color.valueOf(c1));
+        return shape;
+
+    }
+    public Shape MakeArc2(String c1,double Centerx,double Centery,int Start_angle){
+
+        Arc arc2 = new Arc();
+        arc2.setRadiusX(70.0f);
+        arc2.setRadiusY(70.0f);
+        arc2.setStartAngle(Start_angle);
+        arc2.setType(ArcType.ROUND);
+        arc2.setLayoutY(Centery);
+        arc2.setLayoutX(Centerx);
+        arc2.setLength(90.0f);
+        arc2.setStroke(Color.valueOf(c1));
+        Arc arc1= new Arc();
+        arc1.setLayoutY(Centery);
+        arc1.setLayoutX(Centerx);
+        arc1.setRadiusX(90.0f);
+        arc1.setRadiusY(90.0f);
+        arc1.setStartAngle(Start_angle);
+        arc1.setType(ArcType.ROUND);
+        arc1.setLength(90.0f);
+        Shape shape = Shape.subtract(arc1, arc2);
         shape.setFill(Color.valueOf(c1));
         return shape;
 

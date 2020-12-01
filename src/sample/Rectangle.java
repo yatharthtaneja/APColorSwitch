@@ -32,6 +32,9 @@ public class Rectangle extends Shape{
         javafx.scene.shape.Rectangle shape = new javafx.scene.shape.Rectangle(x,y,width,height);
         shape.setFill(col);
         shape.setStroke(col);
+
+        shape.setStyle("-fx-arc-height: 20; -fx-arc-width: 20");
+
         shape.rotateProperty().setValue(startangle);
         setShape(shape);
     }

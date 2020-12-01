@@ -73,7 +73,7 @@ public class PlayGame extends Application {
         ringobstacles.add(curr3);
         Group curr4 =obj.MakeLine2a(-ringobstacles.size() * 450);
         ringobstacles.add(curr4);
-        obj.rotateTransition(curr,4);
+        obj.rotateTransition(curr,6);
 //        obj.rotateTransition(curr0,4);
 
         obj.MoveLine2(curr4,4,-450);
@@ -110,7 +110,7 @@ public class PlayGame extends Application {
         if (!GameOver){
             if (Gravity>0)
                 Gravity=0;
-            Gravity-=8.5;
+            Gravity-=9.5;
         }
     }
 
