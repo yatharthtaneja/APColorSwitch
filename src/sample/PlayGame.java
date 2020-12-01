@@ -43,6 +43,7 @@ public class PlayGame extends Application {
     private Stage MainStage;
     private Timeline Timer;
     private Circle Ball;
+    private boolean alreadyExecuted= false;
     private ArrayList<Obstacle> Obstacles;
     private ArrayList<Powerups> Powerups;
     private ArrayList<Group> ringobstacles;
@@ -94,6 +95,7 @@ public class PlayGame extends Application {
                 GameOver=true;
             if(GameOver){
                 Ball.setCenterY(height-Ball.getRadius());
+
                 l2.setText("Game Over");
                 l2.setLayoutX(MainStage.getWidth()/2-35);
                 l2.setLayoutY(MainStage.getHeight()/2-50);
@@ -405,6 +407,12 @@ public class PlayGame extends Application {
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
                         Root.getChildren().addAll(l2,Restart);
+                    if(!alreadyExecuted) {
+                        Score updatescore= new Score();
+                        updatescore.writeStats(Integer.parseInt(score.getText()));
+                        alreadyExecuted = true;
+                    }
+
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
@@ -528,6 +536,7 @@ public class PlayGame extends Application {
         Root.getChildren().add(obstacle.getObstacle());
     }
     public void BeginGame(){
+        alreadyExecuted= false;
         Ball.setCenterX(width/2);
         Ball.setCenterY(2*height/3);
         GameOver=false;
