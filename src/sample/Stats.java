@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,13 +30,20 @@ public class Stats implements Initializable {
     }
     @FXML
     private Text text;
+    @FXML
+    private Label starlabel;
+    @FXML
+    private Label highlabel;
+
     private static boolean lightmode;
     public void setTheme(boolean s){
         this.lightmode=s;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Score score= new Score();
+        highlabel.setText(score.getScore());
+        starlabel.setText(score.getStar());
         if(lightmode){
             statsPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");

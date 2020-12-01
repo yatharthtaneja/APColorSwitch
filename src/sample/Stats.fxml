@@ -27,12 +27,12 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="322.0" layoutY="323.0" text="64" textFill="#fff93e">
+      <Label fx:id="highlabel" layoutX="322.0" layoutY="323.0" text="64" textFill="#fff93e">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="316.0" layoutY="398.0" text="200" textFill="#fff93e">
+      <Label fx:id="starlabel" layoutX="316.0" layoutY="398.0" text="200" textFill="#fff93e">
          <font>
             <Font size="22.0" />
          </font>
