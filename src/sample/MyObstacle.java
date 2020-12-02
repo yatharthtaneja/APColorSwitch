@@ -25,10 +25,9 @@ public class MyObstacle extends Application {
         Group root2=MakeCross(225,400);
         Group root = new Group(root1,root3);
 //        setarcY(root1,50);
-        rotateTransition(root3,4);
-        rotateTransition(root1,4);
+        //rotateTransition(root3,4);
+        RotateTransition x=rotateTransition(root1,4);
         rotateTransition(root2,4);
-
 //        System.out.println(root.getLayoutY());
 //        System.out.println(root.getChildren().get(3).getLayoutY());
 //        RotateArc(root1,360,0,4,225,300);
@@ -41,6 +40,7 @@ public class MyObstacle extends Application {
 
         //Displaying the contents of the stage
         stage.show();
+        
     }
     public Group MakeringObstacle(double Centerx, double Centery){
 
@@ -82,7 +82,7 @@ public class MyObstacle extends Application {
         return group;
 
     }
-    public void rotateTransition(Group g1,int duration){
+    public RotateTransition rotateTransition(Group g1,int duration){
         RotateTransition rt = new RotateTransition();
         rt.setAxis(Rotate.Z_AXIS);
         rt.setByAngle(360);
@@ -91,6 +91,7 @@ public class MyObstacle extends Application {
         rt.setInterpolator(Interpolator.LINEAR);
         rt.setNode(g1);
         rt.play();
+        return rt;
     }
     public void setarcY(Group g1,double Centery){
         System.out.println(g1.getChildren().get(0).getLayoutX());
