@@ -415,10 +415,10 @@ public class PlayGame extends Application {
                         Powerups.get(i).incrementYpos(4);
                     }
                 }
-                if(Obstacles.get(0).getYpos()>height) {
+                if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
                     Obstacles.remove(0);
-                    if(Obstacles.size()<3)
+                    if(Obstacles.size()<4)
                         AddObstacleandPowerup();
                 }
             }
@@ -634,6 +634,7 @@ public class PlayGame extends Application {
             Root.getChildren().remove(Powerups.get(0).getObject());
             Powerups.remove(0);
         }
+        AddObstacleandPowerup();
         AddObstacleandPowerup();
         AddObstacleandPowerup();
         AddObstacleandPowerup();
