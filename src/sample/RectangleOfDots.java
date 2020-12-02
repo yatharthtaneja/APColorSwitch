@@ -51,10 +51,12 @@ public class RectangleOfDots extends Obstacle{
 
                     if(i==35){
                         temp.setFill(c1);
+                        temp.setStroke(c1);
                     }
                     else {
                         javafx.scene.shape.Shape temp2 = (javafx.scene.shape.Shape) getObstacle().getChildren().get(i + 1);
                         temp.setFill(temp2.getFill());
+                        temp.setStroke(temp2.getStroke());
                     }
                     getObstacle().getChildren().remove(i);
                     getObstacle().getChildren().add(i,temp);

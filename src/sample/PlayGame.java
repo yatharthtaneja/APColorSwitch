@@ -146,7 +146,7 @@ public class PlayGame extends Application {
                         String code=keyEvent.getCode().toString();
                         if(code.equals("UP")){
                             Jump();
-                            playSound();
+                            PlaySound("Jumping.wav");
                         }
                     }
                 });
@@ -232,7 +232,6 @@ public class PlayGame extends Application {
                 PauseScene.setFill(Color.valueOf("#fffff0"));
             else
                 PauseScene.setFill(Color.valueOf("#141518"));
-
             MainStage.setScene(PauseScene);
             resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
                 MainStage.setScene(currScene);
@@ -266,6 +265,7 @@ public class PlayGame extends Application {
         if(Ball.getCenterY()>height-12||Ball.getCenterY()<12)
             GameOver=true;
         if(GameOver){
+            PlaySound("GameOver.wav");
             Timer.pause();
             l2.setText("Game Over");
             l2.setLayoutX(MainStage.getWidth()/2-35);
@@ -282,7 +282,7 @@ public class PlayGame extends Application {
         if(Powerups.size()>0){
             Shape s1=Powerups.get(0).getObject();
             if (Shape.intersect(Ball, s1).getBoundsInLocal().getWidth()!=-1){
-                //Powerups.get(0).Collision();
+                Powerups.get(0).Collide();
                 if (Powerups.get(0).getClass()==ColourBooster.class){
                     int index=(int)(Math.random()*4);
                     while(Ball.getFill()==Colors[index]){
@@ -300,7 +300,7 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=7;//(int)(Math.random()*8);
+        int index=(int)(Math.random()*8);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -486,8 +486,8 @@ public class PlayGame extends Application {
             System.out.println("Type "+ p2.getObsType(k)+" X "+ p2.getObsX(k)+" Y "+p2.getObsY(k));
         }
     }
-    private void playSound(){
-        AudioClip jump = new AudioClip(this.getClass().getResource("Jumping.wav").toString());
-        jump.play();
+    private void PlaySound(String link){
+        AudioClip sound = new AudioClip(this.getClass().getResource(link).toString());
+        sound.play();
     }
 }

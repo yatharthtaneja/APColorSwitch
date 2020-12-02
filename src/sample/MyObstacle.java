@@ -40,7 +40,7 @@ public class MyObstacle extends Application {
 
         //Displaying the contents of the stage
         stage.show();
-        
+
     }
     public Group MakeringObstacle(double Centerx, double Centery){
 
