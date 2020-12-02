@@ -375,7 +375,7 @@ public class PlayGame extends Application {
                         }
                     }
                 });
-                CheckObstacleCollision();
+                //CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
@@ -518,14 +518,14 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=(int)(Math.random()*3);
+        int index=(int)(Math.random()*6);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
         Obstacle obstacle=null;
         if (index==0){//SingleRing Anticlockwise
             if(Obstacles.size()!=0) {
-                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
@@ -534,9 +534,9 @@ public class PlayGame extends Application {
             colourbooster=new ColourBooster(y-200);
             obstacle=new Ring(225,y);
         }
-        else if(index==1){
+        else if(index==1){//SquareTrap Clockwise
             if(Obstacles.size()!=0){
-                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
@@ -547,7 +547,7 @@ public class PlayGame extends Application {
         }
         else if(index==2){//Cross Clockwise
             if(Obstacles.size()!=0){
-                if (Obstacles.get(Obstacles.size()-1).getClass()==Line.class)
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
@@ -555,6 +555,39 @@ public class PlayGame extends Application {
             star=new Star(y-100);
             colourbooster=new ColourBooster(y-180);
             obstacle=new Cross(125,y);
+        }
+        else if(index==3){//Unidirectional Line Right
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
+            }
+            star=new Star(y-65);
+            colourbooster=new ColourBooster(y-125);
+            obstacle=new UnidirectionalLine(y,false);
+        }
+        else if(index==4){//Unidirectional Line Left
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
+            }
+            star=new Star(y-65);
+            colourbooster=new ColourBooster(y-125);
+            obstacle=new UnidirectionalLine(y,true);
+        }
+        else if(index ==5){//Bidirectional Line
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
+            }
+            star=new Star(y-65);
+            colourbooster=new ColourBooster(y-125);
+            obstacle=new BidirectionalLine(y);
         }
         obstacle.Move();
         Obstacles.add(obstacle);
