@@ -59,6 +59,8 @@ private Button LoadButton;
     }
     @FXML
     private Text text;
+    @FXML
+    private Text text1;
     private static boolean lightmode;
     public void setTheme(boolean s){
         this.lightmode=s;
@@ -79,11 +81,15 @@ private Button LoadButton;
         if(lightmode){
             menuAnchor.setStyle("-fx-background-color: #FFFFF0");
             text.setFill(Color.valueOf("#141518"));
+            text1.setFill(Color.valueOf("#141518"));
+
             PlayButton.setFill(Color.valueOf("#141518"));
         }
         else{
             menuAnchor.setStyle("-fx-background-color: #141518");
             text.setFill(Color.valueOf("#FFFFFF"));
+            text1.setFill(Color.valueOf("#FFFFFF"));
+
             PlayButton.setFill(Color.valueOf("#FFFFFF"));
         }
         try {

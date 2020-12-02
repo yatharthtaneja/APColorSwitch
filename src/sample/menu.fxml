@@ -18,7 +18,7 @@
             <Arc id="bottomrleftcurve" fx:id="bottomleftcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
          </children>
       </Group>
-      <Text fx:id="text" fill="WHITE" layoutX="137.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOR SWITCH" wrappingWidth="175.9999999999999">
+      <Text fx:id="text" fill="WHITE" layoutX="141.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOR" textAlignment="CENTER" wrappingWidth="176.4999999999999">
          <font>
             <Font name="Futura Light BT" size="49.0" />
          </font>
@@ -45,5 +45,10 @@
       <Button fx:id="SettingsButton" layoutX="137.0" layoutY="626.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Settings" textFill="#1e1e1e" />
       <Button fx:id="ExitButton" layoutX="138.0" layoutY="699.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Exit" textFill="#1e1e1e" />
       <Group fx:id="Cross" layoutX="-153.0" layoutY="-84.0" />
+      <Text fx:id="text1" fill="WHITE" layoutX="144.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SWITCH" textAlignment="CENTER" wrappingWidth="176.4999999999999">
+         <font>
+            <Font name="Futura Light BT" size="49.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
