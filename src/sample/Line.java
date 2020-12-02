@@ -88,7 +88,7 @@ class BidirectionalLine extends sample.Line {
     @Override
     public void Move(){
         TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(Duration.seconds(4));
+        translateTransition.setDuration(Duration.seconds(3));
         translateTransition.setNode(getObstacle());
         translateTransition.setByX(450);
         translateTransition.setCycleCount(Animation.INDEFINITE);
