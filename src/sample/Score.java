@@ -73,6 +73,23 @@ public class Score {
         }
 
     }
+    public void reset(){
+
+
+        try{
+            String test = "0\n0";
+            File file = new File("output.txt");
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(test);
+            bw.close();
+            fw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
 
 
 

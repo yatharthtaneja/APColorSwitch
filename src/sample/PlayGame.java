@@ -324,7 +324,10 @@ public class PlayGame extends Application {
         pauseButton.setPrefWidth(50);
         pauseButton.setLayoutX(375);
         pauseButton.setLayoutY(10);
-        addImage(pauseButton,"sample/Assets/pause_white.png");
+        if(lightmode)
+            addImage(pauseButton,"sample/Assets/pause.png");
+        else
+            addImage(pauseButton,"sample/Assets/pause_white.png");
         pauseButton.setId("pauseButton");
         Root.getStylesheets().add("sample/button.css");
         Root.getChildren().add(pauseButton);
@@ -334,7 +337,11 @@ public class PlayGame extends Application {
         score.setLayoutY(15);
         score.prefHeight(50);
         score.prefHeight(50);
-        score.setTextFill(Color.WHITESMOKE);
+        if(lightmode)
+            score.setTextFill(Color.valueOf("#141518"));
+
+        else
+            score.setTextFill(Color.WHITESMOKE);
         score.setFont(new Font("Cambria", 36));
         Root.getChildren().add(score);
 
@@ -419,7 +426,10 @@ public class PlayGame extends Application {
         Timer.getKeyFrames().addAll(KF1,KF2);
         Root.getChildren().add(Ball);
         MainScene=new Scene(Root,450,800);
-        MainScene.setFill(Color.valueOf("#141518"));
+        if(lightmode)
+            MainScene.setFill(Color.valueOf("#fffff0"));
+        else
+            MainScene.setFill(Color.valueOf("#141518"));
         BeginGame();
         MainStage.setScene(MainScene);
         MainStage.show();

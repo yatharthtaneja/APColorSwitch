@@ -81,7 +81,6 @@ public void  setTheme(boolean s){
             text.setFill(Color.valueOf("#FFFFFF"));
             text2.setTextFill(Color.valueOf("#FFFFFF"));
             text3.setTextFill(Color.valueOf("#FFFFFF"));
-
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
@@ -96,6 +95,10 @@ public void  setTheme(boolean s){
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+        });
+        ResetButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            Score obj2= new Score();
+            obj2.reset();
         });
         HowButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
