@@ -507,7 +507,6 @@ public class PlayGame extends Application {
         if(Ball.getCenterY()>height-12||Ball.getCenterY()<12)
             GameOver=true;
         if(GameOver){
-            Ball.setCenterY(height-Ball.getRadius());
             l2.setText("Game Over");
             l2.setLayoutX(MainStage.getWidth()/2-35);
             l2.setLayoutY(MainStage.getHeight()/2-50);
