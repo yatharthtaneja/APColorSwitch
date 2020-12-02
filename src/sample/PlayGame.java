@@ -732,9 +732,8 @@ public class PlayGame extends Application {
         }
     }
     private void playSound(){
-        AudioClip jump = new AudioClip(this.getClass().getResource("jump.wav").toString());
+        AudioClip jump = new AudioClip(this.getClass().getResource("Jumping.wav").toString());
         jump.play();
-
     }
 
 
