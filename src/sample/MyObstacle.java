@@ -190,7 +190,6 @@ public class MyObstacle extends Application {
         translateTransition.setAutoReverse(true);
         translateTransition.play();
     }
-
     public static void main(String args[]){
         launch(args);
     }

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class Cross extends Obstacle{
     Cross(double x,double y){
-        setListOfShapes(new ArrayList<>());
         setXpos(x);setYpos(y);
+        setListOfShapes(new ArrayList<>());
         sample.Shape shape1= new Pentagon(x+32.5,y-162,0,Color.web("#35e2f2"));
         sample.Shape shape2= new Pentagon(x+32.5,y-77.5,90,Color.web("#f6df0e"));
         sample.Shape shape3= new Pentagon(x-52.5,y-77.5,180,Color.web("#8c13fb"));

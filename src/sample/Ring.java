@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class Ring extends Obstacle{
     public Ring(double x,double y){
-        setListOfShapes(new ArrayList<>());
         setXpos(x);setYpos(y);
+        setListOfShapes(new ArrayList<>());
         sample.Shape s1=new Arc(x,y, Color.web("#35e2f2"),0);
         sample.Shape s2=new Arc(x,y, Color.web("#f6df0e"),90);
         sample.Shape s3=new Arc(x,y, Color.web("#8c13fb"),180);

@@ -171,20 +171,13 @@ private Button LoadButton;
             GameSettings controller = (GameSettings) loader.getController();
             controller.setStage(this.stage);
         }
-        else if(s.equals("Play.fxml")){
-            Play controller = (Play) loader.getController();
-            controller.setStage(this.stage);
-
-        }
         else if(s.equals("LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
             controller.setStage(this.stage);
-
         }
         else if(s.equals("Stats.fxml")){
             Stats controller = (Stats) loader.getController();
             controller.setStage(this.stage);
-
         }
 
 
