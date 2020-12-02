@@ -13,9 +13,9 @@ public class Star extends Powerups {
     public Star(double y,boolean light){
         Image img;
         if(light)
-            img=new Image("sample/Assets/star_black.png");
+            img=new Image("sample/Assets/star_black.gif");
         else
-            img=new Image("sample/Assets/star.png");
+            img=new Image("sample/Assets/star.gif");
 
         ImagePattern imagepattern=new ImagePattern(img);
         Circle circle=new Circle();

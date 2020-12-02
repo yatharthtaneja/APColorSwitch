@@ -503,7 +503,10 @@ public class PlayGame extends Application {
             l2.setText("Game Over");
             l2.setLayoutX(MainStage.getWidth()/2-35);
             l2.setLayoutY(MainStage.getHeight()/2-50);
-            l2.setTextFill(Color.WHITESMOKE);
+            if(lightmode)
+                l2.setTextFill(Color.valueOf("#141518"));
+            else
+                l2.setTextFill(Color.WHITESMOKE);
             l2.setScaleY(4);
             l2.setScaleX(4);
         }
