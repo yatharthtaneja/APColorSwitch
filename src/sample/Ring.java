@@ -15,10 +15,10 @@ public class Ring extends Obstacle{
     public Ring(double x,double y){
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
-        sample.Shape s1=new Arc(x,y, Color.web("#35e2f2"),0);
-        sample.Shape s2=new Arc(x,y, Color.web("#f6df0e"),90);
-        sample.Shape s3=new Arc(x,y, Color.web("#8c13fb"),180);
-        sample.Shape s4=new Arc(x,y, Color.web("#ff0080"),270);
+        sample.Shape s1=new Arc(x,y,0, Color.web("#35e2f2"));
+        sample.Shape s2=new Arc(x,y,90, Color.web("#f6df0e"));
+        sample.Shape s3=new Arc(x,y,180,Color.web("#8c13fb"));
+        sample.Shape s4=new Arc(x,y,270,Color.web("#ff0080"));
         AddShape(s1);AddShape(s2);AddShape(s3);AddShape(s4);
         setObstacle(new Group(s1.getShape(),s2.getShape(),s3.getShape(),s4.getShape()));
     }

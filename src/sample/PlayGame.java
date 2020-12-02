@@ -530,7 +530,7 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=(int)(Math.random()*7);
+        int index=(int)(Math.random()*8);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -612,6 +612,17 @@ public class PlayGame extends Application {
             colourbooster=new ColourBooster(y-250);
             obstacle=new RectangleOfDots(225,y);
         }
+        else if(index==7){
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+            }
+            star=new Star(y-100,lightmode);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new DoubleRing(225,y);
+        }
         obstacle.Move();
         Obstacles.add(obstacle);
         Root.getChildren().add(obstacle.getObstacle());
@@ -678,6 +689,8 @@ public class PlayGame extends Application {
             type=5;
         else if (obs instanceof RectangleOfDots)
             type=6;
+        else if(obs instanceof DoubleRing)
+            type=7;
         return type;
     }
     public void savecurrentGame(){
