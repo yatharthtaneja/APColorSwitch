@@ -19,6 +19,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -31,6 +34,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -379,6 +383,7 @@ public class PlayGame extends Application {
                         String code=keyEvent.getCode().toString();
                         if(code.equals("UP")){
                             Jump();
+                            playSound();
                         }
                     }
                 });
@@ -436,52 +441,55 @@ public class PlayGame extends Application {
         MainStage.setScene(MainScene);
         MainStage.show();
 
-//        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
-//            Scene currScene = MainStage.getScene();
-//            Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
-//            Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
-//            Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
-//            Timer.pause();
-//            if(lightmode)
-//                addImage(HomeButton,"sample/Assets/home.png");
-//            else
-//                addImage(HomeButton,"sample/Assets/home_white.png");
-//
-//            Label l3= new Label();
-//            l3.setText("Pause Menu");
-//            l3.setFont(Font.font("Futura Light BT"));
-//            l3.setLayoutX(MainStage.getWidth()/2-35);
-//            l3.setLayoutY(120);
-//            if(lightmode)
-//                l3.setTextFill(Color.valueOf("#141518"));
-//            else
-//                l3.setTextFill(Color.WHITESMOKE);
-//            l3.setScaleY(4);
-//            l3.setScaleX(4);
-//            Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
-//            PauseMenu.getStylesheets().add("sample/button.css");
-//
-//            Scene PauseScene = new Scene(PauseMenu,450,800);
-//            if(lightmode)
-//                PauseScene.setFill(Color.valueOf("#fffff0"));
-//            else
-//                PauseScene.setFill(Color.valueOf("#141518"));
-//
-//            MainStage.setScene(PauseScene);
-//            resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
-//                MainStage.setScene(currScene);
-//                Timer.play();
-//
-//            });
-//            HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
-//                try {
-//                    loadButton("menu.fxml");
-//                } catch (IOException ioException) {
-//                    ioException.printStackTrace();
-//                }
-//            });
-//
-//        });
+        pauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
+            Scene currScene = MainStage.getScene();
+            Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
+            Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
+            Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
+            Timer.pause();
+            if(lightmode)
+                addImage(HomeButton,"sample/Assets/home.png");
+            else
+                addImage(HomeButton,"sample/Assets/home_white.png");
+
+            Label l3= new Label();
+            l3.setText("Pause Menu");
+            l3.setFont(Font.font("Futura Light BT"));
+            l3.setLayoutX(MainStage.getWidth()/2-35);
+            l3.setLayoutY(120);
+            if(lightmode)
+                l3.setTextFill(Color.valueOf("#141518"));
+            else
+                l3.setTextFill(Color.WHITESMOKE);
+            l3.setScaleY(4);
+            l3.setScaleX(4);
+            Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
+            PauseMenu.getStylesheets().add("sample/button.css");
+
+            Scene PauseScene = new Scene(PauseMenu,450,800);
+            if(lightmode)
+                PauseScene.setFill(Color.valueOf("#fffff0"));
+            else
+                PauseScene.setFill(Color.valueOf("#141518"));
+
+            MainStage.setScene(PauseScene);
+            resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
+                MainStage.setScene(currScene);
+                Timer.play();
+
+            });
+            HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
+                try {
+                    loadButton("menu.fxml");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
+                savecurrentGame();
+            });
+
+        });
 
     }
     public void CheckObstacleCollision(){
@@ -723,6 +731,11 @@ public class PlayGame extends Application {
         for(int k=0;k<p2.getSize();k++){
             System.out.println("Type "+ p2.getObsType(k)+" X "+ p2.getObsX(k)+" Y "+p2.getObsY(k));
         }
+    }
+    private void playSound(){
+        AudioClip jump = new AudioClip(this.getClass().getResource("jump.wav").toString());
+        jump.play();
+
     }
 
 
