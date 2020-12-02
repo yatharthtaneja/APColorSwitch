@@ -382,7 +382,7 @@ public class PlayGame extends Application {
                         }
                     }
                 });
-                //CheckObstacleCollision();
+                CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
@@ -391,6 +391,8 @@ public class PlayGame extends Application {
                         Score updatescore= new Score();
                         updatescore.writeStats(Integer.parseInt(score.getText()));
                         alreadyExecuted = true;
+                        savecurrentGame();
+
                     }
 
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -660,5 +662,52 @@ public class PlayGame extends Application {
             }
         });
     }
+    public int getTypeofObstacle(Obstacle obs){
+        int type =-1;
+        if(obs instanceof Ring)
+            type=0;
+        else if(obs instanceof SquareTrap)
+            type=1;
+        else if(obs instanceof Cross)
+            type=2;
+        else if(obs instanceof Line)
+            type=3;
+        else if(obs instanceof UnidirectionalLine)
+            type=4;
+        else if(obs instanceof BidirectionalLine)
+            type=5;
+        else if (obs instanceof RectangleOfDots)
+            type=6;
+        return type;
+    }
+    public void savecurrentGame(){
+        player p1 = new player();
+        p1.setScore(Integer.parseInt(score.getText()));
+        p1.setBallX(Ball.getCenterX());
+        p1.setBallY(Ball.getCenterY());
+        for(int i =0 ;i< Obstacles.size();i++){
+            Obstacle obs = Obstacles.get(i);
+            p1.addType(getTypeofObstacle(obs));
+            p1.addXcord(obs.getXpos());
+            p1.addYcord(obs.getYpos());
+        }
+        try {
+            resourceManager.save(p1,"1.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("saved");
+        player p2 = null;
+        try {
+             p2 = (player) resourceManager.loadData("1.save");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("score: "+ p2.getcurrScore()+" Ball x and y"+p2.getBallX()+" "+p2.getBallY());
+        for(int k=0;k<p2.getSize();k++){
+            System.out.println("Type "+ p2.getObsType(k)+" X "+ p2.getObsX(k)+" Y "+p2.getObsY(k));
+        }
+    }
+
 
 }
