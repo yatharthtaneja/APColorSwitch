@@ -1,8 +1,8 @@
 
 #StatisticsButton {
     -fx-background-color:
-            linear-gradient(#00c3ff, #ffff1c),
-            linear-gradient(from 25% 25% to 100% 100%, #00c3ff, #ffff1c);
+            linear-gradient(#F3F9A7, #ffff1c),
+            linear-gradient(from 25% 25% to 100% 100%, #F3F9A7, #ffff1c);
     -fx-background-radius: 30;
     -fx-background-insets: 0,1,2,3,0;
 

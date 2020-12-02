@@ -10,8 +10,13 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
 public class Star extends Powerups {
-    public Star(double y){
-        Image img=new Image("sample/Assets/star.png");
+    public Star(double y,boolean light){
+        Image img;
+        if(light)
+            img=new Image("sample/Assets/star_black.png");
+        else
+            img=new Image("sample/Assets/star.png");
+
         ImagePattern imagepattern=new ImagePattern(img);
         Circle circle=new Circle();
         circle.setFill(imagepattern);

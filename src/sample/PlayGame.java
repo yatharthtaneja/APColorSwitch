@@ -540,7 +540,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y);
+            star=new Star(y,lightmode);
             colourbooster=new ColourBooster(y-200);
             obstacle=new Ring(225,y);
         }
@@ -551,7 +551,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
-            star=new Star(y);
+            star=new Star(y,lightmode);
             colourbooster=new ColourBooster(y-225);
             obstacle=new SquareTrap(225,y);
         }
@@ -562,7 +562,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y-100);
+            star=new Star(y-100,lightmode);
             colourbooster=new ColourBooster(y-180);
             obstacle=new Cross(125,y);
         }
@@ -573,7 +573,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65);
+            star=new Star(y-65,lightmode);
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,false);
         }
@@ -584,7 +584,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65);
+            star=new Star(y-65,lightmode);
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,true);
         }
@@ -595,7 +595,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65);
+            star=new Star(y-65,lightmode);
             colourbooster=new ColourBooster(y-125);
             obstacle=new BidirectionalLine(y);
         }
@@ -606,7 +606,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
-            star=new Star(y);
+            star=new Star(y,lightmode);
             colourbooster=new ColourBooster(y-250);
             obstacle=new RectangleOfDots(225,y);
         }
@@ -644,7 +644,10 @@ public class PlayGame extends Application {
         l1.setScaleY(2);
         l1.setLayoutX(MainStage.getWidth()/2-55);
         l1.setLayoutY(MainStage.getHeight()/2-50);
-        l1.setTextFill(Color.WHITESMOKE);
+        if(lightmode)
+            l1.setTextFill(Color.valueOf("#141518"));
+        else
+            l1.setTextFill(Color.WHITESMOKE);
 
         Timer.pause();
         Root.getChildren().add(l1);
