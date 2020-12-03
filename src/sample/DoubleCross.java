@@ -1,4 +1,5 @@
 package sample;
+
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -9,26 +10,24 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class DoubleRing extends Obstacle{
-    public DoubleRing(double x,double y){
+public class DoubleCross extends Obstacle{
+    public DoubleCross(double x,double y){
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Group obstacle=new Group();
-        Group A=new Group();
-        Shape s1=new Arc(x-110,y,0,95,110, Color.web("#35e2f2"));
-        Shape s2=new Arc(x-110,y,90,95,110,Color.web("#f6df0e"));
-        Shape s3=new Arc(x-110,y,180,95,110,Color.web("#8c13fb"));
-        Shape s4=new Arc(x-110,y,270,95,110,Color.web("#ff0080"));
-        AddShape(s1);AddShape(s2);AddShape(s3);AddShape(s4);
-        A.getChildren().add(s1.getShape());A.getChildren().add(s2.getShape());A.getChildren().add(s3.getShape());A.getChildren().add(s4.getShape());
+        sample.Shape shape1= new Pentagon((x-100)+32.5,y-162,0, Color.web("#35e2f2"));
+        sample.Shape shape2= new Pentagon((x-100)+32.5,y-77.5,90,Color.web("#f6df0e"));
+        sample.Shape shape3= new Pentagon((x-100)-52.5,y-77.5,180,Color.web("#8c13fb"));
+        sample.Shape shape4= new Pentagon((x-100)-52.5,y-162,270,Color.web("#ff0080"));
+        AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);
+        Group A=new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape());
 
-        Group B=new Group();
-        Shape s5=new Arc(x+110,y,180,95,110, Color.web("#35e2f2"));
-        Shape s6=new Arc(x+110,y,270,95,110,Color.web("#f6df0e"));
-        Shape s7=new Arc(x+110,y,0,95,110,Color.web("#8c13fb"));
-        Shape s8=new Arc(x+110,y,90,95,110,Color.web("#ff0080"));
-        AddShape(s5);AddShape(s6);AddShape(s7);AddShape(s8);
-        B.getChildren().add(s5.getShape());B.getChildren().add(s6.getShape());B.getChildren().add(s7.getShape());B.getChildren().add(s8.getShape());
+        sample.Shape shape5= new Pentagon((x+100)+32.5,y-162,0, Color.web("#8c13fb"));
+        sample.Shape shape6= new Pentagon((x+100)+32.5,y-77.5,90,Color.web("#ff0080"));
+        sample.Shape shape7= new Pentagon((x+100)-52.5,y-77.5,180,Color.web("#35e2f2"));
+        sample.Shape shape8= new Pentagon((x+100)-52.5,y-162,270,Color.web("#f6df0e"));
+        AddShape(shape5);AddShape(shape6);AddShape(shape7);AddShape(shape8);
+        Group B=new Group(shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape());
 
         obstacle.getChildren().add(A);obstacle.getChildren().add(B);
         setObstacle(obstacle);

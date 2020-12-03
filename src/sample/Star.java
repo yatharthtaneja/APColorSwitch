@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -26,6 +27,7 @@ public class Star extends Powerups {
     }
     @Override
     public void Collide() {
-
+        AudioClip sound = new AudioClip(this.getClass().getResource("Star.wav").toString());
+        sound.play();
     }
 }

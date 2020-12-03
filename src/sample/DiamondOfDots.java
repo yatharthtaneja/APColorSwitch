@@ -8,30 +8,32 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
 import java.util.ArrayList;
 
-public class RectangleOfDots extends Obstacle{
-    public RectangleOfDots(double x,double y){
+public class DiamondOfDots extends Obstacle
+{
+    public DiamondOfDots(double x,double y){
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Group obstacle=new Group();
-        for (int i =0;i<9;i++){
-            Circle circle=new Circle((x-135),(y-105)+(i*30),15, Color.web("#35e2f2"));
+        for (int i =0;i<6;i++){
+            Circle circle=new Circle(x+(i*20),(y-180)+(i*30),15, Color.web("#35e2f2"));
             AddShape(circle);
             obstacle.getChildren().add(circle.getShape());
         }
-        for (int i =0;i<9;i++){
-            Circle circle=new Circle((x-105)+(i*30),(y+135),15, Color.web("#f6df0e"));
+        for (int i =0;i<6;i++){
+            Circle circle=new Circle(x+120-(i*20),y+(i*30),15, Color.web("#f6df0e"));
             AddShape(circle);
             obstacle.getChildren().add(circle.getShape());
         }
-        for (int i =0;i<9;i++){
-            Circle circle=new Circle((x+135),(y+105)-(i*30),15, Color.web("#8c13fb"));
+        for (int i =0;i<6;i++){
+            Circle circle=new Circle(x-(i*20),(y+180)-(i*30),15, Color.web("#8c13fb"));
             AddShape(circle);
             obstacle.getChildren().add(circle.getShape());
         }
-        for (int i =0;i<9;i++){
-            Circle circle=new Circle((x+105)-(i*30),(y-135),15, Color.web("#ff0080"));
+        for (int i =0;i<6;i++){
+            Circle circle=new Circle(x-120+(i*20),(y-(i*30)),15, Color.web("#ff0080"));
             AddShape(circle);
             obstacle.getChildren().add(circle.getShape());
         }
@@ -46,10 +48,10 @@ public class RectangleOfDots extends Obstacle{
             public void handle(ActionEvent event) {
                 javafx.scene.shape.Shape temp3=(javafx.scene.shape.Shape) getObstacle().getChildren().get(0);
                 Color c1= (Color) temp3.getFill();
-                for(int i=0;i<36;i++){
+                for(int i=0;i<24;i++){
                     javafx.scene.shape.Shape temp=(javafx.scene.shape.Shape)getObstacle().getChildren().get(i);
 
-                    if(i==35){
+                    if(i==23){
                         temp.setFill(c1);
                         temp.setStroke(c1);
                     }

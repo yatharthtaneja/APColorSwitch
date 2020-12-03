@@ -50,6 +50,9 @@ class UnidirectionalLine extends sample.Line{
                     ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()));
         }
     }
+    public boolean getLeft(){
+        return Left;
+    }
     @Override
     public void Move(){
         TranslateTransition translateTransition = new TranslateTransition();
