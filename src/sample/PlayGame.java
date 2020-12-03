@@ -153,7 +153,7 @@ public class PlayGame extends Application {
                         }
                     }
                 });
-                CheckObstacleCollision();
+                //CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
@@ -259,7 +259,7 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=8;//(int)(Math.random()*8);
+        int index=(int)(Math.random()*10);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -362,6 +362,17 @@ public class PlayGame extends Application {
             star=new Star(y-100,lightmode);
             colourbooster=new ColourBooster(y-180);
             obstacle=new DoubleCross(225,y);
+        }
+        else if(index==9){//DiamondOfDots
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-600;
+            }
+            star=new Star(y,lightmode);
+            colourbooster=new ColourBooster(y-250);
+            obstacle=new DiamondOfDots(225,y);
         }
         obstacle.Move();
         Obstacles.add(obstacle);
