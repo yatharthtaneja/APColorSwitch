@@ -259,7 +259,7 @@ public class PlayGame extends Application {
         }
     }
     public void AddObstacleandPowerup(){
-        int index=(int)(Math.random()*8);
+        int index=8;//(int)(Math.random()*8);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -351,6 +351,17 @@ public class PlayGame extends Application {
             star=new Star(y-100,lightmode);
             colourbooster=new ColourBooster(y-180);
             obstacle=new DoubleRing(225,y);
+        }
+        else if(index==8){//DoubleCross
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+            }
+            star=new Star(y-100,lightmode);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new DoubleCross(225,y);
         }
         obstacle.Move();
         Obstacles.add(obstacle);
