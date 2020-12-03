@@ -37,6 +37,9 @@ public class PlayGame extends Application {
     private Label l1,l2,score;
     private boolean GameOver;
     private Button Restart;
+    private Button Revive;
+    private double reviveX;
+    private double reviveY;
     private Group Root;
     private double Gravity;
     private long ticks;
@@ -127,6 +130,12 @@ public class PlayGame extends Application {
         Restart.setTranslateY(height/2+20);
         Restart.setPrefSize(200,50);
 
+        Revive=new javafx.scene.control.Button("Revive");
+        Revive.setId("reviveButton");
+        Revive.setTranslateX(120);
+        Revive.setTranslateY(height/2+70);
+        Revive.setPrefSize(200,50);
+
         GameOver=false;
         Gravity=0;
         ticks=0;
@@ -153,11 +162,11 @@ public class PlayGame extends Application {
                         }
                     }
                 });
-                //CheckObstacleCollision();
+                CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
                     if(!Root.getChildren().contains(l2))
-                        Root.getChildren().addAll(l2,Restart);
+                        Root.getChildren().addAll(l2,Restart,Revive);
                     if(!alreadyExecuted) {
                         Score updatescore= new Score();
                         updatescore.writeStats(Integer.parseInt(score.getText()));
@@ -169,7 +178,18 @@ public class PlayGame extends Application {
                         public void handle(MouseEvent mouseEvent) {
                             Root.getChildren().remove(Restart);
                             Root.getChildren().remove(l2);
+                            Root.getChildren().remove(Revive);
                             BeginGame();
+                        }
+                    });
+                    Revive.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            Root.getChildren().remove(Restart);
+                            Root.getChildren().remove(l2);
+                            Root.getChildren().remove(Revive);
+                            ReviveGame();
                         }
                     });
                 }
@@ -185,6 +205,7 @@ public class PlayGame extends Application {
                     for (int i=0;i<Powerups.size();i++){
                         Powerups.get(i).incrementYpos(4);
                     }
+                    reviveY+=4;
                 }
                 if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
@@ -249,17 +270,21 @@ public class PlayGame extends Application {
                     }
                     Ball.setFill(Colors[index]);
                     Ball.setStroke(Colors[index]);
+
                 }
                 else if(Powerups.get(0).getClass()==Star.class){
                     score.setText(Integer.toString(Integer.parseInt(score.getText())+1));
+                    reviveX=Ball.getCenterX();
+                    reviveY=Ball.getCenterY();
                 }
+
                 Root.getChildren().remove(Powerups.get(0).getObject());
                 Powerups.remove(0);
             }
         }
     }
     public void AddObstacleandPowerup(){
-        int index= 10;//(int)(Math.random()*11);
+        int index= (int)(Math.random()*11);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -397,6 +422,8 @@ public class PlayGame extends Application {
         alreadyExecuted= false;
         Ball.setCenterX(width/2);
         Ball.setCenterY(2*height/3);
+        reviveY=2*height/3;
+        reviveX=width/2;
         GameOver=false;
         Gravity=0;
         Root.getChildren().remove(Restart);
@@ -431,29 +458,106 @@ public class PlayGame extends Application {
             }
         });
     }
+    public void ReviveGame(){
+        player p2 = null;
+        try {
+            p2 = (player) resourceManager.loadData("1.save");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        alreadyExecuted= false;
+//        Ball.setCenterX(p2.getBallX());
+//        Ball.setCenterY(p2.getBallY());
+        Ball.setCenterX(reviveX);
+        Ball.setCenterY(reviveY);
+        GameOver=false;
+        Gravity=0;
+        Root.getChildren().remove(Restart);
+        Root.getChildren().remove(Revive);
+        int count1=Obstacles.size(),count2=Powerups.size();
+        for (int i=0;i<count1;i++){
+            Root.getChildren().remove(Obstacles.get(i).getObstacle());
+        }
+        for (int i=0;i<count2;i++){
+            Root.getChildren().remove(Powerups.get(i).getObject());
+        }
+        Obstacles.clear();Powerups.clear();
+        for(int i=0;i<p2.getSize();i++)
+        {
+            Obstacle obstacle= null;
+            int index = p2.getObsType(i);
+            if(index==0)
+                obstacle=new Ring(p2.getObsX(i),p2.getObsY(i));
+            else if(index==1)
+                obstacle=new SquareTrap(p2.getObsX(i),p2.getObsY(i));
+            else if(index==2)
+                obstacle=new Cross(p2.getObsX(i),p2.getObsY(i));
+            else if(index==3)
+                obstacle=new UnidirectionalLine(p2.getObsY(i),false);
+            else if(index==4)
+                obstacle=new UnidirectionalLine(p2.getObsY(i),true);
+            else if(index ==5 )
+                obstacle=new BidirectionalLine(p2.getObsY(i));
+            else if(index ==6 )
+                obstacle=new RectangleOfDots(p2.getObsX(i),p2.getObsY(i));
+            else if(index ==7 )
+                obstacle=new DoubleRing(p2.getObsX(i),p2.getObsY(i));
+            else if(index ==8 )
+                obstacle=new DoubleCross(p2.getObsX(i),p2.getObsY(i));
+            else if(index ==9 )
+                obstacle=new DiamondOfDots(p2.getObsX(i),p2.getObsY(i));
+            else if(index ==10 )
+                obstacle=new Trilateral(p2.getObsX(i),p2.getObsY(i));
+            obstacle.Move();
+            Obstacles.add(obstacle);
+            Root.getChildren().add(obstacle.getObstacle());
+
+//
+        }
+        score.setText(Integer.toString(p2.getcurrScore()));
+        l1.setText("Press Up key to start");
+        l1.setScaleX(2);
+        l1.setScaleY(2);
+        l1.setLayoutX(MainStage.getWidth()/2-55);
+        l1.setLayoutY(MainStage.getHeight()/2-50);
+        if(lightmode)
+            l1.setTextFill(Color.valueOf("#141518"));
+        else
+            l1.setTextFill(Color.WHITESMOKE);
+        Timer.pause();
+        if(!Root.getChildren().contains(l1))
+            Root.getChildren().add(l1);
+        MainScene.setOnKeyReleased(keyEvent -> {
+            String code=keyEvent.getCode().toString();
+            if(code.equals("UP")){
+                Root.getChildren().remove(l1);
+                Timer.play();
+            }
+        });
+    }
     public int getTypeofObstacle(Obstacle obs){
         int type =-1;
-        if(obs.getClass().getName()== "Ring")
+        if(obs.getClass()==Ring.class)
             type=0;
-        else if(obs.getClass().getName()== "SquareTrap")
+        else if(obs.getClass()==SquareTrap.class)
             type=1;
-        else if(obs.getClass().getName()== "Cross")
+        else if(obs instanceof Cross)
             type=2;
-        else if(obs.getClass().getName()== "UnidirectionalLine")
+        else if(obs.getClass()== UnidirectionalLine.class && !((UnidirectionalLine) obs).getLeft())
             type=3;
-        else if(obs.getClass().getName()== "UnidirectionalLine")
+        else if(obs.getClass()== UnidirectionalLine.class && ((UnidirectionalLine) obs).getLeft())
             type=4;
-        else if(obs.getClass().getName()== "BidirectionalLine")
+        else if(obs instanceof BidirectionalLine)
             type=5;
-        else if (obs.getClass().getName()== "RectangleOfDots")
+        else if (obs instanceof RectangleOfDots)
             type=6;
-        else if(obs.getClass().getName()== "DoubleRing")
+        else if(obs instanceof DoubleRing)
             type=7;
-        else if(obs.getClass().getName()== "DoubleCross")
+        else if(obs instanceof DoubleCross)
             type=8;
-        else if(obs.getClass().getName()== "DiamondOfDots")
+        else if(obs instanceof DiamondOfDots)
             type=9;
-        else if(obs.getClass().getName()== "Trilateral")
+        else if(obs instanceof Trilateral)
             type=10;
         return type;
     }
