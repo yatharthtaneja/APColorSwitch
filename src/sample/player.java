@@ -15,23 +15,18 @@ public class player implements Serializable {
     public double getBallX() {
         return ballX;
     }
-
     public double getBallY() {
         return ballY;
     }
-
     public int getcurrScore() {
         return score;
     }
-
     public void setBallX(double ballX) {
         this.ballX = ballX;
     }
-
     public void setBallY(double ballY) {
         this.ballY = ballY;
     }
-
     public void setScore(int score) {
         this.score = score;
     }
