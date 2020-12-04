@@ -3,7 +3,10 @@ package sample;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 
-public class Shape {
+import java.io.Serializable;
+
+public class Shape implements Serializable {
+    private static final long serialVersionUID= 3l;
     private double Xpos;
     private double Ypos;
     private Color Colour;

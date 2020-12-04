@@ -67,7 +67,25 @@ public class LoadGame implements Initializable {
                 ioException.printStackTrace();
             }
         });
-
+        l5.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                player p2 = null;
+                try {
+                    p2 = (player) resourceManager.loadData("1.save");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                PlayGame game = new PlayGame();
+                game.setCurrentPlayer(p2);
+                game.setStage(stage);
+                game.setTheme(lightmode);
+                game.start(stage);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
     public void addImage(Button b1, String path){
         Image img = new Image(path);
@@ -75,7 +93,6 @@ public class LoadGame implements Initializable {
         view.setFitHeight(60);
         view.setPreserveRatio(true);
         b1.setGraphic(view);
-
     }
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));

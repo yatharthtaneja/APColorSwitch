@@ -42,7 +42,8 @@ public class PlayGame extends Application {
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
     private static boolean Lightmode;
-
+    private boolean loadgame;
+    private player CurrentPlayer;
     @Override
     public void start(Stage MainStage) throws Exception {
         Root=new Group();
@@ -167,16 +168,21 @@ public class PlayGame extends Application {
             MainScene.setFill(Color.valueOf("#fffff0"));
         else
             MainScene.setFill(Color.valueOf("#141518"));
-        BeginGame();
+        if(CurrentPlayer==null)
+            BeginGame();
+        else
+            ResumeGame();
         MainStage.setScene(MainScene);
         MainStage.show();
-
         PauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
             PauseMenu();
         });
     }
     public void setStage(Stage stage){ this.MainStage=stage; }
     public void setTheme(boolean s){ this.Lightmode=s;}
+    public void setCurrentPlayer(player Player){
+        this.CurrentPlayer=Player;
+    }
     public void Jump() {
         if (!GameOver) {
             if (Gravity > 0)
@@ -350,7 +356,7 @@ public class PlayGame extends Application {
             colourbooster=new ColourBooster(y-250);
             obstacle=new DiamondOfDots(225,y);
         }
-        if (index==10){//Trilateral
+        else if (index==10){//Trilateral
             if(Obstacles.size()!=0) {
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
@@ -386,6 +392,88 @@ public class PlayGame extends Application {
         for(int i=0;i<4;i++)
             AddObstacleandPowerup();
         Score.setText("0");
+        StartGameLabel.setText("Press Up key to start");
+        StartGameLabel.setScaleX(2);
+        StartGameLabel.setScaleY(2);
+        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
+        StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
+        if(Lightmode)
+            StartGameLabel.setTextFill(Color.valueOf("#141518"));
+        else
+            StartGameLabel.setTextFill(Color.WHITESMOKE);
+        Timer.pause();
+        if(!Root.getChildren().contains(StartGameLabel))
+            Root.getChildren().add(StartGameLabel);
+        MainScene.setOnKeyReleased(keyEvent -> {
+            String code=keyEvent.getCode().toString();
+            if(code.equals("UP")){
+                Root.getChildren().remove(StartGameLabel);
+                Timer.play();
+            }
+            else if(code.equals("P")||code.equals("p"))
+                PauseMenu();
+        });
+    }
+    public void ResumeGame(){
+        alreadyExecuted= false;
+        Ball.setXpos(CurrentPlayer.getBallX());Ball.setYpos(CurrentPlayer.getBallY());
+        reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallY();
+        GameOver=false;
+        Gravity=0;
+        Ticks=0;
+        for(int i=0;i<CurrentPlayer.ObstacleType.size();i++){
+            int index=CurrentPlayer.ObstacleType.get(i);
+            Obstacle obstacle = null;
+            if (index==0){//SingleRing Anticlockwise
+                obstacle=new Ring(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==1){//SquareTrap Clockwise
+                obstacle=new SquareTrap(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==2){//Cross Clockwise
+                obstacle=new Cross(125,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==3){//Unidirectional Line Right
+                obstacle=new UnidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i),false);
+            }
+            else if(index==4){//Unidirectional Line Left
+                obstacle=new UnidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i),true);
+            }
+            else if(index ==5){//Bidirectional Line
+                obstacle=new BidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==6){//RectangleOfDots
+                obstacle=new RectangleOfDots(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==7){//Horizontal DoubleRing
+                obstacle=new DoubleRing(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==8){//DoubleCross
+                obstacle=new DoubleCross(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==9){//DiamondOfDots
+                obstacle=new DiamondOfDots(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            if (index==10){//Trilateral
+                obstacle=new Trilateral(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            obstacle.Move();
+            Obstacles.add(obstacle);
+            Root.getChildren().add(obstacle.getObstacle());
+        }
+        for (int i=0;i<CurrentPlayer.PowerupType.size();i++){
+            int index=CurrentPlayer.PowerupType.get(i);
+            Powerups powerup = null;
+            if (index==1){
+                powerup=new Star(CurrentPlayer.PowerupYcord.get(i),Lightmode);
+            }
+            else if(index==2){
+                powerup=new ColourBooster(CurrentPlayer.PowerupYcord.get(i));
+            }
+            Powerups.add(powerup);
+            Root.getChildren().add(powerup.getObject());
+        }
+        Score.setText(Integer.toString(CurrentPlayer.getcurrScore()));
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);
         StartGameLabel.setScaleY(2);
@@ -483,6 +571,14 @@ public class PlayGame extends Application {
             p1.addType(getTypeofObstacle(obs));
             p1.addXcord(obs.getXpos());
             p1.addYcord(obs.getYpos());
+        }
+        for(int i =0 ;i< Powerups.size();i++){
+            sample.Powerups pow=Powerups.get(i);
+            if(pow.getClass()==Star.class)
+                p1.PowerupType.add(1);
+            else
+                p1.PowerupType.add(2);
+            p1.PowerupYcord.add(pow.getYpos());
         }
         try {
             resourceManager.save(p1,"1.save");

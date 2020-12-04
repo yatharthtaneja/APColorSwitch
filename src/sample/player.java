@@ -8,9 +8,12 @@ public class player implements Serializable {
     private int score;
     private double ballX;
     private double ballY;
-    private ArrayList<Integer> ObstacleType= new ArrayList<>();
-    private ArrayList<Double> ObsatcleXcord = new ArrayList<>();
-    private ArrayList<Double> ObsatcleYcord = new ArrayList<>();
+
+    public ArrayList<Integer> ObstacleType= new ArrayList<>();
+    public ArrayList<Double> ObsatcleXcord = new ArrayList<>();
+    public ArrayList<Double> ObsatcleYcord = new ArrayList<>();
+    public ArrayList<Integer> PowerupType= new ArrayList<>();
+    public ArrayList<Double> PowerupYcord = new ArrayList<>();
 
     public double getBallX() {
         return ballX;

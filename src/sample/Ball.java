@@ -4,7 +4,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class Ball implements SceneElements {
+import java.io.Serializable;
+
+public class Ball implements SceneElements, Serializable {
+    private static final long serialVersionUID= 5l;
     private double Xpos;
     private double Ypos;
     private Circle Ball;

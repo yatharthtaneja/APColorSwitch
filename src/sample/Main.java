@@ -23,7 +23,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         primaryStage.setTitle("ColorSwitch");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("IntroScreen.fxml"));
         Parent root =loader.load();
         IntroScreen controller = (IntroScreen) loader.getController();

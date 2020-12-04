@@ -2,7 +2,10 @@ package sample;
 
 import javafx.scene.shape.Shape;
 
-public abstract class Powerups implements SceneElements{
+import java.io.Serializable;
+
+public abstract class Powerups implements SceneElements, Serializable {
+    private static final long serialVersionUID= 4l;
     private double Xpos;
     private double Ypos;
     private Shape Object;

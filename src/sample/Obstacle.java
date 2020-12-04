@@ -2,9 +2,11 @@ package sample;
 
 import javafx.scene.Group;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Obstacle implements SceneElements {
+public abstract class Obstacle implements SceneElements, Serializable {
+    private static final long serialVersionUID= 2l;
     private double Xpos;
     private double Ypos;
     private ArrayList<Shape> ListOfShapes;
