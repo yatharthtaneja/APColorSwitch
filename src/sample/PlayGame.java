@@ -18,6 +18,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
@@ -31,7 +32,8 @@ public class PlayGame extends Application {
     private boolean alreadyExecuted= false;
     private ArrayList<Obstacle> Obstacles;
     private ArrayList<Powerups> Powerups;
-    private Label StartGameLabel,GameOverLabel,Score;
+    private Label StartGameLabel,GameOverLabel,Score,ColorSwitch,TotalStar,star_3;
+    private Score score= new Score();
     private boolean GameOver;
     private Button Restart;
     private Button Revive;
@@ -54,7 +56,7 @@ public class PlayGame extends Application {
             addImage(PauseButton,"sample/Assets/pause.png");
         else
             addImage(PauseButton,"sample/Assets/pause_white.png");
-        PauseButton.setId("PauseButton");
+        PauseButton.setId("pauseButton");
         Root.getStylesheets().add("sample/button.css");
         Root.getChildren().add(PauseButton);
 
@@ -81,12 +83,18 @@ public class PlayGame extends Application {
 
         Revive=new javafx.scene.control.Button("Revive");
         Revive.setId("reviveButton");
-        Revive.setTranslateX(120);Revive.setTranslateY(470);
+        Revive.setTranslateX(120);Revive.setTranslateY(490);
         Revive.setPrefSize(200,50);
 
         GameOver=false;
         Gravity=0;Ticks=0;
         StartGameLabel=new Label();GameOverLabel=new Label();
+        ColorSwitch= new Label();TotalStar= new Label(); star_3= new Label();
+        Image stars = new Image("sample/Assets/star_3_yellow.png");
+        ImageView view = new ImageView(stars);
+        view.setFitHeight(80);
+        view.setPreserveRatio(true);
+        star_3.setGraphic(view);
 
         KeyFrame KF1=new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
             @Override
@@ -112,8 +120,10 @@ public class PlayGame extends Application {
                 CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
-                    if(!Root.getChildren().contains(GameOverLabel))
-                        Root.getChildren().addAll(GameOverLabel,Restart,Revive);
+                    if(!Root.getChildren().contains(GameOverLabel)) {
+                        Root.getChildren().removeAll();
+                        Root.getChildren().addAll(GameOverLabel, Restart, Revive, TotalStar,star_3);
+                    }
                     if(!alreadyExecuted) {
                         Score updateScore= new Score();
                         updateScore.writeStats(Integer.parseInt(Score.getText()));
@@ -135,6 +145,7 @@ public class PlayGame extends Application {
                             Root.getChildren().remove(Restart);
                             Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Revive);
+
                             ReviveGame();
                         }
                     });
@@ -152,12 +163,18 @@ public class PlayGame extends Application {
                         Powerups.get(i).incrementYpos(3.5);
                     }
                     reviveY+=3.5;
+//                    ColorSwitch.setTranslateY(3.5);
+                ColorSwitch.setLayoutY(ColorSwitch.getLayoutY()+3.5);
                 }
                 if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
                     Obstacles.remove(0);
                     if(Obstacles.size()<4)
                         AddObstacleandPowerup();
+                }
+                if(ColorSwitch.getLayoutY()>950){
+//                    System.out.println("bahar");
+                    Root.getChildren().remove(ColorSwitch);
                 }
             }
         });
@@ -206,16 +223,30 @@ public class PlayGame extends Application {
             GameOver=true;
         if(GameOver){
             PlaySound("GameOver.wav");
+            if(Root.getChildren().contains(ColorSwitch)){
+                Root.getChildren().remove(ColorSwitch);
+            }
             Timer.pause();
             GameOverLabel.setText("Game Over");
             GameOverLabel.setLayoutX(MainStage.getWidth()/2-35);
             GameOverLabel.setLayoutY(MainStage.getHeight()/2-50);
-            if(Lightmode)
+            TotalStar.setText(Integer.toString(Integer.parseInt(score.getStar())+Integer.parseInt(Score.getText())));
+            TotalStar.setLayoutX(MainStage.getWidth()/2-20);
+            TotalStar.setLayoutY(MainStage.getHeight()/2+250);
+            star_3.setLayoutX(MainStage.getWidth()/2-50);
+            star_3.setLayoutY(MainStage.getHeight()/2+160);
+            if(Lightmode) {
                 GameOverLabel.setTextFill(Color.valueOf("#141518"));
-            else
+                TotalStar.setTextFill(Color.valueOf("#141518"));
+            }
+            else {
                 GameOverLabel.setTextFill(Color.WHITESMOKE);
+                TotalStar.setTextFill(Color.WHITESMOKE);
+            }
             GameOverLabel.setScaleY(4);
             GameOverLabel.setScaleX(4);
+            TotalStar.setScaleX(5);
+            TotalStar.setScaleY(5);
         }
     }
     public void CheckPowerupCollision(){
@@ -375,39 +406,57 @@ public class PlayGame extends Application {
         Powerups.add(colourbooster);
         Root.getChildren().add(colourbooster.getObject());
     }
-    public void BeginGame(){
-        alreadyExecuted= false;
-        Ball.setXpos(225);Ball.setYpos(535);
-        reviveY=535;reviveX=225;
-        GameOver=false;
-        Gravity=0;
-        Ticks=0;
+    public void BeginGame() {
+        alreadyExecuted = false;
+        Ball.setXpos(225);
+        Ball.setYpos(535);
+        reviveY = 535;
+        reviveX = 225;
+        GameOver = false;
+        Gravity = 0;
+        Ticks = 0;
         Root.getChildren().remove(Restart);
-        int count1=Obstacles.size(),count2=Powerups.size();
-        for (int i=0;i<count1;i++)
+        Root.getChildren().remove(TotalStar);
+        Root.getChildren().remove(star_3);
+        int count1 = Obstacles.size(), count2 = Powerups.size();
+        for (int i = 0; i < count1; i++)
             Root.getChildren().remove(Obstacles.get(i).getObstacle());
-        for (int i=0;i<count2;i++)
+        for (int i = 0; i < count2; i++)
             Root.getChildren().remove(Powerups.get(i).getObject());
-        Obstacles.clear();Powerups.clear();
-        for(int i=0;i<4;i++)
+        Obstacles.clear();
+        Powerups.clear();
+        for (int i = 0; i < 4; i++)
             AddObstacleandPowerup();
         Score.setText("0");
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);
         StartGameLabel.setScaleY(2);
-        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
-        StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
-        if(Lightmode)
+        StartGameLabel.setLayoutX(MainStage.getWidth() / 2 - 55);
+        StartGameLabel.setLayoutY(MainStage.getHeight() / 2 - 50);
+        ColorSwitch.setText(("COLOR\nSWITCH"));
+        ColorSwitch.setTextAlignment(TextAlignment.CENTER);
+        ColorSwitch.setFont(Font.font("Futura Light BT"));
+        ColorSwitch.setLayoutX(MainStage.getWidth() / 2 - 30);
+        ColorSwitch.setLayoutY(MainStage.getHeight() / 2+180);
+        ColorSwitch.setScaleX(4);
+        ColorSwitch.setScaleY(4);
+        if (Lightmode) {
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
-        else
+            ColorSwitch.setTextFill(Color.valueOf("#141518"));
+        } else {
             StartGameLabel.setTextFill(Color.WHITESMOKE);
+            ColorSwitch.setTextFill(Color.WHITESMOKE);
+        }
         Timer.pause();
-        if(!Root.getChildren().contains(StartGameLabel))
-            Root.getChildren().add(StartGameLabel);
+        if (!Root.getChildren().contains(StartGameLabel) && !Root.getChildren().contains(ColorSwitch))
+        {   Root.getChildren().addAll(StartGameLabel,ColorSwitch);
+//            Root.getChildren().add(StartGameLabel);
+        }
         MainScene.setOnKeyReleased(keyEvent -> {
             String code=keyEvent.getCode().toString();
             if(code.equals("UP")){
                 Root.getChildren().remove(StartGameLabel);
+//                Root.getChildren().remove(ColorSwitch);
                 Timer.play();
             }
             else if(code.equals("P")||code.equals("p"))
@@ -417,7 +466,7 @@ public class PlayGame extends Application {
     public void ResumeGame(){
         alreadyExecuted= false;
         Ball.setXpos(CurrentPlayer.getBallX());Ball.setYpos(CurrentPlayer.getBallY());
-        reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallY();
+        reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallX();
         GameOver=false;
         Gravity=0;
         Ticks=0;
@@ -512,6 +561,8 @@ public class PlayGame extends Application {
         Gravity=0;
         Root.getChildren().remove(Restart);
         Root.getChildren().remove(Revive);
+        Root.getChildren().remove(TotalStar);
+        Root.getChildren().remove(star_3);
         Score.setText(Integer.toString(p2.getcurrScore()));
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);
@@ -602,7 +653,7 @@ public class PlayGame extends Application {
         Scene CurrentScene =MainStage.getScene();
         Button ResumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
         Button SaveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
-        Button HomeButton= MakeButton(50,50,35,100,"","PauseButton");
+        Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
         Timer.pause();
         if(Lightmode)
             addImage(HomeButton,"sample/Assets/home.png");

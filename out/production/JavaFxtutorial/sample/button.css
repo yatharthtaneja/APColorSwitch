@@ -121,7 +121,17 @@
     -fx-background-color: #0074FF;
     -fx-background-color:linear-gradient(#B32D2C, #2F80ED),
     linear-gradient(from 25% 25% to 100% 100%, #B32D2C, #0074FF);
-    -fx-opacity: 0.8;
+    /*-fx-opacity: 0.8;*/
+    -fx-border-color: transparent;
+    -fx-text-fill: WHITESMOKE;
+    -fx-font-size: 20px;
+    -fx-font-weight: Bold;
+}
+#reviveButton{
+    -fx-background-color: #0074FF;
+    -fx-background-color:linear-gradient(#B32D2C, #2F80ED),
+    linear-gradient(from 25% 25% to 100% 100%, #B32D2C, #0074FF);
+    /*-fx-opacity: 0.8;*/
     -fx-border-color: transparent;
     -fx-text-fill: WHITESMOKE;
     -fx-font-size: 20px;
