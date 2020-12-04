@@ -145,12 +145,12 @@ public class PlayGame extends Application {
             public void handle(ActionEvent actionEvent) {
                 if(Ball.getYpos()<390) {
                     for (int i=0;i<Obstacles.size();i++){
-                        Obstacles.get(i).incrementYpos(4);
+                        Obstacles.get(i).incrementYpos(3.5);
                     }
                     for (int i=0;i<Powerups.size();i++){
-                        Powerups.get(i).incrementYpos(4);
+                        Powerups.get(i).incrementYpos(3.5);
                     }
-                    reviveY+=4;
+                    reviveY+=3.5;
                 }
                 if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
@@ -229,7 +229,6 @@ public class PlayGame extends Application {
                     reviveX=Ball.getXpos();
                     reviveY=Ball.getYpos();
                 }
-
                 Root.getChildren().remove(Powerups.get(0).getObject());
                 Powerups.remove(0);
             }
@@ -418,6 +417,8 @@ public class PlayGame extends Application {
         }
         alreadyExecuted= false;
         Ball.setXpos(reviveX);
+        if (reviveY>785)
+            reviveY =700;
         Ball.setYpos(reviveY);
         GameOver=false;
         Gravity=0;
