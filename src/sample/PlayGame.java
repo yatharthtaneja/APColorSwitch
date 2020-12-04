@@ -16,7 +16,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -32,7 +31,7 @@ public class PlayGame extends Application {
     private boolean alreadyExecuted= false;
     private ArrayList<Obstacle> Obstacles;
     private ArrayList<Powerups> Powerups;
-    private Label l1,l2,Score;
+    private Label StartGameLabel,GameOverLabel,Score;
     private boolean GameOver;
     private Button Restart;
     private Button Revive;
@@ -86,7 +85,7 @@ public class PlayGame extends Application {
 
         GameOver=false;
         Gravity=0;Ticks=0;
-        l1=new Label();l2=new Label();
+        StartGameLabel=new Label();GameOverLabel=new Label();
 
         KeyFrame KF1=new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
             @Override
@@ -112,8 +111,8 @@ public class PlayGame extends Application {
                 CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
-                    if(!Root.getChildren().contains(l2))
-                        Root.getChildren().addAll(l2,Restart,Revive);
+                    if(!Root.getChildren().contains(GameOverLabel))
+                        Root.getChildren().addAll(GameOverLabel,Restart,Revive);
                     if(!alreadyExecuted) {
                         Score updateScore= new Score();
                         updateScore.writeStats(Integer.parseInt(Score.getText()));
@@ -124,7 +123,7 @@ public class PlayGame extends Application {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             Root.getChildren().remove(Restart);
-                            Root.getChildren().remove(l2);
+                            Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Revive);
                             BeginGame();
                         }
@@ -133,7 +132,7 @@ public class PlayGame extends Application {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             Root.getChildren().remove(Restart);
-                            Root.getChildren().remove(l2);
+                            Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Revive);
                             ReviveGame();
                         }
@@ -176,50 +175,15 @@ public class PlayGame extends Application {
             PauseMenu();
         });
     }
-    public void setStage(Stage stage){
-        this.MainStage=stage;
-    }
-    public void setTheme(boolean s){
-        this.Lightmode=s;
-    }
-    
-    
-
-    public void Jump(){
-        if (!GameOver){
-            if (Gravity>0)
-                Gravity=0;
-            Gravity-=9.5;
+    public void setStage(Stage stage){ this.MainStage=stage; }
+    public void setTheme(boolean s){ this.Lightmode=s;}
+    public void Jump() {
+        if (!GameOver) {
+            if (Gravity > 0)
+                Gravity = 0;
+            Gravity -= 9.5;
         }
     }
-    public void addImage(Button b1,String path){
-        javafx.scene.image.Image img = new Image(path);
-        ImageView view = new ImageView(img);
-        view.setFitHeight(45);
-        view.setPreserveRatio(true);
-        b1.setGraphic(view);
-    }
-    public void loadButton(String s) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
-        Parent root = loader.load();
-        Menu controller = (Menu) loader.getController();
-        controller.setStage(this.MainStage);
-        Scene scene = new Scene(root,450,800);
-        MainStage.setScene(scene);
-        MainStage.setResizable(false);
-        MainStage.show();
-    }
-    public Button MakeButton(double h,double w,double x, double y,String text,String ID){
-        Button button= new Button();
-        button.setPrefHeight(h);
-        button.setPrefWidth(w);
-        button.setLayoutX(x);
-        button.setLayoutY(y);
-        button.setText(text);
-        button.setId(ID);
-        return button;
-    }
-    
     public void CheckObstacleCollision(){
         outer:for (int j=0;j<3;j++) {
             if(Obstacles.size()>j) {
@@ -237,15 +201,15 @@ public class PlayGame extends Application {
         if(GameOver){
             PlaySound("GameOver.wav");
             Timer.pause();
-            l2.setText("Game Over");
-            l2.setLayoutX(MainStage.getWidth()/2-35);
-            l2.setLayoutY(MainStage.getHeight()/2-50);
+            GameOverLabel.setText("Game Over");
+            GameOverLabel.setLayoutX(MainStage.getWidth()/2-35);
+            GameOverLabel.setLayoutY(MainStage.getHeight()/2-50);
             if(Lightmode)
-                l2.setTextFill(Color.valueOf("#141518"));
+                GameOverLabel.setTextFill(Color.valueOf("#141518"));
             else
-                l2.setTextFill(Color.WHITESMOKE);
-            l2.setScaleY(4);
-            l2.setScaleX(4);
+                GameOverLabel.setTextFill(Color.WHITESMOKE);
+            GameOverLabel.setScaleY(4);
+            GameOverLabel.setScaleX(4);
         }
     }
     public void CheckPowerupCollision(){
@@ -408,43 +372,41 @@ public class PlayGame extends Application {
     }
     public void BeginGame(){
         alreadyExecuted= false;
-        Ball.setXpos(225);
-        Ball.setYpos(535);
-        reviveY=535;
-        reviveX=225;
+        Ball.setXpos(225);Ball.setYpos(535);
+        reviveY=535;reviveX=225;
         GameOver=false;
         Gravity=0;
         Ticks=0;
         Root.getChildren().remove(Restart);
         int count1=Obstacles.size(),count2=Powerups.size();
-        for (int i=0;i<count1;i++){
+        for (int i=0;i<count1;i++)
             Root.getChildren().remove(Obstacles.get(i).getObstacle());
-        }
-        for (int i=0;i<count2;i++){
+        for (int i=0;i<count2;i++)
             Root.getChildren().remove(Powerups.get(i).getObject());
-        }
         Obstacles.clear();Powerups.clear();
         for(int i=0;i<4;i++)
             AddObstacleandPowerup();
         Score.setText("0");
-        l1.setText("Press Up key to start");
-        l1.setScaleX(2);
-        l1.setScaleY(2);
-        l1.setLayoutX(MainStage.getWidth()/2-55);
-        l1.setLayoutY(MainStage.getHeight()/2-50);
+        StartGameLabel.setText("Press Up key to start");
+        StartGameLabel.setScaleX(2);
+        StartGameLabel.setScaleY(2);
+        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
+        StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
         if(Lightmode)
-            l1.setTextFill(Color.valueOf("#141518"));
+            StartGameLabel.setTextFill(Color.valueOf("#141518"));
         else
-            l1.setTextFill(Color.WHITESMOKE);
+            StartGameLabel.setTextFill(Color.WHITESMOKE);
         Timer.pause();
-        if(!Root.getChildren().contains(l1))
-            Root.getChildren().add(l1);
+        if(!Root.getChildren().contains(StartGameLabel))
+            Root.getChildren().add(StartGameLabel);
         MainScene.setOnKeyReleased(keyEvent -> {
             String code=keyEvent.getCode().toString();
             if(code.equals("UP")){
-                Root.getChildren().remove(l1);
+                Root.getChildren().remove(StartGameLabel);
                 Timer.play();
             }
+            else if(code.equals("P")||code.equals("p"))
+                PauseMenu();
         });
     }
     public void ReviveGame(){
@@ -462,24 +424,26 @@ public class PlayGame extends Application {
         Root.getChildren().remove(Restart);
         Root.getChildren().remove(Revive);
         Score.setText(Integer.toString(p2.getcurrScore()));
-        l1.setText("Press Up key to start");
-        l1.setScaleX(2);
-        l1.setScaleY(2);
-        l1.setLayoutX(MainStage.getWidth()/2-55);
-        l1.setLayoutY(MainStage.getHeight()/2-50);
+        StartGameLabel.setText("Press Up key to start");
+        StartGameLabel.setScaleX(2);
+        StartGameLabel.setScaleY(2);
+        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
+        StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
         if(Lightmode)
-            l1.setTextFill(Color.valueOf("#141518"));
+            StartGameLabel.setTextFill(Color.valueOf("#141518"));
         else
-            l1.setTextFill(Color.WHITESMOKE);
+            StartGameLabel.setTextFill(Color.WHITESMOKE);
         Timer.pause();
-        if(!Root.getChildren().contains(l1))
-            Root.getChildren().add(l1);
+        if(!Root.getChildren().contains(StartGameLabel))
+            Root.getChildren().add(StartGameLabel);
         MainScene.setOnKeyReleased(keyEvent -> {
             String code=keyEvent.getCode().toString();
             if(code.equals("UP")){
-                Root.getChildren().remove(l1);
+                Root.getChildren().remove(StartGameLabel);
                 Timer.play();
             }
+            else if(code.equals("P")||code.equals("p"))
+                PauseMenu();
         });
     }
     public int getTypeofObstacle(Obstacle obs){
@@ -508,7 +472,7 @@ public class PlayGame extends Application {
             type=10;
         return type;
     }
-    public void SaveCurrentGame(){
+    private void SaveCurrentGame(){
         player p1 = new player();
         p1.setScore(Integer.parseInt(Score.getText()));
         p1.setBallX(Ball.getXpos());
@@ -536,33 +500,29 @@ public class PlayGame extends Application {
             System.out.println("Type "+ p2.getObsType(k)+" X "+ p2.getObsX(k)+" Y "+p2.getObsY(k));
         }
     }
-    private void PlaySound(String link){
-        AudioClip sound = new AudioClip(this.getClass().getResource(link).toString());
-        sound.play();
-    }
+
     private void PauseMenu(){
-        Scene currScene = MainStage.getScene();
-        Button resumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
-        Button saveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
+        Scene CurrentScene =MainStage.getScene();
+        Button ResumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
+        Button SaveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
         Button HomeButton= MakeButton(50,50,35,100,"","PauseButton");
         Timer.pause();
         if(Lightmode)
             addImage(HomeButton,"sample/Assets/home.png");
         else
             addImage(HomeButton,"sample/Assets/home_white.png");
-
-        Label l3= new Label();
-        l3.setText("Pause Menu");
-        l3.setFont(Font.font("Futura Light BT"));
-        l3.setLayoutX(MainStage.getWidth()/2-35);
-        l3.setLayoutY(120);
+        Label PauseLabel= new Label();
+        PauseLabel.setText("Pause Menu");
+        PauseLabel.setFont(Font.font("Futura Light BT"));
+        PauseLabel.setLayoutX(MainStage.getWidth()/2-35);
+        PauseLabel.setLayoutY(120);
         if(Lightmode)
-            l3.setTextFill(Color.valueOf("#141518"));
+            PauseLabel.setTextFill(Color.valueOf("#141518"));
         else
-            l3.setTextFill(Color.WHITESMOKE);
-        l3.setScaleY(4);
-        l3.setScaleX(4);
-        Group PauseMenu = new Group(resumeButton,l3,saveButton,HomeButton);
+            PauseLabel.setTextFill(Color.WHITESMOKE);
+        PauseLabel.setScaleY(4);
+        PauseLabel.setScaleX(4);
+        Group PauseMenu = new Group(ResumeButton,PauseLabel,SaveButton,HomeButton);
         PauseMenu.getStylesheets().add("sample/button.css");
         Scene PauseScene = new Scene(PauseMenu,450,800);
         if(Lightmode)
@@ -570,8 +530,8 @@ public class PlayGame extends Application {
         else
             PauseScene.setFill(Color.valueOf("#141518"));
         MainStage.setScene(PauseScene);
-        resumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
-            MainStage.setScene(currScene);
+        ResumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
+            MainStage.setScene(CurrentScene);
             Timer.play();
         });
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
@@ -581,8 +541,39 @@ public class PlayGame extends Application {
                 ioException.printStackTrace();
             }
         });
-        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
+        SaveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
             SaveCurrentGame();
         });
+    }
+    private Button MakeButton(double h,double w,double x, double y,String text,String ID){
+        Button button= new Button();
+        button.setPrefHeight(h);
+        button.setPrefWidth(w);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setText(text);
+        button.setId(ID);
+        return button;
+    }
+    private void PlaySound(String link){
+        AudioClip sound = new AudioClip(this.getClass().getResource(link).toString());
+        sound.play();
+    }
+    private void addImage(Button b1,String path){
+        javafx.scene.image.Image img = new Image(path);
+        ImageView view = new ImageView(img);
+        view.setFitHeight(45);
+        view.setPreserveRatio(true);
+        b1.setGraphic(view);
+    }
+    private void loadButton(String s) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+        Menu controller = (Menu) loader.getController();
+        controller.setStage(this.MainStage);
+        Scene scene = new Scene(root,450,800);
+        MainStage.setScene(scene);
+        MainStage.setResizable(false);
+        MainStage.show();
     }
 }
