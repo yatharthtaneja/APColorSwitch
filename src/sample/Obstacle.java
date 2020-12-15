@@ -49,4 +49,6 @@ public abstract class Obstacle implements SceneElements, Serializable {
         Ypos+=change;
     }
     public abstract void Move();
+    public abstract void Play();
+    public abstract void Pause();
 }

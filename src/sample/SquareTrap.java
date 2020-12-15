@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 
 public class SquareTrap extends Obstacle{
+    RotateTransition Transition;
     public SquareTrap(double x,double y){
+        Transition = new RotateTransition();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Shape shape1= new Rectangle(x+77.5,y-87.5,17.5,175,0,Color.web("#35e2f2"));
@@ -24,13 +26,22 @@ public class SquareTrap extends Obstacle{
     }
     @Override
     public void Move() {
-        RotateTransition rt = new RotateTransition();
-        rt.setAxis(Rotate.Z_AXIS);
-        rt.setByAngle(360);
-        rt.setCycleCount(Animation.INDEFINITE);
-        rt.setDuration(Duration.seconds(5));
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.setNode(getObstacle());
-        rt.play();
+        Transition.setAxis(Rotate.Z_AXIS);
+        Transition.setByAngle(360);
+        Transition.setCycleCount(Animation.INDEFINITE);
+        Transition.setDuration(Duration.seconds(5));
+        Transition.setInterpolator(Interpolator.LINEAR);
+        Transition.setNode(getObstacle());
+        Transition.play();
+    }
+
+    @Override
+    public void Play() {
+        Transition.play();
+    }
+
+    @Override
+    public void Pause() {
+        Transition.pause();
     }
 }

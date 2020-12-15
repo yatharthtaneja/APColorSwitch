@@ -11,7 +11,9 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class RectangleOfDots extends Obstacle{
+    Timeline Timeline;
     public RectangleOfDots(double x,double y){
+        Timeline=new Timeline();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Group obstacle=new Group();
@@ -39,8 +41,7 @@ public class RectangleOfDots extends Obstacle{
     }
     @Override
     public void Move() {
-        Timeline t1 = new Timeline();
-        t1.setCycleCount(Animation.INDEFINITE);
+        Timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame Moveball = new KeyFrame(Duration.seconds(0.09), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -63,7 +64,17 @@ public class RectangleOfDots extends Obstacle{
                 }
             }
         });
-        t1.getKeyFrames().add(Moveball);
-        t1.play();
+        Timeline.getKeyFrames().add(Moveball);
+        Timeline.play();
+    }
+
+    @Override
+    public void Play() {
+        Timeline.play();
+    }
+
+    @Override
+    public void Pause() {
+        Timeline.pause();
     }
 }

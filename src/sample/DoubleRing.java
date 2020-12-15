@@ -2,6 +2,7 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.animation.Transition;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -10,7 +11,10 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class DoubleRing extends Obstacle{
+    RotateTransition Transition1,Transition2;
     public DoubleRing(double x,double y){
+        Transition1=new RotateTransition();
+        Transition2=new RotateTransition();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Group obstacle=new Group();
@@ -35,22 +39,31 @@ public class DoubleRing extends Obstacle{
     }
     @Override
     public void Move() {
-        RotateTransition rt1 = new RotateTransition();
-        rt1.setAxis(Rotate.Z_AXIS);
-        rt1.setByAngle(360);
-        rt1.setCycleCount(Animation.INDEFINITE);
-        rt1.setDuration(Duration.seconds(4));
-        rt1.setInterpolator(Interpolator.LINEAR);
-        rt1.setNode(getObstacle().getChildren().get(0));
-        rt1.play();
+        Transition1 = new RotateTransition();
+        Transition1.setAxis(Rotate.Z_AXIS);
+        Transition1.setByAngle(360);
+        Transition1.setCycleCount(Animation.INDEFINITE);
+        Transition1.setDuration(Duration.seconds(4));
+        Transition1.setInterpolator(Interpolator.LINEAR);
+        Transition1.setNode(getObstacle().getChildren().get(0));
+        Transition1.play();
 
-        RotateTransition rt2 = new RotateTransition();
-        rt2.setAxis(Rotate.Z_AXIS);
-        rt2.setByAngle(360);
-        rt2.setCycleCount(Animation.INDEFINITE);
-        rt2.setDuration(Duration.seconds(4));
-        rt2.setInterpolator(Interpolator.LINEAR);
-        rt2.setNode(getObstacle().getChildren().get(1));
-        rt2.play();
+        Transition2 = new RotateTransition();
+        Transition2.setAxis(Rotate.Z_AXIS);
+        Transition2.setByAngle(360);
+        Transition2.setCycleCount(Animation.INDEFINITE);
+        Transition2.setDuration(Duration.seconds(4));
+        Transition2.setInterpolator(Interpolator.LINEAR);
+        Transition2.setNode(getObstacle().getChildren().get(1));
+        Transition2.play();
+    }
+
+    @Override
+    public void Play() {
+        Transition1.play();Transition2.play();
+    }
+    @Override
+    public void Pause() {
+        Transition1.pause();Transition2.pause();
     }
 }

@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.util.Duration;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

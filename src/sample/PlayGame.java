@@ -122,6 +122,9 @@ public class PlayGame extends Application {
                 CheckObstacleCollision();
                 CheckPowerupCollision();
                 if(GameOver){
+                    for (int i=0;i<Obstacles.size();i++){
+                        Obstacles.get(i).Pause();
+                    }
                     if(!Root.getChildren().contains(GameOverLabel)) {
                         Root.getChildren().removeAll();
                         Root.getChildren().addAll(GameOverLabel,Restart,Revive,TotalStar,star_3);
@@ -162,7 +165,6 @@ public class PlayGame extends Application {
                         Powerups.get(i).incrementYpos(3.5);
                     }
                     reviveY+=3.5;
-//                    ColorSwitch.setTranslateY(3.5);
                 ColorSwitch.setLayoutY(ColorSwitch.getLayoutY()+3.5);
                 }
                 if(Obstacles.get(0).getYpos()>950) {
@@ -172,7 +174,6 @@ public class PlayGame extends Application {
                         AddObstacleandPowerup();
                 }
                 if(ColorSwitch.getLayoutY()>950){
-//                    System.out.println("bahar");
                     Root.getChildren().remove(ColorSwitch);
                 }
             }
@@ -709,6 +710,9 @@ public class PlayGame extends Application {
         }
     }
     private void PauseMenu(){
+        for (int i=0;i<Obstacles.size();i++){
+            Obstacles.get(i).Pause();
+        }
         Scene CurrentScene =MainStage.getScene();
         Button ResumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");
         Button SaveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
@@ -739,6 +743,9 @@ public class PlayGame extends Application {
         MainStage.setScene(PauseScene);
         ResumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
             MainStage.setScene(CurrentScene);
+            for (int i=0;i<Obstacles.size();i++){
+                Obstacles.get(i).Play();
+            }
             Timer.play();
         });
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{

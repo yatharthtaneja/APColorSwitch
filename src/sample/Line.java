@@ -10,12 +10,23 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class Line extends Obstacle{
+    TranslateTransition Transition = new TranslateTransition();
     public Line(){
         setListOfShapes(new ArrayList<>());
     }
     @Override
     public void Move() {
 
+    }
+
+    @Override
+    public void Play() {
+        Transition.play();
+    }
+
+    @Override
+    public void Pause() {
+        Transition.pause();
     }
 }
 class UnidirectionalLine extends sample.Line{
@@ -55,17 +66,17 @@ class UnidirectionalLine extends sample.Line{
     }
     @Override
     public void Move(){
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setInterpolator(Interpolator.LINEAR);
-        translateTransition.setDuration(Duration.seconds(4));
-        translateTransition.setNode(getObstacle());
+        Transition = new TranslateTransition();
+        Transition.setInterpolator(Interpolator.LINEAR);
+        Transition.setDuration(Duration.seconds(4));
+        Transition.setNode(getObstacle());
         if(Left)
-            translateTransition.setByX(-450);
+            Transition.setByX(-450);
         else
-            translateTransition.setByX(450);
-        translateTransition.setCycleCount(Animation.INDEFINITE);
-        translateTransition.setAutoReverse(false);
-        translateTransition.play();
+            Transition.setByX(450);
+        Transition.setCycleCount(Animation.INDEFINITE);
+        Transition.setAutoReverse(false);
+        Transition.play();
     }
 }
 class BidirectionalLine extends sample.Line {
@@ -90,12 +101,12 @@ class BidirectionalLine extends sample.Line {
     }
     @Override
     public void Move(){
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(Duration.seconds(3));
-        translateTransition.setNode(getObstacle());
-        translateTransition.setByX(450);
-        translateTransition.setCycleCount(Animation.INDEFINITE);
-        translateTransition.setAutoReverse(true);
-        translateTransition.play();
+        Transition = new TranslateTransition();
+        Transition.setDuration(Duration.seconds(3));
+        Transition.setNode(getObstacle());
+        Transition.setByX(450);
+        Transition.setCycleCount(Animation.INDEFINITE);
+        Transition.setAutoReverse(true);
+        Transition.play();
     }
 }

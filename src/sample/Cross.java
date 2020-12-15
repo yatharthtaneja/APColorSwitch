@@ -10,7 +10,9 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class Cross extends Obstacle{
+    public RotateTransition Transition;
     Cross(double x,double y){
+        Transition=new RotateTransition();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         sample.Shape shape1= new Pentagon(x+32.5,y-162,0,Color.web("#35e2f2"));
@@ -22,13 +24,22 @@ public class Cross extends Obstacle{
     }
     @Override
     public void Move(){
-        RotateTransition rt = new RotateTransition();
-        rt.setAxis(Rotate.Z_AXIS);
-        rt.setByAngle(360);
-        rt.setCycleCount(Animation.INDEFINITE);
-        rt.setDuration(Duration.seconds(4));
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.setNode(getObstacle());
-        rt.play();
+        Transition.setAxis(Rotate.Z_AXIS);
+        Transition.setByAngle(360);
+        Transition.setCycleCount(Animation.INDEFINITE);
+        Transition.setDuration(Duration.seconds(4));
+        Transition.setInterpolator(Interpolator.LINEAR);
+        Transition.setNode(getObstacle());
+        Transition.play();
+    }
+
+    @Override
+    public void Play() {
+        Transition.play();
+    }
+
+    @Override
+    public void Pause() {
+        Transition.pause();
     }
 }

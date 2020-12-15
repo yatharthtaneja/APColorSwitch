@@ -12,7 +12,9 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class Ring extends Obstacle{
+    Timeline Timeline;
     public Ring(double x,double y){
+        Timeline=new Timeline();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         sample.Shape s1=new Arc(x,y,0, Color.web("#35e2f2"));
@@ -26,9 +28,19 @@ public class Ring extends Obstacle{
     public void Move(){
         Rotate rt2 = new Rotate(0,getXpos(),getYpos());
         getObstacle().getTransforms().add(rt2);
-        Timeline timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),360)),
+        Timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),360)),
                 new KeyFrame(Duration.seconds(4), new KeyValue(rt2.angleProperty(),0)));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        Timeline.setCycleCount(Animation.INDEFINITE);
+        Timeline.play();
+    }
+
+    @Override
+    public void Play() {
+        Timeline.play();
+    }
+
+    @Override
+    public void Pause() {
+        Timeline.pause();
     }
 }
