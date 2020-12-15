@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PlayGame extends Application {
     private Scene MainScene;
@@ -609,6 +610,7 @@ public class PlayGame extends Application {
         p1.setBallX(Ball.getXpos());
         p1.setBallY(Ball.getYpos());
         p1.SaveGame=true;
+        p1.DateTime=new Date();
         for(int i =0 ;i< Obstacles.size();i++){
             Obstacle obs = Obstacles.get(i);
             p1.addType(getTypeofObstacle(obs));
@@ -636,6 +638,7 @@ public class PlayGame extends Application {
         p1.setBallX(Ball.getXpos());
         p1.setBallY(Ball.getYpos());
         p1.SaveGame=true;
+        p1.DateTime=new Date();
         for(int i =0 ;i< Obstacles.size();i++){
             Obstacle obs = Obstacles.get(i);
             p1.addType(getTypeofObstacle(obs));

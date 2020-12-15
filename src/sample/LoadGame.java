@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class LoadGame implements Initializable {
@@ -43,11 +44,13 @@ public class LoadGame implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         player p1 = null,p2=null,p3=null,p4=null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             p1 = (player) resourceManager.loadData("1.save");
             if(p1.SaveGame){
                 Label1.setText("Score");
                 Score1.setText(Integer.toString(p1.getcurrScore()));
+                Time1.setText(formatter.format(p1.DateTime));
             }
             else {
                 Label1.setText("No Game Saved");
@@ -58,6 +61,7 @@ public class LoadGame implements Initializable {
             if(p2.SaveGame){
                 Label2.setText("Score");
                 Score2.setText(Integer.toString(p2.getcurrScore()));
+                Time2.setText(formatter.format(p2.DateTime));
             }
             else {
                 Label2.setText("No Game Saved");
@@ -68,6 +72,7 @@ public class LoadGame implements Initializable {
             if(p3.SaveGame){
                 Label3.setText("Score");
                 Score3.setText(Integer.toString(p3.getcurrScore()));
+                Time3.setText(formatter.format(p3.DateTime));
             }
             else {
                 Label3.setText("No Game Saved");
@@ -78,6 +83,7 @@ public class LoadGame implements Initializable {
             if(p4.SaveGame){
                 Label4.setText("Score");
                 Score4.setText(Integer.toString(p4.getcurrScore()));
+                Time4.setText(formatter.format(p4.DateTime));
             }
             else {
                 Label4.setText("No Game Saved");

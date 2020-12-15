@@ -2,6 +2,7 @@ package sample;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class player implements Serializable {
     private static final long serialVersionUID= 1l;
@@ -9,6 +10,7 @@ public class player implements Serializable {
     private int score;
     private double ballX;
     private double ballY;
+    public Date DateTime;
 
     public ArrayList<Integer> ObstacleType= new ArrayList<>();
     public ArrayList<Double> ObsatcleXcord = new ArrayList<>();
