@@ -684,7 +684,26 @@ public class PlayGame extends Application {
         }
     }
     private void ReorderGameData(){
-        ;
+        player temp=null;
+        for(int i=SaveLocation+1;i<=4;i++){
+            try {
+                temp = (player) resourceManager.loadData(i+".save");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                resourceManager.save(temp,(i-1)+".save");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        temp=new player();
+        temp.SaveGame=false;
+        try {
+            resourceManager.save(temp,"4.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void PauseMenu(){
         Scene CurrentScene =MainStage.getScene();
@@ -728,6 +747,11 @@ public class PlayGame extends Application {
         });
         SaveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
             SaveCurrentGame();
+            try {
+                loadButton("menu.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
     }
     private Button MakeButton(double h,double w,double x, double y,String text,String ID){

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,13 +27,9 @@ public class LoadGame implements Initializable {
     @FXML
     private AnchorPane loadPane;
     @FXML
-    private Shape l5;
+    private Shape l1,l2,l3,l4;
     @FXML
-    private Shape l2;
-    @FXML
-    private Shape l3;
-    @FXML
-    private Shape l4;
+    private Label Label1,Label2,Label3,Label4,Time1,Time2,Time3,Time4,Score1,Score2,Score3,Score4;
     private Stage stage;
     public void setStage(Stage stage){
         this.stage=stage;
@@ -45,9 +42,53 @@ public class LoadGame implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        player p1 = null,p2=null,p3=null,p4=null;
+        try {
+            p1 = (player) resourceManager.loadData("1.save");
+            if(p1.SaveGame){
+                Label1.setText("Score");
+                Score1.setText(Integer.toString(p1.getcurrScore()));
+            }
+            else {
+                Label1.setText("No Game Saved");
+                Score1.setText("");
+                Time1.setText("");
+            }
+            p2 = (player) resourceManager.loadData("2.save");
+            if(p2.SaveGame){
+                Label2.setText("Score");
+                Score2.setText(Integer.toString(p2.getcurrScore()));
+            }
+            else {
+                Label2.setText("No Game Saved");
+                Score2.setText("");
+                Time2.setText("");
+            }
+            p3 = (player) resourceManager.loadData("3.save");
+            if(p3.SaveGame){
+                Label3.setText("Score");
+                Score3.setText(Integer.toString(p3.getcurrScore()));
+            }
+            else {
+                Label3.setText("No Game Saved");
+                Score3.setText("");
+                Time3.setText("");
+            }
+            p4 = (player) resourceManager.loadData("4.save");
+            if(p4.SaveGame){
+                Label4.setText("Score");
+                Score4.setText(Integer.toString(p4.getcurrScore()));
+            }
+            else {
+                Label4.setText("No Game Saved");
+                Score4.setText("");
+                Time4.setText("");
+            }
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
         addImage(hbutton,"sample/Assets/home_white.png");
-        addShadow(l2);addShadow(l3);addShadow(l4);addShadow(l5);
-
+        addShadow(l1);addShadow(l2);addShadow(l3);addShadow(l4);
         if(lightmode){
             loadPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
@@ -65,17 +106,27 @@ public class LoadGame implements Initializable {
                 ioException.printStackTrace();
             }
         });
+        player finalP1 = p1,finalP2 = p2,finalP3 = p3,finalP4 = p4;
+        l1.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                if(finalP1.SaveGame){
+                    PlayGame game = new PlayGame();
+                    game.setCurrentPlayer(finalP1);
+                    game.setStage(stage);
+                    game.setTheme(lightmode);
+                    game.start(stage);
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
         l2.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                player p2 = null;
-                try {
-                    p2 = (player) resourceManager.loadData("1.save");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-                if(p2.SaveGame){
+                if(finalP2.SaveGame){
                     PlayGame game = new PlayGame();
-                    game.setCurrentPlayer(p2);
+                    game.setCurrentPlayer(finalP2);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
@@ -88,15 +139,9 @@ public class LoadGame implements Initializable {
         });
         l3.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                player p2 = null;
-                try {
-                    p2 = (player) resourceManager.loadData("2.save");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-                if(p2.SaveGame){
+                if(finalP3.SaveGame){
                     PlayGame game = new PlayGame();
-                    game.setCurrentPlayer(p2);
+                    game.setCurrentPlayer(finalP3);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
@@ -109,36 +154,9 @@ public class LoadGame implements Initializable {
         });
         l4.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                player p2 = null;
-                try {
-                    p2 = (player) resourceManager.loadData("3.save");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-                if(p2.SaveGame){
+                if(finalP4.SaveGame){
                     PlayGame game = new PlayGame();
-                    game.setCurrentPlayer(p2);
-                    game.setStage(stage);
-                    game.setTheme(lightmode);
-                    game.start(stage);
-                }
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        l5.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
-            try {
-                player p2 = null;
-                try {
-                    p2 = (player) resourceManager.loadData("4.save");
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-                if(p2.SaveGame){
-                    PlayGame game = new PlayGame();
-                    game.setCurrentPlayer(p2);
+                    game.setCurrentPlayer(finalP4);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
