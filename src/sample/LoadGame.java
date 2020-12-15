@@ -112,6 +112,7 @@ public class LoadGame implements Initializable {
                 if(finalP1.SaveGame){
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP1);
+                    game.setSaveLocation(1);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
@@ -127,6 +128,7 @@ public class LoadGame implements Initializable {
                 if(finalP2.SaveGame){
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP2);
+                    game.setSaveLocation(2);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
@@ -142,6 +144,7 @@ public class LoadGame implements Initializable {
                 if(finalP3.SaveGame){
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP3);
+                    game.setSaveLocation(3);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
@@ -157,6 +160,7 @@ public class LoadGame implements Initializable {
                 if(finalP4.SaveGame){
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP4);
+                    game.setSaveLocation(4);
                     game.setStage(stage);
                     game.setTheme(lightmode);
                     game.start(stage);
