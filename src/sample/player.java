@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class player implements Serializable {
     private static final long serialVersionUID= 1l;
+    public boolean SaveGame;
     private int score;
     private double ballX;
     private double ballY;

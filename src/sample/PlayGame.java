@@ -44,8 +44,9 @@ public class PlayGame extends Application {
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
     private static boolean Lightmode;
-    private boolean loadgame;
     private player CurrentPlayer;
+    int SaveLocation=0;
+    boolean SavedGame;
     @Override
     public void start(Stage MainStage) throws Exception {
         Root=new Group();
@@ -122,20 +123,18 @@ public class PlayGame extends Application {
                 if(GameOver){
                     if(!Root.getChildren().contains(GameOverLabel)) {
                         Root.getChildren().removeAll();
-                        Root.getChildren().addAll(GameOverLabel, Restart, Revive, TotalStar,star_3);
+                        Root.getChildren().addAll(GameOverLabel,Restart,Revive,TotalStar,star_3);
                     }
                     if(!alreadyExecuted) {
                         Score updateScore= new Score();
                         updateScore.writeStats(Integer.parseInt(Score.getText()));
                         alreadyExecuted = true;
-                        SaveCurrentGame();
+                        SaveGameTemporary();
                     }
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            Root.getChildren().remove(Restart);
-                            Root.getChildren().remove(GameOverLabel);
-                            Root.getChildren().remove(Revive);
+                            Root.getChildren().removeAll(Restart,GameOverLabel,Revive);
                             BeginGame();
                         }
                     });
@@ -145,7 +144,6 @@ public class PlayGame extends Application {
                             Root.getChildren().remove(Restart);
                             Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Revive);
-
                             ReviveGame();
                         }
                     });
@@ -197,6 +195,10 @@ public class PlayGame extends Application {
     }
     public void setStage(Stage stage){ this.MainStage=stage; }
     public void setTheme(boolean s){ this.Lightmode=s;}
+    public void setSaveLocation(int loc){
+        this.SaveLocation=loc;
+        this.SavedGame=true;
+    }
     public void setCurrentPlayer(player Player){
         this.CurrentPlayer=Player;
     }
@@ -243,10 +245,8 @@ public class PlayGame extends Application {
                 GameOverLabel.setTextFill(Color.WHITESMOKE);
                 TotalStar.setTextFill(Color.WHITESMOKE);
             }
-            GameOverLabel.setScaleY(4);
-            GameOverLabel.setScaleX(4);
-            TotalStar.setScaleX(5);
-            TotalStar.setScaleY(5);
+            GameOverLabel.setScaleY(4);GameOverLabel.setScaleX(4);
+            TotalStar.setScaleX(5);TotalStar.setScaleY(5);
         }
     }
     public void CheckPowerupCollision(){
@@ -408,17 +408,17 @@ public class PlayGame extends Application {
     }
     public void BeginGame() {
         alreadyExecuted = false;
-        Ball.setXpos(225);
-        Ball.setYpos(535);
-        reviveY = 535;
-        reviveX = 225;
+        Ball.setXpos(225);Ball.setYpos(535);
+        reviveX = 225;reviveY = 535;
         GameOver = false;
-        Gravity = 0;
-        Ticks = 0;
-        Root.getChildren().remove(Restart);
-        Root.getChildren().remove(TotalStar);
-        Root.getChildren().remove(star_3);
+        Gravity = 0;Ticks = 0;
+        Root.getChildren().removeAll(Restart,TotalStar,star_3);
         int count1 = Obstacles.size(), count2 = Powerups.size();
+        if(SavedGame){
+            ReorderGameData();
+            SaveLocation=0;
+            SavedGame=false;
+        }
         for (int i = 0; i < count1; i++)
             Root.getChildren().remove(Obstacles.get(i).getObstacle());
         for (int i = 0; i < count2; i++)
@@ -429,17 +429,13 @@ public class PlayGame extends Application {
             AddObstacleandPowerup();
         Score.setText("0");
         StartGameLabel.setText("Press Up key to start");
-        StartGameLabel.setScaleX(2);
-        StartGameLabel.setScaleY(2);
-        StartGameLabel.setLayoutX(MainStage.getWidth() / 2 - 55);
-        StartGameLabel.setLayoutY(MainStage.getHeight() / 2 - 50);
+        StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
+        StartGameLabel.setLayoutX(MainStage.getWidth() / 2 - 55);StartGameLabel.setLayoutY(MainStage.getHeight() / 2 - 50);
         ColorSwitch.setText(("COLOR\nSWITCH"));
         ColorSwitch.setTextAlignment(TextAlignment.CENTER);
         ColorSwitch.setFont(Font.font("Futura Light BT"));
-        ColorSwitch.setLayoutX(MainStage.getWidth() / 2 - 30);
-        ColorSwitch.setLayoutY(MainStage.getHeight() / 2+180);
-        ColorSwitch.setScaleX(4);
-        ColorSwitch.setScaleY(4);
+        ColorSwitch.setLayoutX(MainStage.getWidth() / 2 - 30);ColorSwitch.setLayoutY(MainStage.getHeight() / 2+180);
+        ColorSwitch.setScaleX(4);ColorSwitch.setScaleY(4);
         if (Lightmode) {
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
             ColorSwitch.setTextFill(Color.valueOf("#141518"));
@@ -548,7 +544,7 @@ public class PlayGame extends Application {
     public void ReviveGame(){
         player p2 = null;
         try {
-            p2 = (player) resourceManager.loadData("1.save");
+            p2 = (player) resourceManager.loadData("0.save");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -559,16 +555,11 @@ public class PlayGame extends Application {
         Ball.setYpos(reviveY);
         GameOver=false;
         Gravity=0;
-        Root.getChildren().remove(Restart);
-        Root.getChildren().remove(Revive);
-        Root.getChildren().remove(TotalStar);
-        Root.getChildren().remove(star_3);
+        Root.getChildren().removeAll(Restart,Revive,TotalStar,star_3);
         Score.setText(Integer.toString(p2.getcurrScore()));
         StartGameLabel.setText("Press Up key to start");
-        StartGameLabel.setScaleX(2);
-        StartGameLabel.setScaleY(2);
-        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
-        StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
+        StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
+        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
         if(Lightmode)
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
         else
@@ -612,11 +603,12 @@ public class PlayGame extends Application {
             type=10;
         return type;
     }
-    private void SaveCurrentGame(){
+    private void SaveGameTemporary(){
         player p1 = new player();
         p1.setScore(Integer.parseInt(Score.getText()));
         p1.setBallX(Ball.getXpos());
         p1.setBallY(Ball.getYpos());
+        p1.SaveGame=true;
         for(int i =0 ;i< Obstacles.size();i++){
             Obstacle obs = Obstacles.get(i);
             p1.addType(getTypeofObstacle(obs));
@@ -632,23 +624,68 @@ public class PlayGame extends Application {
             p1.PowerupYcord.add(pow.getYpos());
         }
         try {
-            resourceManager.save(p1,"1.save");
+            resourceManager.save(p1,"0.save");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("saved");
-        player p2 = null;
-        try {
-             p2 = (player) resourceManager.loadData("1.save");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("Score: "+ p2.getcurrScore()+" Ball x and y"+p2.getBallX()+" "+p2.getBallY());
-        for(int k=0;k<p2.getSize();k++){
-            System.out.println("Type "+ p2.getObsType(k)+" X "+ p2.getObsX(k)+" Y "+p2.getObsY(k));
-        }
     }
 
+    private void SaveCurrentGame(){
+        player p1 = new player();
+        p1.setScore(Integer.parseInt(Score.getText()));
+        p1.setBallX(Ball.getXpos());
+        p1.setBallY(Ball.getYpos());
+        p1.SaveGame=true;
+        for(int i =0 ;i< Obstacles.size();i++){
+            Obstacle obs = Obstacles.get(i);
+            p1.addType(getTypeofObstacle(obs));
+            p1.addXcord(obs.getXpos());
+            p1.addYcord(obs.getYpos());
+        }
+        for(int i =0 ;i< Powerups.size();i++){
+            sample.Powerups pow=Powerups.get(i);
+            if(pow.getClass()==Star.class)
+                p1.PowerupType.add(1);
+            else
+                p1.PowerupType.add(2);
+            p1.PowerupYcord.add(pow.getYpos());
+        }
+        player temp=null;
+        if(SavedGame&&SaveLocation==1){
+            try {
+                resourceManager.save(p1,"1.save");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            int i;
+            if(SavedGame)
+                i=SaveLocation-1;
+            else
+                i=3;
+            for(;i>=1;i--){
+                try {
+                    temp = (player) resourceManager.loadData(i+".save");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    resourceManager.save(temp,(i+1)+".save");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                resourceManager.save(p1,"1.save");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void ReorderGameData(){
+        ;
+    }
     private void PauseMenu(){
         Scene CurrentScene =MainStage.getScene();
         Button ResumeButton = MakeButton(67,227,113,332,"Resume","ResumeButton");

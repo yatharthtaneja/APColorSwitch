@@ -46,10 +46,8 @@ public class LoadGame implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/home_white.png");
-        addShadow(l5);
-        addShadow(l4);
-        addShadow(l3);
-        addShadow(l2);
+        addShadow(l2);addShadow(l3);addShadow(l4);addShadow(l5);
+
         if(lightmode){
             loadPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
@@ -67,7 +65,7 @@ public class LoadGame implements Initializable {
                 ioException.printStackTrace();
             }
         });
-        l5.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+        l2.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 player p2 = null;
                 try {
@@ -75,11 +73,76 @@ public class LoadGame implements Initializable {
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
-                PlayGame game = new PlayGame();
-                game.setCurrentPlayer(p2);
-                game.setStage(stage);
-                game.setTheme(lightmode);
-                game.start(stage);
+                if(p2.SaveGame){
+                    PlayGame game = new PlayGame();
+                    game.setCurrentPlayer(p2);
+                    game.setStage(stage);
+                    game.setTheme(lightmode);
+                    game.start(stage);
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        l3.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                player p2 = null;
+                try {
+                    p2 = (player) resourceManager.loadData("2.save");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                if(p2.SaveGame){
+                    PlayGame game = new PlayGame();
+                    game.setCurrentPlayer(p2);
+                    game.setStage(stage);
+                    game.setTheme(lightmode);
+                    game.start(stage);
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        l4.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                player p2 = null;
+                try {
+                    p2 = (player) resourceManager.loadData("3.save");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                if(p2.SaveGame){
+                    PlayGame game = new PlayGame();
+                    game.setCurrentPlayer(p2);
+                    game.setStage(stage);
+                    game.setTheme(lightmode);
+                    game.start(stage);
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        l5.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            try {
+                player p2 = null;
+                try {
+                    p2 = (player) resourceManager.loadData("4.save");
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+                if(p2.SaveGame){
+                    PlayGame game = new PlayGame();
+                    game.setCurrentPlayer(p2);
+                    game.setStage(stage);
+                    game.setTheme(lightmode);
+                    game.start(stage);
+                }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (Exception exception) {

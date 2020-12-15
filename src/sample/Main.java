@@ -16,18 +16,17 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         primaryStage.setTitle("ColorSwitch");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("IntroScreen.fxml"));
         Parent root =loader.load();
         IntroScreen controller = (IntroScreen) loader.getController();
         controller.setStage(primaryStage);
-
         Scene scene = new Scene(root,450,800);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

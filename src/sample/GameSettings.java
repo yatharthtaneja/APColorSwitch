@@ -99,6 +99,15 @@ public void  setTheme(boolean s){
         ResetButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             Score obj2= new Score();
             obj2.reset();
+            player p1 = new player();
+            p1.SaveGame=false;
+            for(int i=0;i<=4;i++){
+                try {
+                    resourceManager.save(p1,i+".save");
+                } catch (IOException ee) {
+                    ee.printStackTrace();
+                }
+            }
         });
         HowButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
