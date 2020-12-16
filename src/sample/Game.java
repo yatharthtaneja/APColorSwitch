@@ -42,11 +42,11 @@ public class Game extends Application{
     private double Gravity;
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
-    private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3,plus1;
+    private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3,plus1,devlable;
     private static boolean DarkTheme=true;
     private player CurrentPlayer;
     private Score Score= new Score();
-    private boolean GameOver,ScoreUpdated;
+    private boolean GameOver,ScoreUpdated ,devmode=false;
     private Button Restart;
     private Button Reincarnate;
     private double reviveX;
@@ -87,18 +87,25 @@ public class Game extends Application{
         ScoreLabel.setLayoutX(10);ScoreLabel.setLayoutY(15);
         plus1= new Label("+1");
         plus1.prefHeight(50);
+        devlable= new Label("You are in dev-Mode");
+        devlable.setLayoutX(10);
+        devlable.setLayoutY(760);
         if(!DarkTheme) {
             ScoreLabel.setTextFill(Color.valueOf("#141518"));
             plus1.setTextFill(Color.valueOf("#141518"));
+            devlable.setTextFill(Color.valueOf("#141518"));
 
         }
         else {
             ScoreLabel.setTextFill(Color.WHITESMOKE);
             plus1.setTextFill(Color.WHITESMOKE);
+            devlable.setTextFill(Color.WHITESMOKE);
 
         }
         ScoreLabel.setFont(new Font("Cambria", 36));
         plus1.setFont(new Font("Cambria", 36));
+        devlable.setFont(new Font("Cambria", 36));
+
         Root.getChildren().add(ScoreLabel);
         Ball=new Ball(225,535,12,Colors[(int)Math.random()*4]);
         Obstacles=new ArrayList<>();Powerups=new ArrayList<>();
@@ -140,9 +147,22 @@ public class Game extends Application{
                         else if(code.equals("P")||code.equals("p")){
                             PauseMenu();
                         }
+                        else if(code.equals("h")||code.equals("H")){
+                            if(devmode)
+                                devmode=false;
+                            else {
+                                devmode = true;
+                                System.out.println("Devmode");
+                            }
+                        }
                     }
                 });
-                CheckObstacleCollision();
+                if(!devmode)
+                    CheckObstacleCollision();
+                if(devmode && !Root.getChildren().contains(devlable))
+                    Root.getChildren().add(devlable);
+                if(!devmode && Root.getChildren().contains(devlable))
+                    Root.getChildren().remove(devlable);
                 CheckPowerupCollision();
                 if(GameOver){
                     for (int i=0;i<Obstacles.size();i++){
@@ -480,7 +500,8 @@ public class Game extends Application{
                     reviveX=Ball.getXpos();
                     reviveY=Ball.getYpos();
                     plus1.setLayoutX(reviveX);plus1.setTranslateY(reviveY);
-                    Root.getChildren().add(plus1);
+                    if(!Root.getChildren().contains(plus1))
+                        Root.getChildren().add(plus1);
                     TranslateTransition temp = new TranslateTransition();
                     temp.setNode(plus1);
                     temp.setDuration(Duration.seconds(1));
