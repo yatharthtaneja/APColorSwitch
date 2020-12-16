@@ -30,12 +30,13 @@ public class IntroScreen implements Initializable {
     @FXML private Arc topleftcurve;
     @FXML private Circle introBall;
     private Stage Currentstage;
-    private AudioClip Background;
+    private static AudioClip Background;
     public void setStage(Stage stage){
         Currentstage=stage;
     }
     public void setBackground(AudioClip background){
-        Background=background;
+        if(Background==null)
+            Background=background;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

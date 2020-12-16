@@ -47,7 +47,7 @@ public class Game extends Application{
     private Button Reincarnate;
     private double reviveX;
     private double reviveY;
-    static boolean SoundOn=true;
+    private static boolean SoundOn=true;
     public void setStage(Stage stage){ this.MainStage=stage; }
     public void setTheme(boolean darktheme){ DarkTheme=darktheme;}
     public void setSoundOn(boolean sound){
@@ -142,7 +142,6 @@ public class Game extends Application{
                         Score updateScore= new Score();
                         updateScore.writeStats(Integer.parseInt(ScoreLabel.getText()));
                         ScoreUpdated = true;
-                        SaveGameTemporary();
                     }
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
@@ -267,32 +266,32 @@ public class Game extends Application{
             if (index==0){//SingleRing Anticlockwise
                 obstacle=new Ring(225,CurrentPlayer.ObsatcleYcord.get(i));
             }
-            else if(index==1){//SquareTrap Clockwise
-                obstacle=new SquareTrap(225,CurrentPlayer.ObsatcleYcord.get(i));
-            }
-            else if(index==2){//Cross Clockwise
-                obstacle=new Cross(125,CurrentPlayer.ObsatcleYcord.get(i));
-            }
-            else if(index==3){//Unidirectional Line Right
+            else if(index==1){//Unidirectional Line Right
                 obstacle=new UnidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i),false);
             }
-            else if(index==4){//Unidirectional Line Left
+            else if(index==2){//Unidirectional Line Left
                 obstacle=new UnidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i),true);
             }
-            else if(index ==5){//Bidirectional Line
-                obstacle=new BidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i));
+            else if(index==3){//Cross Clockwise
+                obstacle=new Cross(125,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==4){//SquareTrap Clockwise
+                obstacle=new SquareTrap(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==5){//DoubleCross
+                obstacle=new DoubleCross(225,CurrentPlayer.ObsatcleYcord.get(i));
             }
             else if(index==6){//RectangleOfDots
                 obstacle=new RectangleOfDots(225,CurrentPlayer.ObsatcleYcord.get(i));
             }
-            else if(index==7){//Horizontal DoubleRing
-                obstacle=new DoubleRing(225,CurrentPlayer.ObsatcleYcord.get(i));
+            else if(index ==7){//Bidirectional Line
+                obstacle=new BidirectionalLine(CurrentPlayer.ObsatcleYcord.get(i));
             }
-            else if(index==8){//DoubleCross
-                obstacle=new DoubleCross(225,CurrentPlayer.ObsatcleYcord.get(i));
-            }
-            else if(index==9){//DiamondOfDots
+            else if(index==8){//DiamondOfDots
                 obstacle=new DiamondOfDots(225,CurrentPlayer.ObsatcleYcord.get(i));
+            }
+            else if(index==9){//Horizontal DoubleRing
+                obstacle=new DoubleRing(225,CurrentPlayer.ObsatcleYcord.get(i));
             }
             if (index==10){//Trilateral
                 obstacle=new Trilateral(225,CurrentPlayer.ObsatcleYcord.get(i));
@@ -340,50 +339,18 @@ public class Game extends Application{
     }
 
     public void Reincarnate(){//Used for Reincarnated Gamed through coins
-        player P = null;
-        try {
-            P = (player) resourceManager.loadData("0.save");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        for (int i=0;i<Obstacles.size();i++)
+            Obstacles.get(i).Move();
         Score updateScore= new Score();
-        updateScore.writeStats(-Integer.parseInt(ScoreLabel.getText()));
+        updateScore.writeStats(-Integer.parseInt(ScoreLabel.getText()));//Subtracting current stars from total
         ScoreUpdated= false;
         Ball.setXpos(reviveX);
-        if (reviveY>750)
-            reviveY =700;
+        if (reviveY>725)
+            reviveY =725;
         Ball.setYpos(reviveY);
         GameOver=false;
         Gravity=0;Ticks=0;
         Root.getChildren().removeAll(Restart,Reincarnate,TotalStarLabel,star_3);
-        ScoreLabel.setText(Integer.toString(P.getcurrScore()));
-        StartGameLabel.setText("Press Up key to start");
-        StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
-        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
-        if(!DarkTheme)
-            StartGameLabel.setTextFill(Color.valueOf("#141518"));
-        else
-            StartGameLabel.setTextFill(Color.WHITESMOKE);
-        Timer.pause();
-        if(!Root.getChildren().contains(StartGameLabel))
-            Root.getChildren().add(StartGameLabel);
-        MainScene.setOnKeyReleased(keyEvent -> {
-            String code=keyEvent.getCode().toString();
-            if(code.equals("UP")){
-                Root.getChildren().remove(StartGameLabel);
-                Timer.play();
-            }
-            else if(code.equals("P")||code.equals("p"))
-                PauseMenu();
-        });
-        Ball.setXpos(reviveX);
-        if (reviveY>785)
-            reviveY =700;
-        Ball.setYpos(reviveY);
-        GameOver=false;
-        Gravity=0;
-        Root.getChildren().removeAll(Restart,Reincarnate,TotalStarLabel,star_3);
-        ScoreLabel.setText(Integer.toString(P.getcurrScore()));
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
         StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
@@ -469,7 +436,10 @@ public class Game extends Application{
         }
     }
     private void AddObstacleandPowerup(){
-        int index= 3;//(int)(Math.random()*11);
+        int maxindex=3*((Integer.parseInt(ScoreLabel.getText())/4)+1);
+        if(maxindex>11)
+            maxindex=11;
+        int index= (int)(Math.random()*maxindex);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -485,29 +455,7 @@ public class Game extends Application{
             colourbooster=new ColourBooster(y-200);
             obstacle=new Ring(225,y);
         }
-        else if(index==1){//SquareTrap Clockwise
-            if(Obstacles.size()!=0){
-                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
-                else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
-            }
-            star=new Star(y,DarkTheme);
-            colourbooster=new ColourBooster(y-225);
-            obstacle=new SquareTrap(225,y);
-        }
-        else if(index==2){//Cross Clockwise
-            if(Obstacles.size()!=0){
-                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
-                else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
-            }
-            star=new Star(y-100,DarkTheme);
-            colourbooster=new ColourBooster(y-180);
-            obstacle=new Cross(125,y);
-        }
-        else if(index==3){//Unidirectional Line Right
+        else if(index==1){//Unidirectional Line Right
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
@@ -518,7 +466,7 @@ public class Game extends Application{
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,false);
         }
-        else if(index==4){//Unidirectional Line Left
+        else if(index==2){//Unidirectional Line Left
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
@@ -529,16 +477,38 @@ public class Game extends Application{
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,true);
         }
-        else if(index ==5){//Bidirectional Line
+        else if(index==3){//Cross Clockwise
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
                 else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y-65,DarkTheme);
-            colourbooster=new ColourBooster(y-125);
-            obstacle=new BidirectionalLine(y);
+            star=new Star(y-100,DarkTheme);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new Cross(125,y);
+        }
+        else if(index==4){//SquareTrap Clockwise
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
+            }
+            star=new Star(y,DarkTheme);
+            colourbooster=new ColourBooster(y-225);
+            obstacle=new SquareTrap(225,y);
+        }
+        else if(index==5){//DoubleCross
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+            }
+            star=new Star(y-100,DarkTheme);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new DoubleCross(225,y);
         }
         else if(index==6){//RectangleOfDots
             if(Obstacles.size()!=0){
@@ -551,29 +521,18 @@ public class Game extends Application{
             colourbooster=new ColourBooster(y-250);
             obstacle=new RectangleOfDots(225,y);
         }
-        else if(index==7){//Horizontal DoubleRing
+        else if(index ==7){//Bidirectional Line
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
                 else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-100,DarkTheme);
-            colourbooster=new ColourBooster(y-180);
-            obstacle=new DoubleRing(225,y);
+            star=new Star(y-65,DarkTheme);
+            colourbooster=new ColourBooster(y-125);
+            obstacle=new BidirectionalLine(y);
         }
-        else if(index==8){//DoubleCross
-            if(Obstacles.size()!=0){
-                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
-                else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
-            }
-            star=new Star(y-100,DarkTheme);
-            colourbooster=new ColourBooster(y-180);
-            obstacle=new DoubleCross(225,y);
-        }
-        else if(index==9){//DiamondOfDots
+        else if(index==8){//DiamondOfDots
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
@@ -583,6 +542,17 @@ public class Game extends Application{
             star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-250);
             obstacle=new DiamondOfDots(225,y);
+        }
+        else if(index==9){//Horizontal DoubleRing
+            if(Obstacles.size()!=0){
+                if (Obstacles.get(Obstacles.size()-1) instanceof Line)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+            }
+            star=new Star(y-100,DarkTheme);
+            colourbooster=new ColourBooster(y-180);
+            obstacle=new DoubleRing(225,y);
         }
         else if (index==10){//Trilateral
             if(Obstacles.size()!=0) {
@@ -695,85 +665,60 @@ public class Game extends Application{
         b1.setGraphic(view);
     }
     private void SaveCurrentGame(){
-        player P = new player();
-        P.setScore(Integer.parseInt(ScoreLabel.getText()));
-        P.setBallX(Ball.getXpos());
-        P.setBallY(Ball.getYpos());
-        P.SaveGame=true;
-        P.DateTime=new Date();
-        for(int i =0 ;i< Obstacles.size();i++){
-            Obstacle obs = Obstacles.get(i);
-            P.addType(getTypeofObstacle(obs));
-            P.addXcord(obs.getXpos());
-            P.addYcord(obs.getYpos());
-            P.CurrentTime.add(obs.getCurrentTime());
-        }
-        for(int i =0 ;i< Powerups.size();i++){
-            sample.Powerups pow=Powerups.get(i);
-            if(pow.getClass()==Star.class)
-                P.PowerupType.add(1);
-            else
-                P.PowerupType.add(2);
-            P.PowerupYcord.add(pow.getYpos());
-        }
-        player temp=null;
-        if(SavedGame&&SaveLocation==1){
-            try {
-                resourceManager.save(P,"1.save");
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!GameOver){
+            player P = new player();
+            P.setScore(Integer.parseInt(ScoreLabel.getText()));
+            P.setBallX(Ball.getXpos());
+            P.setBallY(Ball.getYpos());
+            P.SaveGame=true;
+            P.DateTime=new Date();
+            for(int i =0 ;i< Obstacles.size();i++){
+                Obstacle obs = Obstacles.get(i);
+                P.addType(getTypeofObstacle(obs));
+                P.addXcord(obs.getXpos());
+                P.addYcord(obs.getYpos());
+                P.CurrentTime.add(obs.getCurrentTime());
             }
-        }
-        else{
-            int i;
-            if(SavedGame)
-                i=SaveLocation-1;
-            else
-                i=3;
-            for(;i>=1;i--){
+            for(int i =0 ;i< Powerups.size();i++){
+                sample.Powerups pow=Powerups.get(i);
+                if(pow.getClass()==Star.class)
+                    P.PowerupType.add(1);
+                else
+                    P.PowerupType.add(2);
+                P.PowerupYcord.add(pow.getYpos());
+            }
+            player temp=null;
+            if(SavedGame&&SaveLocation==1){
                 try {
-                    temp = (player) resourceManager.loadData(i+".save");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    resourceManager.save(temp,(i+1)+".save");
+                    resourceManager.save(P,"1.save");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            try {
-                resourceManager.save(P,"1.save");
-            } catch (IOException e) {
-                e.printStackTrace();
+            else{
+                int i;
+                if(SavedGame)
+                    i=SaveLocation-1;
+                else
+                    i=3;
+                for(;i>=1;i--){
+                    try {
+                        temp = (player) resourceManager.loadData(i+".save");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        resourceManager.save(temp,(i+1)+".save");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    resourceManager.save(P,"1.save");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-    }
-    private void SaveGameTemporary(){
-        player P = new player();
-        P.setScore(Integer.parseInt(ScoreLabel.getText()));
-        P.setBallX(Ball.getXpos());
-        P.setBallY(Ball.getYpos());
-        P.SaveGame=true;
-        P.DateTime=new Date();
-        for(int i =0 ;i< Obstacles.size();i++){
-            Obstacle obs = Obstacles.get(i);
-            P.addType(getTypeofObstacle(obs));
-            P.addXcord(obs.getXpos());
-            P.addYcord(obs.getYpos());
-        }
-        for(int i =0 ;i< Powerups.size();i++){
-            sample.Powerups pow=Powerups.get(i);
-            if(pow.getClass()==Star.class)
-                P.PowerupType.add(1);
-            else
-                P.PowerupType.add(2);
-            P.PowerupYcord.add(pow.getYpos());
-        }
-        try {
-            resourceManager.save(P,"0.save");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     private void ReorderGameData(){
@@ -802,23 +747,23 @@ public class Game extends Application{
         int type =-1;
         if(obs.getClass()==Ring.class)
             type=0;
-        else if(obs.getClass()==SquareTrap.class)
-            type=1;
-        else if(obs instanceof Cross)
-            type=2;
         else if(obs.getClass()== UnidirectionalLine.class && !((UnidirectionalLine) obs).getLeft())
-            type=3;
+            type=1;
         else if(obs.getClass()== UnidirectionalLine.class && ((UnidirectionalLine) obs).getLeft())
+            type=2;
+        else if(obs instanceof Cross)
+            type=3;
+        else if(obs.getClass()==SquareTrap.class)
             type=4;
-        else if(obs instanceof BidirectionalLine)
+        else if(obs instanceof DoubleCross)
             type=5;
         else if (obs instanceof RectangleOfDots)
             type=6;
-        else if(obs instanceof DoubleRing)
+        else if(obs instanceof BidirectionalLine)
             type=7;
-        else if(obs instanceof DoubleCross)
-            type=8;
         else if(obs instanceof DiamondOfDots)
+            type=8;
+        else if(obs instanceof DoubleRing)
             type=9;
         else if(obs instanceof Trilateral)
             type=10;

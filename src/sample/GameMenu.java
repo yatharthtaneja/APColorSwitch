@@ -45,7 +45,7 @@ public class GameMenu implements Initializable {
     private Stage Currentstage;
     private static boolean DarkTheme=true;
     static boolean SoundOn=true;
-    private AudioClip Background;
+    private static AudioClip Background;
     public void setStage(Stage stage){
         this.Currentstage = stage;
     }
@@ -56,7 +56,8 @@ public class GameMenu implements Initializable {
         SoundOn=sound;
     }
     public void setBackground(AudioClip background){
-        Background=background;
+        if(Background==null)
+            Background=background;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -39,17 +39,18 @@ public class GameSettings implements Initializable {
     @FXML
     private AnchorPane settingsPane;
     private static boolean DarkTheme=true;
-@FXML
-private Text text;
+    @FXML
+    private Text text;
     @FXML
     private Label Music;
     @FXML
     private Label Sound;
     static boolean SoundOn =true;
     static boolean MusicOn =true;
-    static private AudioClip Background;
+    private static AudioClip Background;
     public void setBackground(AudioClip background){
-        Background=background;
+        if(Background==null)
+            Background=background;
     }
 private Stage stage;
 

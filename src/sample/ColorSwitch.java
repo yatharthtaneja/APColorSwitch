@@ -28,15 +28,15 @@ public class ColorSwitch extends Application {
         Parent root =loader.load();
         IntroScreen controller = (IntroScreen) loader.getController();
         controller.setStage(primaryStage);
-        Scene scene = new Scene(root,450,800);
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
         AudioClip Background=new AudioClip(this.getClass().getResource("Background.wav").toString());
         Background.setCycleCount(AudioClip.INDEFINITE);
         Background.setVolume(0.5);
         Background.play();
         controller.setBackground(Background);
+        Scene scene = new Scene(root,450,800);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
     public static void Serialise(){
 
