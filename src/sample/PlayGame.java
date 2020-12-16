@@ -142,6 +142,7 @@ public class PlayGame extends Application {
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
+                            ButtonSound();
                             Root.getChildren().removeAll(Restart,GameOverLabel,Revive);
                             BeginGame();
                         }
@@ -149,6 +150,7 @@ public class PlayGame extends Application {
                     Revive.setOnMouseClicked(new EventHandler<MouseEvent>(){
                         @Override
                         public void handle(MouseEvent mouseEvent) {
+                            ButtonSound();
                             Root.getChildren().remove(Restart);
                             Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Revive);
@@ -196,6 +198,7 @@ public class PlayGame extends Application {
         MainStage.setScene(MainScene);
         MainStage.show();
         PauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
+            ButtonSound();
             PauseMenu();
         });
     }
@@ -746,6 +749,7 @@ public class PlayGame extends Application {
             PauseScene.setFill(Color.valueOf("#141518"));
         MainStage.setScene(PauseScene);
         ResumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
+            ButtonSound();
             MainStage.setScene(CurrentScene);
             for (int i=0;i<Obstacles.size();i++){
                 Obstacles.get(i).Play();
@@ -753,6 +757,7 @@ public class PlayGame extends Application {
             Timer.play();
         });
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
+            ButtonSound();
             try {
                 loadButton("menu.fxml");
             } catch (IOException ioException) {
@@ -760,6 +765,7 @@ public class PlayGame extends Application {
             }
         });
         SaveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
+            ButtonSound();
             SaveCurrentGame();
             try {
                 loadButton("menu.fxml");
@@ -798,5 +804,9 @@ public class PlayGame extends Application {
         MainStage.setScene(scene);
         MainStage.setResizable(false);
         MainStage.show();
+    }
+    private void ButtonSound(){
+        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        Button.play();
     }
 }
