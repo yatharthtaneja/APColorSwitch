@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class Game extends Application{
     private double Gravity;
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
-    private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3;
+    private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3,plus1;
     private static boolean DarkTheme=true;
     private player CurrentPlayer;
     private Score Score= new Score();
@@ -81,11 +82,20 @@ public class Game extends Application{
         ScoreLabel = new Label("0");
         ScoreLabel.prefHeight(50);ScoreLabel.prefHeight(50);
         ScoreLabel.setLayoutX(10);ScoreLabel.setLayoutY(15);
-        if(!DarkTheme)
+        plus1= new Label("+1");
+        plus1.prefHeight(50);
+        if(!DarkTheme) {
             ScoreLabel.setTextFill(Color.valueOf("#141518"));
-        else
+            plus1.setTextFill(Color.valueOf("#141518"));
+
+        }
+        else {
             ScoreLabel.setTextFill(Color.WHITESMOKE);
+            plus1.setTextFill(Color.WHITESMOKE);
+
+        }
         ScoreLabel.setFont(new Font("Cambria", 36));
+        plus1.setFont(new Font("Cambria", 36));
         Root.getChildren().add(ScoreLabel);
         Ball=new Ball(225,535,12,Colors[(int)Math.random()*4]);
         Obstacles=new ArrayList<>();Powerups=new ArrayList<>();
@@ -447,9 +457,33 @@ public class Game extends Application{
                     ScoreLabel.setText(Integer.toString(Integer.parseInt(ScoreLabel.getText())+1));
                     reviveX=Ball.getXpos();
                     reviveY=Ball.getYpos();
+                    plus1.setLayoutX(reviveX);plus1.setTranslateY(reviveY);
+                    Root.getChildren().add(plus1);
+                    TranslateTransition temp = new TranslateTransition();
+                    temp.setNode(plus1);
+                    temp.setDuration(Duration.seconds(1));
+                    temp.setToY(reviveY+100);
+                    FadeTransition fade = new FadeTransition();
+                    fade.setDuration(Duration.seconds(1));
+                    fade.setFromValue(10);
+                    fade.setToValue(0.1);
+                    fade.setCycleCount(1000);
+                    fade.setAutoReverse(true);
+                    fade.setNode(plus1);
+                    temp.setOnFinished(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Root.getChildren().remove(plus1);
+                        }
+                    });
+                    temp.play();
+                    fade.play();
+
+
                 }
                 Root.getChildren().remove(Powerups.get(0).getObject());
                 Powerups.remove(0);
+
             }
         }
     }
