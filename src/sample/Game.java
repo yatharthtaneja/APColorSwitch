@@ -339,37 +339,47 @@ public class Game extends Application{
     }
 
     public void Reincarnate(){//Used for Reincarnated Gamed through coins
-        for (int i=0;i<Obstacles.size();i++)
-            Obstacles.get(i).Move();
         Score updateScore= new Score();
-        updateScore.writeStats(-Integer.parseInt(ScoreLabel.getText()));//Subtracting current stars from total
-        ScoreUpdated= false;
-        Ball.setXpos(reviveX);
-        if (reviveY>725)
-            reviveY =725;
-        Ball.setYpos(reviveY);
-        GameOver=false;
-        Gravity=0;Ticks=0;
-        Root.getChildren().removeAll(Restart,Reincarnate,TotalStarLabel,star_3);
-        StartGameLabel.setText("Press Up key to start");
-        StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
-        StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
-        if(!DarkTheme)
-            StartGameLabel.setTextFill(Color.valueOf("#141518"));
-        else
-            StartGameLabel.setTextFill(Color.WHITESMOKE);
-        Timer.pause();
-        if(!Root.getChildren().contains(StartGameLabel))
-            Root.getChildren().add(StartGameLabel);
-        MainScene.setOnKeyReleased(keyEvent -> {
-            String code=keyEvent.getCode().toString();
-            if(code.equals("UP")){
-                Root.getChildren().remove(StartGameLabel);
-                Timer.play();
-            }
-            else if(code.equals("P")||code.equals("p"))
-                PauseMenu();
-        });
+        int available=Integer.parseInt(updateScore.getStar());
+        if(available>=100) {
+            updateScore.updateStars(-100);
+            for (int i = 0; i < Obstacles.size(); i++)
+                Obstacles.get(i).Move();
+
+            updateScore.writeStats(-Integer.parseInt(ScoreLabel.getText()));//Subtracting current stars from total
+            ScoreUpdated = false;
+            Ball.setXpos(reviveX);
+            if (reviveY > 725)
+                reviveY = 725;
+            Ball.setYpos(reviveY);
+            GameOver = false;
+            Gravity = 0;
+            Ticks = 0;
+            Root.getChildren().removeAll(Restart, Reincarnate, TotalStarLabel, star_3);
+            StartGameLabel.setText("Press Up key to start");
+            StartGameLabel.setScaleX(2);
+            StartGameLabel.setScaleY(2);
+            StartGameLabel.setLayoutX(MainStage.getWidth() / 2 - 55);
+            StartGameLabel.setLayoutY(MainStage.getHeight() / 2 - 50);
+            if (!DarkTheme)
+                StartGameLabel.setTextFill(Color.valueOf("#141518"));
+            else
+                StartGameLabel.setTextFill(Color.WHITESMOKE);
+            Timer.pause();
+            if (!Root.getChildren().contains(StartGameLabel))
+                Root.getChildren().add(StartGameLabel);
+            MainScene.setOnKeyReleased(keyEvent -> {
+                String code = keyEvent.getCode().toString();
+                if (code.equals("UP")) {
+                    Root.getChildren().remove(StartGameLabel);
+                    Timer.play();
+                } else if (code.equals("P") || code.equals("p"))
+                    PauseMenu();
+            });
+        }
+        else {
+            System.out.println("No funds");
+        }
     }
     private void MoveAhead() {
         if (!GameOver) {
@@ -598,6 +608,11 @@ public class Game extends Application{
         PauseLabel.setScaleY(4);
         PauseLabel.setScaleX(4);
         Group PauseMenu = new Group(ResumeButton,PauseLabel,SaveButton,HomeButton);
+
+        if(GameOver) {
+            // if game over then you cannot save a game
+            PauseMenu = new Group(ResumeButton, PauseLabel, HomeButton);
+        }
         PauseMenu.getStylesheets().add("sample/button.css");
         Scene PauseScene = new Scene(PauseMenu,450,800);
         if(!DarkTheme)
