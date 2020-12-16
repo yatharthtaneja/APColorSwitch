@@ -37,7 +37,6 @@ public class ColorSwitch extends Application {
         Background.setVolume(0.5);
         Background.play();
         controller.setBackground(Background);
-
     }
     public static void Serialise(){
 

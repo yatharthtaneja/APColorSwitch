@@ -9,6 +9,7 @@ public abstract class Powerups implements SceneElements, Serializable {
     private double Xpos;
     private double Ypos;
     private Shape Object;
+    static boolean SoundOn=true;
     @Override
     public double getXpos(){
         return Xpos;
@@ -24,6 +25,9 @@ public abstract class Powerups implements SceneElements, Serializable {
     @Override
     public void setYpos(double y){
         Ypos=y;
+    }
+    public static void setSoundOn(boolean sound){
+        SoundOn=sound;
     }
     public Shape getObject(){
         return Object;

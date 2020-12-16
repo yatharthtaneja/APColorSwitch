@@ -37,11 +37,13 @@ public class Stats implements Initializable {
     private Label highlabel;
 
     private static boolean DarkTheme;
-
+    static boolean SoundOn =true;
     public void setTheme(boolean darktheme){
         DarkTheme=darktheme;
     }
-
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Score score= new Score();

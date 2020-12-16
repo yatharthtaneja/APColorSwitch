@@ -27,7 +27,9 @@ public class Star extends Powerups {
     }
     @Override
     public void Collide() {
-        AudioClip sound = new AudioClip(this.getClass().getResource("Star.wav").toString());
-        sound.play();
+        if(SoundOn){
+            AudioClip sound = new AudioClip(this.getClass().getResource("Star.wav").toString());
+            sound.play();
+        }
     }
 }

@@ -18,7 +18,9 @@ public class ColourBooster extends Powerups {
     }
     @Override
     public void Collide() {
-        AudioClip sound = new AudioClip(this.getClass().getResource("ColourBooster.wav").toString());
-        sound.play();
+        if(SoundOn){
+            AudioClip sound = new AudioClip(this.getClass().getResource("ColourBooster.wav").toString());
+            sound.play();
+        }
     }
 }

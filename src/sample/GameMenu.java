@@ -97,6 +97,7 @@ public class GameMenu implements Initializable {
                 game.setStage(Currentstage);
                 game.setTheme(DarkTheme);
                 game.start(Currentstage);
+                game.setSoundOn(SoundOn);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (Exception exception) {
@@ -171,8 +172,6 @@ public class GameMenu implements Initializable {
             Stats controller = (Stats) loader.getController();
             controller.setStage(this.Currentstage);
         }
-
-
         Scene scene = new Scene(root,450,800);
         Currentstage.setScene(scene);
         Currentstage.setResizable(false);
@@ -181,21 +180,22 @@ public class GameMenu implements Initializable {
     public void ThemeChanger(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-
         if(s.equals("LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
             controller.setTheme(DarkTheme);
-
+            controller.setSoundOn(SoundOn);
         }
         else if(s.equals("Stats.fxml")){
             Stats controller = (Stats) loader.getController();
             controller.setTheme(DarkTheme);
-
+            controller.setSoundOn(SoundOn);
         }
     }
     private void ButtonSound(){
-        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
-        Button.play();
+        if (SoundOn){
+            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            Button.play();
+        }
     }
     private void setRotate(Group a1, int start, int end, int duration , double centerx , double centery) {
         Rotate rt2 = new Rotate(0,centerx,centery);

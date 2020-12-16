@@ -47,7 +47,7 @@ private Text text;
     private Label Sound;
     static boolean SoundOn =true;
     static boolean MusicOn =true;
-    private AudioClip Background;
+    static private AudioClip Background;
     public void setBackground(AudioClip background){
         Background=background;
     }
@@ -65,26 +65,34 @@ public void  setTheme(boolean darktheme){
         addShadow(LightMode);
         addShadow(HowButton);
         addShadow(DeveloperButton);
-        addImage(hbutton,"sample/Assets/home_white.png");
-        addImage(sbutton,"sample/Assets/volumeOn_white.png");
-        addImage(mbutton,"sample/Assets/volumeOn_white.png");
         if(!DarkTheme){
             LightMode.setText("Dark Mode");
             settingsPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
-            addImage(sbutton,"sample/Assets/volumeOn.png");
-            addImage(mbutton,"sample/Assets/volumeOn.png");
+            if(SoundOn)
+                addImage(sbutton,"sample/Assets/volumeOn.png");
+            else
+                addImage(sbutton,"sample/Assets/mute.png");
+            if(MusicOn)
+                addImage(mbutton,"sample/Assets/volumeOn.png");
+            else
+                addImage(mbutton,"sample/Assets/mute.png");
             text.setFill(Color.valueOf("#141518"));
             Sound.setTextFill(Color.valueOf("#141518"));
             Music.setTextFill(Color.valueOf("#141518"));
-
         }
         else{
             LightMode.setText("Light Mode");
             settingsPane.setStyle("-fx-background-color: #141518");
             addImage(hbutton,"sample/Assets/home_white.png");
-            addImage(sbutton,"sample/Assets/volumeOn_white.png");
-            addImage(mbutton,"sample/Assets/volumeOn_white.png");
+            if(SoundOn)
+                addImage(sbutton,"sample/Assets/volumeOn_white.png");
+            else
+                addImage(sbutton,"sample/Assets/mute_white.png");
+            if(MusicOn)
+                addImage(mbutton,"sample/Assets/volumeOn_white.png");
+            else
+                addImage(mbutton,"sample/Assets/mute_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
             Sound.setTextFill(Color.valueOf("#FFFFFF"));
             Music.setTextFill(Color.valueOf("#FFFFFF"));
@@ -105,6 +113,7 @@ public void  setTheme(boolean darktheme){
             }
             SoundOn=!SoundOn;
             try {
+                Powerups.setSoundOn(SoundOn);
                 themeChanger("HowToplay.fxml");
                 themeChanger("Developers.fxml");
                 themeChanger("GameMenu.fxml");
@@ -185,11 +194,17 @@ public void  setTheme(boolean darktheme){
                 LightMode.setText("Dark Mode");
                 settingsPane.setStyle("-fx-background-color: #FFFFF0");
                 addImage(hbutton,"sample/Assets/home.png");
-                addImage(sbutton,"sample/Assets/volumeOn.png");
-                addImage(mbutton,"sample/Assets/volumeOn.png");
+                if(SoundOn)
+                    addImage(sbutton,"sample/Assets/volumeOn.png");
+                else
+                    addImage(sbutton,"sample/Assets/mute.png");
+                if(MusicOn)
+                    addImage(mbutton,"sample/Assets/volumeOn.png");
+                else
+                    addImage(mbutton,"sample/Assets/mute.png");
                 text.setFill(Color.valueOf("#141518"));
                 Music.setTextFill(Color.valueOf("#141518"));
-                Music.setTextFill(Color.valueOf("#141518"));
+                Sound.setTextFill(Color.valueOf("#141518"));
                 try {
                     themeChanger("HowToplay.fxml");
                     themeChanger("Developers.fxml");
@@ -204,6 +219,14 @@ public void  setTheme(boolean darktheme){
                 addImage(hbutton,"sample/Assets/home_white.png");
                 addImage(sbutton,"sample/Assets/volumeOn_white.png");
                 addImage(mbutton,"sample/Assets/volumeOn_white.png");
+                if(SoundOn)
+                    addImage(sbutton,"sample/Assets/volumeOn_white.png");
+                else
+                    addImage(mbutton,"sample/Assets/mute_white.png");
+                if(MusicOn)
+                    addImage(mbutton,"sample/Assets/volumeOn_white.png");
+                else
+                    addImage(mbutton,"sample/Assets/mute_white.png");
                 text.setFill(Color.valueOf("#FFFFFF"));
                 Sound.setTextFill(Color.valueOf("#FFFFFF"));
                 Music.setTextFill(Color.valueOf("#FFFFFF"));

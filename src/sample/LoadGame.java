@@ -39,9 +39,12 @@ public class LoadGame implements Initializable {
     @FXML
     private Text text;
     private static boolean DarkTheme;
-
+    static boolean SoundOn =true;
     public void setTheme(boolean darktheme){
         DarkTheme=darktheme;
+    }
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
     }
 
     @Override
@@ -216,7 +219,9 @@ public class LoadGame implements Initializable {
         });
     }
     private void ButtonSound(){
-        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
-        Button.play();
+        if(SoundOn){
+            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            Button.play();
+        }
     }
 }
