@@ -41,7 +41,7 @@ public class DiamondOfDots extends Obstacle {
         setObstacle(obstacle);
 
         Timeline.setCycleCount(Animation.INDEFINITE);
-        KeyFrame Moveball = new KeyFrame(Duration.seconds(0.09), new EventHandler<ActionEvent>() {
+        KeyFrame Moveball = new KeyFrame(Duration.seconds(0.14), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 javafx.scene.shape.Shape temp3=(javafx.scene.shape.Shape) getObstacle().getChildren().get(0);

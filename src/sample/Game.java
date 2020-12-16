@@ -221,9 +221,9 @@ public class Game extends Application{
             Root.getChildren().remove(Powerups.get(i).getObject());
         Obstacles.clear();
         Powerups.clear();
+        ScoreLabel.setText("0");
         for (int i = 0; i < 4; i++)
             AddObstacleandPowerup();
-        ScoreLabel.setText("0");
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
         StartGameLabel.setLayoutX(MainStage.getWidth() / 2 - 55);StartGameLabel.setLayoutY(MainStage.getHeight() / 2 - 50);
@@ -375,7 +375,7 @@ public class Game extends Application{
         if (!GameOver) {
             if (Gravity > 0)
                 Gravity = 0;
-            Gravity -= 9.5;
+            Gravity -= 9;
         }
     }
     public void CheckObstacleCollision(){
