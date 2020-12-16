@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,6 +46,7 @@ private Text text;
     private Label text2;
 
 private Stage stage;
+
 public void setStage(Stage stage){
     this.stage=stage;
 }
@@ -84,6 +86,7 @@ public void  setTheme(boolean s){
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("menu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -91,12 +94,14 @@ public void  setTheme(boolean s){
         });
         DeveloperButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("Developers.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
         ResetButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
             Score obj2= new Score();
             obj2.reset();
             player p1 = new player();
@@ -111,12 +116,14 @@ public void  setTheme(boolean s){
         });
         HowButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("HowToplay.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
         LightMode.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
             if(lightmode){
                 setTheme(false);
             }
@@ -191,8 +198,6 @@ public void  setTheme(boolean s){
         else if(s.equals("Developers.fxml")){
             Developers controller = (Developers) loader.getController();
             controller.setStage(this.stage);
-
-
         }
         Scene scene = new Scene(root,450,800);
         scene.setFill(Color.WHITESMOKE);
@@ -217,9 +222,10 @@ public void  setTheme(boolean s){
         else if(s.equals("Developers.fxml")){
             Developers controller = (Developers) loader.getController();
             controller.setTheme(lightmode);
-
-
         }
-
+    }
+    private void ButtonSound(){
+        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        Button.play();
     }
 }

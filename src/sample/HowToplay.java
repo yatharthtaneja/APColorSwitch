@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ public class HowToplay implements Initializable {
     private Text text;
     private static boolean lightmode;
     private Stage stage;
+
     public void setStage(Stage stage){
         this.stage=stage;
     }

@@ -48,6 +48,10 @@ public class PlayGame extends Application {
     private player CurrentPlayer;
     int SaveLocation=0;
     boolean SavedGame;
+    private AudioClip Background;
+    public void setBackground(AudioClip background) {
+        Background = background;
+    }
     @Override
     public void start(Stage MainStage) throws Exception {
         Root=new Group();

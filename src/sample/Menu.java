@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -43,8 +44,8 @@ public class Menu implements Initializable {
     private Arc topleftcurve11;
     @FXML
     private Arc topleftcurve1;
-@FXML
-private Button LoadButton;
+    @FXML
+    private Button LoadButton;
     @FXML
     private Button SettingsButton;
     @FXML
@@ -65,10 +66,10 @@ private Button LoadButton;
     public void setTheme(boolean s){
         this.lightmode=s;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    IntroScreen obj = new IntroScreen();
-
+        IntroScreen obj = new IntroScreen();
         obj.setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
         obj.setRotate(ring11,0,360,5,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
         obj.setRotate(ring2,360,0,4,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
@@ -82,14 +83,12 @@ private Button LoadButton;
             menuAnchor.setStyle("-fx-background-color: #FFFFF0");
             text.setFill(Color.valueOf("#141518"));
             text1.setFill(Color.valueOf("#141518"));
-
             PlayButton.setFill(Color.valueOf("#141518"));
         }
         else{
             menuAnchor.setStyle("-fx-background-color: #141518");
             text.setFill(Color.valueOf("#FFFFFF"));
             text1.setFill(Color.valueOf("#FFFFFF"));
-
             PlayButton.setFill(Color.valueOf("#FFFFFF"));
         }
         try {
@@ -102,6 +101,7 @@ private Button LoadButton;
 
         SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("GameSettings.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -109,7 +109,7 @@ private Button LoadButton;
         });
         PlayButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-//                loadButton("play.fxml");
+                ButtonSound();
                 PlayGame game = new PlayGame();
                 game.setStage(stage);
                 game.setTheme(lightmode);
@@ -122,6 +122,7 @@ private Button LoadButton;
         });
         StatisticsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("Stats.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -129,6 +130,7 @@ private Button LoadButton;
         });
         LoadButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("LoadGame.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -136,9 +138,9 @@ private Button LoadButton;
         });
 
         ExitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
             Stage window = (Stage) menuAnchor.getScene().getWindow();
             window.close();
-
         });
     }
     public void addShadowPlay(Shape s1){
@@ -206,7 +208,10 @@ private Button LoadButton;
             controller.setTheme(lightmode);
 
         }
-
+    }
+    private void ButtonSound(){
+        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        Button.play();
     }
 
 }

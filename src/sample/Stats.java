@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,9 +37,11 @@ public class Stats implements Initializable {
     private Label highlabel;
 
     private static boolean lightmode;
+
     public void setTheme(boolean s){
         this.lightmode=s;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Score score= new Score();
@@ -56,6 +59,7 @@ public class Stats implements Initializable {
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("menu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -80,5 +84,9 @@ public class Stats implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+    private void ButtonSound(){
+        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        Button.play();
     }
 }

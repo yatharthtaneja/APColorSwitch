@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -38,9 +39,11 @@ public class LoadGame implements Initializable {
     @FXML
     private Text text;
     private static boolean lightmode;
+
     public void setTheme(boolean s){
         this.lightmode=s;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         player p1 = null,p2=null,p3=null,p4=null;
@@ -107,6 +110,7 @@ public class LoadGame implements Initializable {
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
+                ButtonSound();
                 loadButton("menu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -116,6 +120,7 @@ public class LoadGame implements Initializable {
         l1.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 if(finalP1.SaveGame){
+                    ButtonSound();
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP1);
                     game.setSaveLocation(1);
@@ -132,6 +137,7 @@ public class LoadGame implements Initializable {
         l2.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 if(finalP2.SaveGame){
+                    ButtonSound();
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP2);
                     game.setSaveLocation(2);
@@ -148,6 +154,7 @@ public class LoadGame implements Initializable {
         l3.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 if(finalP3.SaveGame){
+                    ButtonSound();
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP3);
                     game.setSaveLocation(3);
@@ -164,6 +171,7 @@ public class LoadGame implements Initializable {
         l4.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 if(finalP4.SaveGame){
+                    ButtonSound();
                     PlayGame game = new PlayGame();
                     game.setCurrentPlayer(finalP4);
                     game.setSaveLocation(4);
@@ -206,5 +214,9 @@ public class LoadGame implements Initializable {
             s1.setEffect(null);
             s1.setFill(Color.valueOf("#d41e8d"));
         });
+    }
+    private void ButtonSound(){
+        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        Button.play();
     }
 }
