@@ -12,6 +12,7 @@ public class player implements Serializable {
     private int score;
     private double ballX;
     private double ballY;
+    private int balance;
     public Date DateTime;
 
     public ArrayList<Integer> ObstacleType= new ArrayList<>();
@@ -20,7 +21,7 @@ public class player implements Serializable {
     public ArrayList<Integer> PowerupType= new ArrayList<>();
     public ArrayList<Double> PowerupYcord = new ArrayList<>();
     public ArrayList<Double> CurrentTime =new ArrayList<>();
-
+    public int getBalance(){ return balance; }
     public double getBallX() {
         return ballX;
     }
@@ -36,6 +37,7 @@ public class player implements Serializable {
     public void setBallY(double ballY) {
         this.ballY = ballY;
     }
+    public void setBalance(int Balance){this.balance= Balance;}
     public void setScore(int score) {
         this.score = score;
     }

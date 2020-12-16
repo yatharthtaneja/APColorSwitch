@@ -265,6 +265,7 @@ public class Game extends Application{
         ScoreUpdated= false;
         Ball.setXpos(CurrentPlayer.getBallX());Ball.setYpos(CurrentPlayer.getBallY());
         reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallX();
+        balance=CurrentPlayer.getBalance();
         GameOver=false;
         Gravity=0;Ticks=0;
         Obstacles.clear();Powerups.clear();
@@ -692,6 +693,7 @@ public class Game extends Application{
             P.setScore(Integer.parseInt(ScoreLabel.getText()));
             P.setBallX(Ball.getXpos());
             P.setBallY(Ball.getYpos());
+            P.setBalance(balance);
             P.SaveGame=true;
             P.DateTime=new Date();
             for(int i =0 ;i< Obstacles.size();i++){
