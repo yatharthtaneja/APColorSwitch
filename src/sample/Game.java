@@ -47,8 +47,12 @@ public class Game extends Application{
     private Button Reincarnate;
     private double reviveX;
     private double reviveY;
+    static boolean SoundOn=true;
     public void setStage(Stage stage){ this.MainStage=stage; }
     public void setTheme(boolean darktheme){ DarkTheme=darktheme;}
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
+    }
     public void setSaveLocation(int loc){
         this.SaveLocation=loc;
         this.SavedGame=true;
@@ -678,8 +682,10 @@ public class Game extends Application{
         return button;
     }
     private void PlaySound(String link){
-        AudioClip sound = new AudioClip(this.getClass().getResource(link).toString());
-        sound.play();
+        if(SoundOn) {
+            AudioClip sound = new AudioClip(this.getClass().getResource(link).toString());
+            sound.play();
+        }
     }
     private void AddImage(Button b1,String path){
         javafx.scene.image.Image img = new Image(path);

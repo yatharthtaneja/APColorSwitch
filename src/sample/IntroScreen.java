@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
@@ -29,16 +30,18 @@ public class IntroScreen implements Initializable {
     @FXML private Arc topleftcurve;
     @FXML private Circle introBall;
     private Stage Currentstage;
+    private AudioClip Background;
     public void setStage(Stage stage){
         Currentstage=stage;
     }
-
+    public void setBackground(AudioClip background){
+        Background=background;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
         MoveBall(introBall, ring, 4, -100);
     }
-
     public void MoveBall(Circle c1, Group s1, int cycle , int movey){
         Path path = new Path();
         path.getElements().add(new MoveTo(0,0));
@@ -92,6 +95,7 @@ public class IntroScreen implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameMenu.fxml"));
         Parent root =loader.load();
         GameMenu controller = (GameMenu) loader.getController();
+        controller.setBackground(Background);
         controller.setStage(Currentstage);
         Scene scene = new Scene(root,450,800);
         Currentstage.setScene(scene);

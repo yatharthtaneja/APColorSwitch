@@ -42,10 +42,15 @@ public class GameSettings implements Initializable {
 @FXML
 private Text text;
     @FXML
-    private Label text3;
+    private Label Music;
     @FXML
-    private Label text2;
-
+    private Label Sound;
+    static boolean SoundOn =true;
+    static boolean MusicOn =true;
+    private AudioClip Background;
+    public void setBackground(AudioClip background){
+        Background=background;
+    }
 private Stage stage;
 
 public void setStage(Stage stage){
@@ -70,8 +75,8 @@ public void  setTheme(boolean darktheme){
             addImage(sbutton,"sample/Assets/volumeOn.png");
             addImage(mbutton,"sample/Assets/volumeOn.png");
             text.setFill(Color.valueOf("#141518"));
-            text2.setTextFill(Color.valueOf("#141518"));
-            text3.setTextFill(Color.valueOf("#141518"));
+            Sound.setTextFill(Color.valueOf("#141518"));
+            Music.setTextFill(Color.valueOf("#141518"));
 
         }
         else{
@@ -81,9 +86,57 @@ public void  setTheme(boolean darktheme){
             addImage(sbutton,"sample/Assets/volumeOn_white.png");
             addImage(mbutton,"sample/Assets/volumeOn_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
-            text2.setTextFill(Color.valueOf("#FFFFFF"));
-            text3.setTextFill(Color.valueOf("#FFFFFF"));
+            Sound.setTextFill(Color.valueOf("#FFFFFF"));
+            Music.setTextFill(Color.valueOf("#FFFFFF"));
         }
+        sbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
+            if(SoundOn){
+                if(DarkTheme)
+                    addImage(sbutton,"sample/Assets/mute_white.png");
+                else
+                    addImage(sbutton,"sample/Assets/mute.png");
+            }
+            else{
+                if(DarkTheme)
+                    addImage(sbutton,"sample/Assets/volumeOn_white.png");
+                else
+                    addImage(sbutton,"sample/Assets/volumeOn.png");
+            }
+            SoundOn=!SoundOn;
+            try {
+                themeChanger("HowToplay.fxml");
+                themeChanger("Developers.fxml");
+                themeChanger("GameMenu.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        mbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
+            if(MusicOn){
+                Background.stop();
+                if(DarkTheme)
+                    addImage(mbutton,"sample/Assets/mute_white.png");
+                else
+                    addImage(mbutton,"sample/Assets/mute.png");
+            }
+            else{
+                Background.play();
+                if(DarkTheme)
+                    addImage(mbutton,"sample/Assets/volumeOn_white.png");
+                else
+                    addImage(mbutton,"sample/Assets/volumeOn.png");
+            }
+            MusicOn=!MusicOn;
+            try {
+                themeChanger("HowToplay.fxml");
+                themeChanger("Developers.fxml");
+                themeChanger("GameMenu.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
@@ -135,8 +188,8 @@ public void  setTheme(boolean darktheme){
                 addImage(sbutton,"sample/Assets/volumeOn.png");
                 addImage(mbutton,"sample/Assets/volumeOn.png");
                 text.setFill(Color.valueOf("#141518"));
-                text2.setTextFill(Color.valueOf("#141518"));
-                text3.setTextFill(Color.valueOf("#141518"));
+                Music.setTextFill(Color.valueOf("#141518"));
+                Music.setTextFill(Color.valueOf("#141518"));
                 try {
                     themeChanger("HowToplay.fxml");
                     themeChanger("Developers.fxml");
@@ -152,8 +205,8 @@ public void  setTheme(boolean darktheme){
                 addImage(sbutton,"sample/Assets/volumeOn_white.png");
                 addImage(mbutton,"sample/Assets/volumeOn_white.png");
                 text.setFill(Color.valueOf("#FFFFFF"));
-                text2.setTextFill(Color.valueOf("#FFFFFF"));
-                text3.setTextFill(Color.valueOf("#FFFFFF"));
+                Sound.setTextFill(Color.valueOf("#FFFFFF"));
+                Music.setTextFill(Color.valueOf("#FFFFFF"));
                 try {
                     themeChanger("HowToplay.fxml");
                     themeChanger("Developers.fxml");
@@ -200,19 +253,24 @@ public void  setTheme(boolean darktheme){
         if(s.equals("GameMenu.fxml")){
             GameMenu controller = (GameMenu) loader.getController();
             controller.setTheme(DarkTheme);
+            controller.setSoundOn(SoundOn);
         }
         else if(s.equals("HowToplay.fxml")){
             HowToplay controller = (HowToplay) loader.getController();
             controller.setTheme(DarkTheme);
+            controller.setSoundOn(SoundOn);
         }
         else if(s.equals("Developers.fxml")){
             Developers controller = (Developers) loader.getController();
             controller.setTheme(DarkTheme);
+            controller.setSoundOn(SoundOn);
         }
     }
     private void ButtonSound(){
-        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
-        Button.play();
+        if (SoundOn){
+            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            Button.play();
+        }
     }
     public void addShadow(Button button3){
         DropShadow shadow = new DropShadow();

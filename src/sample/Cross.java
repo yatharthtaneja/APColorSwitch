@@ -48,8 +48,8 @@ public class Cross extends Obstacle{
 
     @Override
     public void setCurrentTime(double millis) {
-        Transition.play();
-        Transition.pause();
+        Play();
+        Pause();
         Transition.jumpTo(new Duration(millis));
     }
 }

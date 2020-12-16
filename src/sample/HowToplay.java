@@ -29,16 +29,21 @@ public class HowToplay implements Initializable {
     private Text text;
     private static boolean DarkTheme=true;
     private Stage stage;
+    static boolean SoundOn =true;
     public void setStage(Stage stage){
         this.stage=stage;
     }
     public void setTheme(boolean darktheme){
         DarkTheme=darktheme;
     }
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/back_white.png");
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+
             try {
                 loadButton("GameSettings.fxml");
 
@@ -47,20 +52,14 @@ public class HowToplay implements Initializable {
             }
         });
         if(!DarkTheme){
-
             howPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/back-arrow.png");
             text.setFill(Color.valueOf("#141518"));
-
-
         }
         else{
-
             howPane.setStyle("-fx-background-color: #141518");
             addImage(hbutton,"sample/Assets/back_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
-
-
         }
     }
     public void addImage(Button b1,String path){
@@ -70,6 +69,12 @@ public class HowToplay implements Initializable {
         view.setPreserveRatio(true);
         b1.setGraphic(view);
 
+    }
+    private void ButtonSound(){
+        if (SoundOn){
+            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            Button.play();
+        }
     }
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameSettings.fxml"));

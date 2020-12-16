@@ -95,8 +95,8 @@ public class Trilateral extends Obstacle{
     }
     @Override
     public void setCurrentTime(double millis) {
-        Timeline.play();
-        Timeline.pause();
+        Play();
+        Pause();
         Timeline.jumpTo(new Duration(millis));
     }
 }

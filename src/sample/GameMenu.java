@@ -44,13 +44,20 @@ public class GameMenu implements Initializable {
     @FXML private Text text1;
     private Stage Currentstage;
     private static boolean DarkTheme=true;
+    static boolean SoundOn=true;
+    private AudioClip Background;
     public void setStage(Stage stage){
         this.Currentstage = stage;
     }
     public void setTheme(boolean darktheme){
         DarkTheme=darktheme;
     }
-
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
+    }
+    public void setBackground(AudioClip background){
+        Background=background;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
@@ -154,6 +161,7 @@ public class GameMenu implements Initializable {
         if(s.equals("GameSettings.fxml")){
             GameSettings controller = (GameSettings) loader.getController();
             controller.setStage(this.Currentstage);
+            controller.setBackground(Background);
         }
         else if(s.equals("LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();

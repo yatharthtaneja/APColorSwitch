@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,8 +32,12 @@ public class Developers implements Initializable {
     @FXML
     private Text text;
     private static boolean DarkTheme=true;
+    static boolean SoundOn =true;
     public void setTheme(boolean darktheme){
         DarkTheme=darktheme;
+    }
+    public void setSoundOn(boolean sound){
+        SoundOn=sound;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,6 +63,12 @@ public class Developers implements Initializable {
                 ioException.printStackTrace();
             }
         });
+    }
+    private void ButtonSound(){
+        if (SoundOn){
+            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            Button.play();
+        }
     }
     public void addImage(Button b1,String path){
         Image img = new Image(path);

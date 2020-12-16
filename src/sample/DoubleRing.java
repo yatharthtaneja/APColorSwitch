@@ -73,10 +73,8 @@ public class DoubleRing extends Obstacle{
     }
     @Override
     public void setCurrentTime(double millis) {
-        Transition1.play();
-        Transition2.play();
-        Transition1.pause();
-        Transition2.pause();
+        Play();
+        Pause();
         Transition1.jumpTo(new Duration(millis));
         Transition2.jumpTo(new Duration(millis));
     }
