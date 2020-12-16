@@ -48,6 +48,7 @@ public class Game extends Application{
     private double reviveX;
     private double reviveY;
     private static boolean SoundOn=true;
+    private int balance =5;
     public void setStage(Stage stage){ this.MainStage=stage; }
     public void setTheme(boolean darktheme){ DarkTheme=darktheme;}
     public void setSoundOn(boolean sound){
@@ -155,10 +156,16 @@ public class Game extends Application{
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             PlaySound("Button.wav");
+                            int available = Integer.parseInt(Score.getStar());
+                            if(available>=balance){
                             Root.getChildren().remove(Restart);
                             Root.getChildren().remove(GameOverLabel);
                             Root.getChildren().remove(Reincarnate);
                             Reincarnate();
+                            }
+                            else {
+                                Reincarnate.setText("Insufficient Stars");
+                            }
                         }
                     });
                 }
@@ -204,6 +211,7 @@ public class Game extends Application{
     }
     public void StartGame(){//Used for New Games
         ScoreUpdated = false;
+        balance=5;
         Ball.setXpos(225);Ball.setYpos(535);
         reviveX = 225;reviveY = 535;
         GameOver = false;
@@ -341,8 +349,10 @@ public class Game extends Application{
     public void Reincarnate(){//Used for Reincarnated Gamed through coins
         Score updateScore= new Score();
         int available=Integer.parseInt(updateScore.getStar());
-        if(available>=100) {
-            updateScore.updateStars(-100);
+        if(available>=balance) {
+            // multiply balance by 2 to decrease amount of revive.
+            updateScore.updateStars(-balance);
+            balance*=2;
             for (int i = 0; i < Obstacles.size(); i++)
                 Obstacles.get(i).Move();
 
@@ -376,9 +386,6 @@ public class Game extends Application{
                 } else if (code.equals("P") || code.equals("p"))
                     PauseMenu();
             });
-        }
-        else {
-            System.out.println("No funds");
         }
     }
     private void MoveAhead() {
