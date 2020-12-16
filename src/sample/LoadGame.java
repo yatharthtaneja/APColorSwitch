@@ -38,10 +38,10 @@ public class LoadGame implements Initializable {
     }
     @FXML
     private Text text;
-    private static boolean lightmode;
+    private static boolean DarkTheme;
 
-    public void setTheme(boolean s){
-        this.lightmode=s;
+    public void setTheme(boolean darktheme){
+        DarkTheme=darktheme;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class LoadGame implements Initializable {
         }
         addImage(hbutton,"sample/Assets/home_white.png");
         addShadow(l1);addShadow(l2);addShadow(l3);addShadow(l4);
-        if(lightmode){
+        if(!DarkTheme){
             loadPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
             text.setFill(Color.valueOf("#141518"));
@@ -111,7 +111,7 @@ public class LoadGame implements Initializable {
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("menu.fxml");
+                loadButton("GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -125,7 +125,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP1);
                     game.setSaveLocation(1);
                     game.setStage(stage);
-                    game.setTheme(lightmode);
+                    game.setTheme(DarkTheme);
                     game.start(stage);
                 }
             } catch (IOException ioException) {
@@ -142,7 +142,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP2);
                     game.setSaveLocation(2);
                     game.setStage(stage);
-                    game.setTheme(lightmode);
+                    game.setTheme(DarkTheme);
                     game.start(stage);
                 }
             } catch (IOException ioException) {
@@ -159,7 +159,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP3);
                     game.setSaveLocation(3);
                     game.setStage(stage);
-                    game.setTheme(lightmode);
+                    game.setTheme(DarkTheme);
                     game.start(stage);
                 }
             } catch (IOException ioException) {
@@ -176,7 +176,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP4);
                     game.setSaveLocation(4);
                     game.setStage(stage);
-                    game.setTheme(lightmode);
+                    game.setTheme(DarkTheme);
                     game.start(stage);
                 }
             } catch (IOException ioException) {
@@ -196,7 +196,7 @@ public class LoadGame implements Initializable {
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        Menu controller = (Menu) loader.getController();
+        GameMenu controller = (GameMenu) loader.getController();
         controller.setStage(this.stage);
         Scene scene = new Scene(root,450,800);
         stage.setScene(scene);

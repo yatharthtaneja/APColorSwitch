@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ColorSwitch extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("ColorSwitch");

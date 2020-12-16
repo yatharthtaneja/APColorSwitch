@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="menuAnchor" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GameMenu">
+    <children>
+        <Group fx:id="ring" layoutX="171.0" layoutY="277.0">
+            <children>
+                <Arc id="topleftcurve" fx:id="topleftcurve" fill="#007ee500" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="toprightcurve" fx:id="toprightcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrightcurve" fx:id="bottomrightcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrleftcurve" fx:id="bottomleftcurve" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="100.0" radiusY="100.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+            </children>
+        </Group>
+        <Text fx:id="text" fill="WHITE" layoutX="141.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOR" textAlignment="CENTER" wrappingWidth="176.4999999999999">
+            <font>
+                <Font name="Futura Light BT" size="49.0" />
+            </font>
+        </Text>
+        <Group fx:id="ring11" layoutX="172.0" layoutY="278.0">
+            <children>
+                <Arc id="topleftcurve" fx:id="topleftcurve11" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="60.0" radiusY="60.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="toprightcurve" fx:id="toprightcurve11" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="60.0" radiusY="60.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrightcurve" fx:id="bottomrightcurve11" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="60.0" radiusY="60.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrleftcurve" fx:id="bottomleftcurve11" fill="#1f93ff00" layoutX="54.0" layoutY="74.0" length="90.0" radiusX="60.0" radiusY="60.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+            </children>
+        </Group>
+        <Group fx:id="ring2" layoutX="138.0" layoutY="264.0">
+            <children>
+                <Arc id="topleftcurve" fx:id="topleftcurve1" fill="#1f93ff00" layoutX="87.0" layoutY="88.0" length="90.0" radiusX="80.0" radiusY="80.0" startAngle="90.0" stroke="#35e2f2" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="toprightcurve" fx:id="toprightcurve1" fill="#1f93ff00" layoutX="87.0" layoutY="88.0" length="90.0" radiusX="80.0" radiusY="80.0" stroke="#f6df0e" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrightcurve" fx:id="bottomrightcurve1" fill="#1f93ff00" layoutX="87.5" layoutY="88.5" length="90.0" radiusX="80.0" radiusY="80.0" startAngle="270.0" stroke="#8c13fb" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+                <Arc id="bottomrleftcurve" fx:id="bottomleftcurve1" fill="#1f93ff00" layoutX="87.0" layoutY="88.0" length="90.0" radiusX="80.0" radiusY="80.0" startAngle="180.0" stroke="#ff0080" strokeLineCap="BUTT" strokeMiterLimit="0.0" strokeWidth="15.0" />
+            </children>
+        </Group>
+        <Polygon fx:id="PlayButton" fill="WHITE" layoutX="232.0" layoutY="345.0" points="-50.0, 40.0, 50.0, 40.0, 0.24470138549804688, -27.494670867919922" rotate="90.0" scaleX="0.7" scaleY="0.7" scaleZ="0.7" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="50.0" strokeType="INSIDE" strokeWidth="5.0" />
+        <Button fx:id="StatisticsButton" layoutX="138.0" layoutY="555.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Statistics" textFill="#1e1e1e" />
+        <Button fx:id="LoadButton" layoutX="138.0" layoutY="484.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Load Saved Game" textFill="#1e1e1e" />
+        <Button fx:id="SettingsButton" layoutX="137.0" layoutY="626.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Settings" textFill="#1e1e1e" />
+        <Button fx:id="ExitButton" layoutX="138.0" layoutY="699.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="176.0" stylesheets="@button.css" text="Exit" textFill="#1e1e1e" />
+        <Group fx:id="Cross" layoutX="-153.0" layoutY="-84.0" />
+        <Text fx:id="text1" fill="WHITE" layoutX="124.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SWITCH" textAlignment="CENTER" wrappingWidth="216.0">
+            <font>
+                <Font name="Futura Light BT" size="49.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

@@ -11,9 +11,9 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
 public class Star extends Powerups {
-    public Star(double y,boolean light){
+    public Star(double y,boolean darktheme){
         Image img;
-        if(light)
+        if(!darktheme)
             img=new Image("sample/Assets/star_black.gif");
         else
             img=new Image("sample/Assets/star.gif");

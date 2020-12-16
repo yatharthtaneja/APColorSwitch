@@ -24,33 +24,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IntroScreen implements Initializable {
-    @FXML
-    private AnchorPane rootAnchorPane;
-
-    @FXML
-    private Group ring;
-    @FXML
-    private Arc topleftcurve;
-    @FXML
-    private Circle introBall;
-    private Stage stage;
+    @FXML private AnchorPane rootAnchorPane;
+    @FXML private Group ring;
+    @FXML private Arc topleftcurve;
+    @FXML private Circle introBall;
+    private Stage Currentstage;
     public void setStage(Stage stage){
-        this.stage=stage;
+        Currentstage=stage;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
-
-        moveBall(introBall, ring, 4, -100);
-        System.out.println(topleftcurve.getFill());
-
-//        moveBall(introBall, ring, 1, -200);
-
+        setRotate(ring,0,360,4,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
+        MoveBall(introBall, ring, 4, -100);
     }
 
-    public void moveBall(Circle c1, Group s1, int cycle , int movey){
-
+    public void MoveBall(Circle c1, Group s1, int cycle , int movey){
         Path path = new Path();
         path.getElements().add(new MoveTo(0,0));
         path.getElements().add(new VLineTo(movey));
@@ -69,16 +58,15 @@ public class IntroScreen implements Initializable {
         pt2.setPath(path2);
         pt2.setAutoReverse(true);
         pt2.setCycleCount(1);
-
-SequentialTransition st = new SequentialTransition(pt,pt2);
-st.play();
-st.setOnFinished(event -> {
-    try {
-        loadMenu();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-});
+        SequentialTransition st = new SequentialTransition(pt,pt2);
+        st.play();
+        st.setOnFinished(event -> {
+            try {
+                LoadMenu();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void rotateTransition(Group g1,int duration){
@@ -90,8 +78,8 @@ st.setOnFinished(event -> {
         rt.setNode(g1);
         rt.play();
     }
+
     public void setRotate(Group a1, int start, int end, int duration , double centerx , double centery) {
-//        System.out.println("Center x: "+ centerx+" Center Y:" + centery);
         Rotate rt2 = new Rotate(0,centerx,centery);
         a1.getTransforms().add(rt2);
         Timeline timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),start)),
@@ -100,15 +88,15 @@ st.setOnFinished(event -> {
         timeline.play();
     }
 
-    public void loadMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+    public void LoadMenu() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameMenu.fxml"));
         Parent root =loader.load();
-        Menu controller = (Menu) loader.getController();
-        controller.setStage(stage);
+        GameMenu controller = (GameMenu) loader.getController();
+        controller.setStage(Currentstage);
         Scene scene = new Scene(root,450,800);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        Currentstage.setScene(scene);
+        Currentstage.setResizable(false);
+        Currentstage.show();
     }
 
     public Group getGroup(){

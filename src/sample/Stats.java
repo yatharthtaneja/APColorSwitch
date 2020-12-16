@@ -36,10 +36,10 @@ public class Stats implements Initializable {
     @FXML
     private Label highlabel;
 
-    private static boolean lightmode;
+    private static boolean DarkTheme;
 
-    public void setTheme(boolean s){
-        this.lightmode=s;
+    public void setTheme(boolean darktheme){
+        DarkTheme=darktheme;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Stats implements Initializable {
         Score score= new Score();
         highlabel.setText(score.getScore());
         starlabel.setText(score.getStar());
-        if(lightmode){
+        if(!DarkTheme){
             statsPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
             text.setFill(Color.valueOf("#141518"));
@@ -60,7 +60,7 @@ public class Stats implements Initializable {
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("menu.fxml");
+                loadButton("GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -78,7 +78,7 @@ public class Stats implements Initializable {
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        Menu controller = (Menu) loader.getController();
+        GameMenu controller = (GameMenu) loader.getController();
         controller.setStage(this.stage);
         Scene scene = new Scene(root,450,800);
         stage.setScene(scene);

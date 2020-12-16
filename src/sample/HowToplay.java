@@ -27,16 +27,14 @@ public class HowToplay implements Initializable {
     private AnchorPane howPane;
     @FXML
     private Text text;
-    private static boolean lightmode;
+    private static boolean DarkTheme=true;
     private Stage stage;
-
     public void setStage(Stage stage){
         this.stage=stage;
     }
-    public void setTheme(boolean s){
-        this.lightmode=s;
+    public void setTheme(boolean darktheme){
+        DarkTheme=darktheme;
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/back_white.png");
@@ -48,7 +46,7 @@ public class HowToplay implements Initializable {
                 ioException.printStackTrace();
             }
         });
-        if(lightmode){
+        if(!DarkTheme){
 
             howPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/back-arrow.png");
@@ -78,7 +76,7 @@ public class HowToplay implements Initializable {
         Parent root =loader.load();
         GameSettings controller = (GameSettings) loader.getController();
         controller.setStage(stage);
-        controller.setTheme(lightmode);
+        controller.setTheme(DarkTheme);
         Scene scene = new Scene(root,450,800);
         stage.setScene(scene);
         stage.setResizable(false);

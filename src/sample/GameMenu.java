@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +19,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,26 +43,21 @@ public class GameMenu implements Initializable {
     @FXML private Text text;
     @FXML private Text text1;
     private Stage Currentstage;
-    private static boolean lightmode;
+    private static boolean DarkTheme=true;
     public void setStage(Stage stage){
         this.Currentstage = stage;
     }
-    public void setTheme(boolean s){
-        this.lightmode=s;
+    public void setTheme(boolean darktheme){
+        DarkTheme=darktheme;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        IntroScreen obj = new IntroScreen();
-        obj.setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
-        obj.setRotate(ring11,0,360,5,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
-        obj.setRotate(ring2,360,0,4,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
-        addShadow(LoadButton);
-        addShadow(StatisticsButton);
-        addShadow(ExitButton);
-        addShadow(SettingsButton);
-        addShadowPlay(PlayButton);
-        if(lightmode){
+        setRotate(ring,0,360,3,topleftcurve.getLayoutX(),topleftcurve.getLayoutY());
+        setRotate(ring11,0,360,5,topleftcurve11.getLayoutX(),topleftcurve11.getLayoutY());
+        setRotate(ring2,360,0,4,topleftcurve1.getLayoutX(),topleftcurve1.getLayoutY());
+        addShadow(LoadButton);addShadow(StatisticsButton);addShadow(ExitButton);addShadow(SettingsButton);addShadowPlay(PlayButton);
+        if(!DarkTheme){
             menuAnchor.setStyle("-fx-background-color: #FFFFF0");
             text.setFill(Color.valueOf("#141518"));text1.setFill(Color.valueOf("#141518"));
             PlayButton.setFill(Color.valueOf("#141518"));
@@ -86,7 +88,7 @@ public class GameMenu implements Initializable {
                 ButtonSound();
                 PlayGame game = new PlayGame();
                 game.setStage(Currentstage);
-                game.setTheme(lightmode);
+                game.setTheme(DarkTheme);
                 game.start(Currentstage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -125,7 +127,7 @@ public class GameMenu implements Initializable {
         });
         s1.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e)->{
             s1.setEffect(null);
-            if(lightmode)
+            if(!DarkTheme)
                 s1.setFill(Color.valueOf("#141518"));
             else
                 s1.setFill(Color.valueOf("#ffffff"));
@@ -174,18 +176,26 @@ public class GameMenu implements Initializable {
 
         if(s.equals("LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
-            controller.setTheme(lightmode);
+            controller.setTheme(DarkTheme);
 
         }
         else if(s.equals("Stats.fxml")){
             Stats controller = (Stats) loader.getController();
-            controller.setTheme(lightmode);
+            controller.setTheme(DarkTheme);
 
         }
     }
     private void ButtonSound(){
         AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
         Button.play();
+    }
+    private void setRotate(Group a1, int start, int end, int duration , double centerx , double centery) {
+        Rotate rt2 = new Rotate(0,centerx,centery);
+        a1.getTransforms().add(rt2);
+        Timeline timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),start)),
+                new KeyFrame(Duration.seconds(duration), new KeyValue(rt2.angleProperty(),end)));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 }

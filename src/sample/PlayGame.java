@@ -44,7 +44,7 @@ public class PlayGame extends Application {
     private double Gravity;
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
-    private static boolean Lightmode;
+    private static boolean DarkTheme=true;
     private player CurrentPlayer;
     int SaveLocation=0;
     boolean SavedGame;
@@ -58,7 +58,7 @@ public class PlayGame extends Application {
         Button PauseButton= new Button();
         PauseButton.setPrefHeight(50);PauseButton.setPrefWidth(50);
         PauseButton.setLayoutX(375);PauseButton.setLayoutY(10);
-        if(Lightmode)
+        if(!DarkTheme)
             addImage(PauseButton,"sample/Assets/pause.png");
         else
             addImage(PauseButton,"sample/Assets/pause_white.png");
@@ -69,7 +69,7 @@ public class PlayGame extends Application {
         Score = new Label("0");
         Score.prefHeight(50);Score.prefHeight(50);
         Score.setLayoutX(10);Score.setLayoutY(15);
-        if(Lightmode)
+        if(!DarkTheme)
             Score.setTextFill(Color.valueOf("#141518"));
         else
             Score.setTextFill(Color.WHITESMOKE);
@@ -187,7 +187,7 @@ public class PlayGame extends Application {
         Timer.getKeyFrames().addAll(KF1,KF2);
         Root.getChildren().add(Ball.getBall());
         MainScene=new Scene(Root,450,800);
-        if(Lightmode)
+        if(!DarkTheme)
             MainScene.setFill(Color.valueOf("#fffff0"));
         else
             MainScene.setFill(Color.valueOf("#141518"));
@@ -203,7 +203,7 @@ public class PlayGame extends Application {
         });
     }
     public void setStage(Stage stage){ this.MainStage=stage; }
-    public void setTheme(boolean s){ this.Lightmode=s;}
+    public void setTheme(boolean darktheme){ DarkTheme=darktheme;}
     public void setSaveLocation(int loc){
         this.SaveLocation=loc;
         this.SavedGame=true;
@@ -246,7 +246,7 @@ public class PlayGame extends Application {
             TotalStar.setLayoutY(MainStage.getHeight()/2+250);
             star_3.setLayoutX(MainStage.getWidth()/2-50);
             star_3.setLayoutY(MainStage.getHeight()/2+160);
-            if(Lightmode) {
+            if(!DarkTheme) {
                 GameOverLabel.setTextFill(Color.valueOf("#141518"));
                 TotalStar.setTextFill(Color.valueOf("#141518"));
             }
@@ -293,7 +293,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y,Lightmode);
+            star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-200);
             obstacle=new Ring(225,y);
         }
@@ -304,7 +304,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
-            star=new Star(y,Lightmode);
+            star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-225);
             obstacle=new SquareTrap(225,y);
         }
@@ -315,7 +315,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y-100,Lightmode);
+            star=new Star(y-100,DarkTheme);
             colourbooster=new ColourBooster(y-180);
             obstacle=new Cross(125,y);
         }
@@ -326,7 +326,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65,Lightmode);
+            star=new Star(y-65,DarkTheme);
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,false);
         }
@@ -337,7 +337,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65,Lightmode);
+            star=new Star(y-65,DarkTheme);
             colourbooster=new ColourBooster(y-125);
             obstacle=new UnidirectionalLine(y,true);
         }
@@ -348,7 +348,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
-            star=new Star(y-65,Lightmode);
+            star=new Star(y-65,DarkTheme);
             colourbooster=new ColourBooster(y-125);
             obstacle=new BidirectionalLine(y);
         }
@@ -359,7 +359,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
-            star=new Star(y,Lightmode);
+            star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-250);
             obstacle=new RectangleOfDots(225,y);
         }
@@ -370,7 +370,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y-100,Lightmode);
+            star=new Star(y-100,DarkTheme);
             colourbooster=new ColourBooster(y-180);
             obstacle=new DoubleRing(225,y);
         }
@@ -381,7 +381,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y-100,Lightmode);
+            star=new Star(y-100,DarkTheme);
             colourbooster=new ColourBooster(y-180);
             obstacle=new DoubleCross(225,y);
         }
@@ -392,7 +392,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-600;
             }
-            star=new Star(y,Lightmode);
+            star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-250);
             obstacle=new DiamondOfDots(225,y);
         }
@@ -403,7 +403,7 @@ public class PlayGame extends Application {
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
-            star=new Star(y,Lightmode);
+            star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-200);
             obstacle=new Trilateral(225,y);
         }
@@ -445,7 +445,7 @@ public class PlayGame extends Application {
         ColorSwitch.setFont(Font.font("Futura Light BT"));
         ColorSwitch.setLayoutX(MainStage.getWidth() / 2 - 30);ColorSwitch.setLayoutY(MainStage.getHeight() / 2+180);
         ColorSwitch.setScaleX(4);ColorSwitch.setScaleY(4);
-        if (Lightmode) {
+        if (!DarkTheme) {
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
             ColorSwitch.setTextFill(Color.valueOf("#141518"));
         } else {
@@ -519,7 +519,7 @@ public class PlayGame extends Application {
             int index=CurrentPlayer.PowerupType.get(i);
             Powerups powerup = null;
             if (index==1){
-                powerup=new Star(CurrentPlayer.PowerupYcord.get(i),Lightmode);
+                powerup=new Star(CurrentPlayer.PowerupYcord.get(i),DarkTheme);
             }
             else if(index==2){
                 powerup=new ColourBooster(CurrentPlayer.PowerupYcord.get(i));
@@ -533,7 +533,7 @@ public class PlayGame extends Application {
         StartGameLabel.setScaleY(2);
         StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);
         StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
-        if(Lightmode)
+        if(!DarkTheme)
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
         else
             StartGameLabel.setTextFill(Color.WHITESMOKE);
@@ -569,7 +569,7 @@ public class PlayGame extends Application {
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);StartGameLabel.setScaleY(2);
         StartGameLabel.setLayoutX(MainStage.getWidth()/2-55);StartGameLabel.setLayoutY(MainStage.getHeight()/2-50);
-        if(Lightmode)
+        if(!DarkTheme)
             StartGameLabel.setTextFill(Color.valueOf("#141518"));
         else
             StartGameLabel.setTextFill(Color.WHITESMOKE);
@@ -725,7 +725,7 @@ public class PlayGame extends Application {
         Button SaveButton = MakeButton(67,227,113,447,"Save Game","SaveGame");
         Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
         Timer.pause();
-        if(Lightmode)
+        if(!DarkTheme)
             addImage(HomeButton,"sample/Assets/home.png");
         else
             addImage(HomeButton,"sample/Assets/home_white.png");
@@ -734,7 +734,7 @@ public class PlayGame extends Application {
         PauseLabel.setFont(Font.font("Futura Light BT"));
         PauseLabel.setLayoutX(MainStage.getWidth()/2-35);
         PauseLabel.setLayoutY(120);
-        if(Lightmode)
+        if(!DarkTheme)
             PauseLabel.setTextFill(Color.valueOf("#141518"));
         else
             PauseLabel.setTextFill(Color.WHITESMOKE);
@@ -743,7 +743,7 @@ public class PlayGame extends Application {
         Group PauseMenu = new Group(ResumeButton,PauseLabel,SaveButton,HomeButton);
         PauseMenu.getStylesheets().add("sample/button.css");
         Scene PauseScene = new Scene(PauseMenu,450,800);
-        if(Lightmode)
+        if(!DarkTheme)
             PauseScene.setFill(Color.valueOf("#fffff0"));
         else
             PauseScene.setFill(Color.valueOf("#141518"));
@@ -759,7 +759,7 @@ public class PlayGame extends Application {
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
             ButtonSound();
             try {
-                loadButton("menu.fxml");
+                loadButton("GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -768,7 +768,7 @@ public class PlayGame extends Application {
             ButtonSound();
             SaveCurrentGame();
             try {
-                loadButton("menu.fxml");
+                loadButton("GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -798,7 +798,7 @@ public class PlayGame extends Application {
     private void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        Menu controller = (Menu) loader.getController();
+        GameMenu controller = (GameMenu) loader.getController();
         controller.setStage(this.MainStage);
         Scene scene = new Scene(root,450,800);
         MainStage.setScene(scene);

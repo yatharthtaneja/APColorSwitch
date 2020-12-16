@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +38,7 @@ public class GameSettings implements Initializable {
     private Button mbutton;
     @FXML
     private AnchorPane settingsPane;
-    private static boolean lightmode=false;
+    private static boolean DarkTheme=true;
 @FXML
 private Text text;
     @FXML
@@ -50,20 +51,19 @@ private Stage stage;
 public void setStage(Stage stage){
     this.stage=stage;
 }
-public void  setTheme(boolean s){
-    this.lightmode=s;
+public void  setTheme(boolean darktheme){
+    DarkTheme=darktheme;
 }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Menu obj = new Menu();
-        obj.addShadow(ResetButton);
-        obj.addShadow(LightMode);
-        obj.addShadow(HowButton);
-        obj.addShadow(DeveloperButton);
+        addShadow(ResetButton);
+        addShadow(LightMode);
+        addShadow(HowButton);
+        addShadow(DeveloperButton);
         addImage(hbutton,"sample/Assets/home_white.png");
         addImage(sbutton,"sample/Assets/volumeOn_white.png");
         addImage(mbutton,"sample/Assets/volumeOn_white.png");
-        if(lightmode){
+        if(!DarkTheme){
             LightMode.setText("Dark Mode");
             settingsPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/home.png");
@@ -87,7 +87,7 @@ public void  setTheme(boolean s){
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("menu.fxml");
+                loadButton("GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -124,12 +124,11 @@ public void  setTheme(boolean s){
         });
         LightMode.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             ButtonSound();
-            if(lightmode){
+            if(DarkTheme)
                 setTheme(false);
-            }
             else
-            setTheme(true);
-            if(lightmode){
+                setTheme(true);
+            if(!DarkTheme){
                 LightMode.setText("Dark Mode");
                 settingsPane.setStyle("-fx-background-color: #FFFFF0");
                 addImage(hbutton,"sample/Assets/home.png");
@@ -141,13 +140,10 @@ public void  setTheme(boolean s){
                 try {
                     themeChanger("HowToplay.fxml");
                     themeChanger("Developers.fxml");
-                    themeChanger("menu.fxml");
-
-
+                    themeChanger("GameMenu.fxml");
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-
             }
             else{
                 LightMode.setText("Light Mode");
@@ -161,17 +157,13 @@ public void  setTheme(boolean s){
                 try {
                     themeChanger("HowToplay.fxml");
                     themeChanger("Developers.fxml");
-                    themeChanger("menu.fxml");
+                    themeChanger("GameMenu.fxml");
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
             }
-
         });
-
-
-
     }
     public void addImage(Button b1,String path){
         Image img = new Image(path);
@@ -184,16 +176,13 @@ public void  setTheme(boolean s){
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("menu.fxml")){
-            Menu controller = (Menu) loader.getController();
+        if(s.equals("GameMenu.fxml")){
+            GameMenu controller = (GameMenu) loader.getController();
             controller.setStage(this.stage);
-
         }
         else if(s.equals("HowToplay.fxml")){
             HowToplay controller = (HowToplay) loader.getController();
             controller.setStage(this.stage);
-
-
         }
         else if(s.equals("Developers.fxml")){
             Developers controller = (Developers) loader.getController();
@@ -208,24 +197,34 @@ public void  setTheme(boolean s){
     public void themeChanger(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("menu.fxml")){
-            Menu controller = (Menu) loader.getController();
-            controller.setTheme(lightmode);
-
+        if(s.equals("GameMenu.fxml")){
+            GameMenu controller = (GameMenu) loader.getController();
+            controller.setTheme(DarkTheme);
         }
         else if(s.equals("HowToplay.fxml")){
             HowToplay controller = (HowToplay) loader.getController();
-            controller.setTheme(lightmode);
-//            System.out.println(lightmode);
-
+            controller.setTheme(DarkTheme);
         }
         else if(s.equals("Developers.fxml")){
             Developers controller = (Developers) loader.getController();
-            controller.setTheme(lightmode);
+            controller.setTheme(DarkTheme);
         }
     }
     private void ButtonSound(){
         AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
         Button.play();
+    }
+    public void addShadow(Button button3){
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.valueOf("#B5EDD0"));
+        button3.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+            button3.setEffect(shadow);
+            button3.setTextFill(Color.valueOf("#ffffff"));
+        });
+
+        button3.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+            button3.setEffect(null);
+            button3.setTextFill(Color.valueOf("#141518"));
+        });
     }
 }
