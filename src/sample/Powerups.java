@@ -15,8 +15,6 @@ public abstract class Powerups implements SceneElements, Serializable {
     }
     @Override
     public void setXpos(double x){
-        if (Object!=null)
-            Object.setLayoutX(x);
         Xpos=x;
     }
     @Override
@@ -25,8 +23,6 @@ public abstract class Powerups implements SceneElements, Serializable {
     }
     @Override
     public void setYpos(double y){
-        if (Object!=null)
-            Object.setLayoutY(y);
         Ypos=y;
     }
     public Shape getObject(){
@@ -36,9 +32,9 @@ public abstract class Powerups implements SceneElements, Serializable {
         Object=shape;
     }
     public void incrementYpos(double change){
-        Ypos+=change;
         if (Object!=null)
             Object.setLayoutY(Object.getLayoutY()+change);
+        Ypos+=change;
     }
     public abstract void Collide();
 }

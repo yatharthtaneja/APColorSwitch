@@ -71,11 +71,8 @@ public class Score {
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
     public void reset(){
-
-
         try{
             String test = "0\n0";
             File file = new File("output.txt");
@@ -88,7 +85,6 @@ public class Score {
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
 
 

@@ -121,7 +121,7 @@ public class LoadGame implements Initializable {
             try {
                 if(finalP1.SaveGame){
                     ButtonSound();
-                    PlayGame game = new PlayGame();
+                    Game game = new Game();
                     game.setCurrentPlayer(finalP1);
                     game.setSaveLocation(1);
                     game.setStage(stage);
@@ -138,7 +138,7 @@ public class LoadGame implements Initializable {
             try {
                 if(finalP2.SaveGame){
                     ButtonSound();
-                    PlayGame game = new PlayGame();
+                    Game game = new Game();
                     game.setCurrentPlayer(finalP2);
                     game.setSaveLocation(2);
                     game.setStage(stage);
@@ -155,7 +155,7 @@ public class LoadGame implements Initializable {
             try {
                 if(finalP3.SaveGame){
                     ButtonSound();
-                    PlayGame game = new PlayGame();
+                    Game game = new Game();
                     game.setCurrentPlayer(finalP3);
                     game.setSaveLocation(3);
                     game.setStage(stage);
@@ -172,7 +172,7 @@ public class LoadGame implements Initializable {
             try {
                 if(finalP4.SaveGame){
                     ButtonSound();
-                    PlayGame game = new PlayGame();
+                    Game game = new Game();
                     game.setCurrentPlayer(finalP4);
                     game.setSaveLocation(4);
                     game.setStage(stage);

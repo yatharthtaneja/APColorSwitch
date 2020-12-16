@@ -31,7 +31,6 @@ public class DoubleCross extends Obstacle{
         sample.Shape shape8= new Pentagon((x+100)-52.5,y-162,270,Color.web("#f6df0e"));
         AddShape(shape5);AddShape(shape6);AddShape(shape7);AddShape(shape8);
         Group B=new Group(shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape());
-
         obstacle.getChildren().add(A);obstacle.getChildren().add(B);
         setObstacle(obstacle);
     }

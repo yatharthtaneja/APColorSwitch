@@ -14,6 +14,7 @@ public class ColourBooster extends Powerups {
         circle.setRadius(15);
         circle.setCenterY(y);circle.setCenterX(225);
         setObject(circle);
+        setYpos(y);
     }
     @Override
     public void Collide() {

@@ -17,13 +17,13 @@ public class Star extends Powerups {
             img=new Image("sample/Assets/star_black.gif");
         else
             img=new Image("sample/Assets/star.gif");
-
         ImagePattern imagepattern=new ImagePattern(img);
         Circle circle=new Circle();
         circle.setFill(imagepattern);
         circle.setRadius(15);
         circle.setCenterY(y);circle.setCenterX(225);
         setObject(circle);
+        setYpos(y);
     }
     @Override
     public void Collide() {

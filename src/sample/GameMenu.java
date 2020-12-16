@@ -86,7 +86,7 @@ public class GameMenu implements Initializable {
         PlayButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                PlayGame game = new PlayGame();
+                Game game = new Game();
                 game.setStage(Currentstage);
                 game.setTheme(DarkTheme);
                 game.start(Currentstage);
