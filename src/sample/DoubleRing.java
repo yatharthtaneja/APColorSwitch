@@ -13,8 +13,6 @@ import java.util.ArrayList;
 public class DoubleRing extends Obstacle{
     RotateTransition Transition1,Transition2;
     public DoubleRing(double x,double y){
-        Transition1=new RotateTransition();
-        Transition2=new RotateTransition();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         Group obstacle=new Group();
@@ -36,9 +34,9 @@ public class DoubleRing extends Obstacle{
 
         obstacle.getChildren().add(A);obstacle.getChildren().add(B);
         setObstacle(obstacle);
-    }
-    @Override
-    public void Move() {
+
+        Transition1=new RotateTransition();
+        Transition2=new RotateTransition();
         Transition1 = new RotateTransition();
         Transition1.setAxis(Rotate.Z_AXIS);
         Transition1.setByAngle(360);
@@ -46,7 +44,6 @@ public class DoubleRing extends Obstacle{
         Transition1.setDuration(Duration.seconds(4));
         Transition1.setInterpolator(Interpolator.LINEAR);
         Transition1.setNode(getObstacle().getChildren().get(0));
-        Transition1.play();
 
         Transition2 = new RotateTransition();
         Transition2.setAxis(Rotate.Z_AXIS);
@@ -55,7 +52,10 @@ public class DoubleRing extends Obstacle{
         Transition2.setDuration(Duration.seconds(4));
         Transition2.setInterpolator(Interpolator.LINEAR);
         Transition2.setNode(getObstacle().getChildren().get(1));
-        Transition2.play();
+    }
+    @Override
+    public void Move() {
+        Play();
     }
 
     @Override
@@ -65,5 +65,19 @@ public class DoubleRing extends Obstacle{
     @Override
     public void Pause() {
         Transition1.pause();Transition2.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Transition1.getCurrentTime().toMillis();
+    }
+    @Override
+    public void setCurrentTime(double millis) {
+        Transition1.play();
+        Transition2.play();
+        Transition1.pause();
+        Transition2.pause();
+        Transition1.jumpTo(new Duration(millis));
+        Transition2.jumpTo(new Duration(millis));
     }
 }

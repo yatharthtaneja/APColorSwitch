@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class Cross extends Obstacle{
     public RotateTransition Transition;
     Cross(double x,double y){
-        Transition=new RotateTransition();
         setXpos(x);setYpos(y);
         setListOfShapes(new ArrayList<>());
         sample.Shape shape1= new Pentagon(x+32.5,y-162,0,Color.web("#35e2f2"));
@@ -21,25 +20,36 @@ public class Cross extends Obstacle{
         sample.Shape shape4= new Pentagon(x-52.5,y-162,270,Color.web("#ff0080"));
         AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);
         setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()));
-    }
-    @Override
-    public void Move(){
+        Transition=new RotateTransition();
         Transition.setAxis(Rotate.Z_AXIS);
         Transition.setByAngle(360);
         Transition.setCycleCount(Animation.INDEFINITE);
         Transition.setDuration(Duration.seconds(4));
         Transition.setInterpolator(Interpolator.LINEAR);
         Transition.setNode(getObstacle());
-        Transition.play();
     }
-
+    @Override
+    public void Move(){
+        Play();
+    }
     @Override
     public void Play() {
         Transition.play();
     }
-
     @Override
     public void Pause() {
         Transition.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Transition.getCurrentTime().toMillis();
+    }
+
+    @Override
+    public void setCurrentTime(double millis) {
+        Transition.play();
+        Transition.pause();
+        Transition.jumpTo(new Duration(millis));
     }
 }

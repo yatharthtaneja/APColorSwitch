@@ -293,7 +293,7 @@ public class Game extends Application{
             if (index==10){//Trilateral
                 obstacle=new Trilateral(225,CurrentPlayer.ObsatcleYcord.get(i));
             }
-            obstacle.Move();
+            obstacle.setCurrentTime(CurrentPlayer.CurrentTime.get(i));
             Obstacles.add(obstacle);
             Root.getChildren().add(obstacle.getObstacle());
         }
@@ -326,6 +326,8 @@ public class Game extends Application{
             String code=keyEvent.getCode().toString();
             if(code.equals("UP")){
                 Root.getChildren().remove(StartGameLabel);
+                for (int i=0;i<Obstacles.size();i++)
+                    Obstacles.get(i).Move();
                 Timer.play();
             }
             else if(code.equals("P")||code.equals("p"))
@@ -463,7 +465,7 @@ public class Game extends Application{
         }
     }
     private void AddObstacleandPowerup(){
-        int index= (int)(Math.random()*11);
+        int index= 3;//(int)(Math.random()*11);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -698,6 +700,7 @@ public class Game extends Application{
             P.addType(getTypeofObstacle(obs));
             P.addXcord(obs.getXpos());
             P.addYcord(obs.getYpos());
+            P.CurrentTime.add(obs.getCurrentTime());
         }
         for(int i =0 ;i< Powerups.size();i++){
             sample.Powerups pow=Powerups.get(i);

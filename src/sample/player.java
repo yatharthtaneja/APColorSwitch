@@ -19,6 +19,7 @@ public class player implements Serializable {
     public ArrayList<Double> ObsatcleYcord = new ArrayList<>();
     public ArrayList<Integer> PowerupType= new ArrayList<>();
     public ArrayList<Double> PowerupYcord = new ArrayList<>();
+    public ArrayList<Double> CurrentTime =new ArrayList<>();
 
     public double getBallX() {
         return ballX;

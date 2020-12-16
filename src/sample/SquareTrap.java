@@ -23,16 +23,17 @@ public class SquareTrap extends Obstacle{
         Shape shape4= new Rectangle(x-10,y-175,17.5,175,90,Color.web("#ff0080"));
         AddShape(shape1);AddShape(shape2);AddShape(shape3);AddShape(shape4);
         setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()));
-    }
-    @Override
-    public void Move() {
+
         Transition.setAxis(Rotate.Z_AXIS);
         Transition.setByAngle(360);
         Transition.setCycleCount(Animation.INDEFINITE);
         Transition.setDuration(Duration.seconds(5));
         Transition.setInterpolator(Interpolator.LINEAR);
         Transition.setNode(getObstacle());
-        Transition.play();
+    }
+    @Override
+    public void Move() {
+        Play();
     }
 
     @Override
@@ -43,5 +44,16 @@ public class SquareTrap extends Obstacle{
     @Override
     public void Pause() {
         Transition.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Transition.getCurrentTime().toMillis();
+    }
+    @Override
+    public void setCurrentTime(double millis) {
+        Transition.play();
+        Transition.pause();
+        Transition.jumpTo(new Duration(millis));
     }
 }

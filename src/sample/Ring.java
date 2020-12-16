@@ -23,14 +23,15 @@ public class Ring extends Obstacle{
         sample.Shape s4=new Arc(x,y,270,Color.web("#ff0080"));
         AddShape(s1);AddShape(s2);AddShape(s3);AddShape(s4);
         setObstacle(new Group(s1.getShape(),s2.getShape(),s3.getShape(),s4.getShape()));
-    }
-    @Override
-    public void Move(){
         Rotate rt2 = new Rotate(0,getXpos(),getYpos());
         getObstacle().getTransforms().add(rt2);
+
         Timeline= new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(rt2.angleProperty(),360)),
                 new KeyFrame(Duration.seconds(4), new KeyValue(rt2.angleProperty(),0)));
         Timeline.setCycleCount(Animation.INDEFINITE);
+    }
+    @Override
+    public void Move(){
         Timeline.play();
     }
 
@@ -42,5 +43,16 @@ public class Ring extends Obstacle{
     @Override
     public void Pause() {
         Timeline.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Timeline.getCurrentTime().toMillis();
+    }
+    @Override
+    public void setCurrentTime(double millis) {
+        Timeline.play();
+        Timeline.pause();
+        Timeline.jumpTo(new Duration(millis));
     }
 }

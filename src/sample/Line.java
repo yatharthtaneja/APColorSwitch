@@ -16,9 +16,8 @@ public class Line extends Obstacle{
     }
     @Override
     public void Move() {
-
+        Play();
     }
-
     @Override
     public void Play() {
         Transition.play();
@@ -27,6 +26,17 @@ public class Line extends Obstacle{
     @Override
     public void Pause() {
         Transition.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Transition.getCurrentTime().toMillis();
+    }
+    @Override
+    public void setCurrentTime(double millis) {
+        Transition.play();
+        Transition.pause();
+        Transition.jumpTo(new Duration(millis));
     }
 }
 class UnidirectionalLine extends sample.Line{
@@ -60,12 +70,6 @@ class UnidirectionalLine extends sample.Line{
             setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()
                     ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()));
         }
-    }
-    public boolean getLeft(){
-        return Left;
-    }
-    @Override
-    public void Move(){
         Transition = new TranslateTransition();
         Transition.setInterpolator(Interpolator.LINEAR);
         Transition.setDuration(Duration.seconds(4));
@@ -76,12 +80,15 @@ class UnidirectionalLine extends sample.Line{
             Transition.setByX(450);
         Transition.setCycleCount(Animation.INDEFINITE);
         Transition.setAutoReverse(false);
-        Transition.play();
+    }
+    public boolean getLeft(){
+        return Left;
     }
 }
 class BidirectionalLine extends sample.Line {
     BidirectionalLine(double y){
         setXpos(0);setYpos(y);
+
         Shape shape1 = new Rectangle( -450,y-6.25,Color.web("#35e2f2"));
         Shape shape2 = new Rectangle( -337.5,y-6.25,Color.web("#f6df0e"));
         Shape shape3 = new Rectangle( -225,y-6.25,Color.web("#8c13fb"));
@@ -98,15 +105,12 @@ class BidirectionalLine extends sample.Line {
         setObstacle(new Group(shape1.getShape(),shape2.getShape(),shape3.getShape(),shape4.getShape()
                 ,shape5.getShape(),shape6.getShape(),shape7.getShape(),shape8.getShape()
                 ,shape9.getShape(),shape10.getShape(),shape11.getShape(),shape12.getShape()));
-    }
-    @Override
-    public void Move(){
+
         Transition = new TranslateTransition();
         Transition.setDuration(Duration.seconds(3));
         Transition.setNode(getObstacle());
         Transition.setByX(450);
         Transition.setCycleCount(Animation.INDEFINITE);
         Transition.setAutoReverse(true);
-        Transition.play();
     }
 }

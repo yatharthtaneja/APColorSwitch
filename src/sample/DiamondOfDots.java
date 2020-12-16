@@ -39,9 +39,7 @@ public class DiamondOfDots extends Obstacle {
             obstacle.getChildren().add(circle.getShape());
         }
         setObstacle(obstacle);
-    }
-    @Override
-    public void Move() {
+
         Timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame Moveball = new KeyFrame(Duration.seconds(0.09), new EventHandler<ActionEvent>() {
             @Override
@@ -66,7 +64,10 @@ public class DiamondOfDots extends Obstacle {
             }
         });
         Timeline.getKeyFrames().add(Moveball);
-        Timeline.play();
+    }
+    @Override
+    public void Move() {
+        Play();
     }
 
     @Override
@@ -77,5 +78,16 @@ public class DiamondOfDots extends Obstacle {
     @Override
     public void Pause() {
         Timeline.pause();
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return Timeline.getCurrentTime().toMillis();
+    }
+    @Override
+    public void setCurrentTime(double millis) {
+        Timeline.play();
+        Timeline.pause();
+        Timeline.jumpTo(new Duration(millis));
     }
 }

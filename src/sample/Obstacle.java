@@ -51,4 +51,6 @@ public abstract class Obstacle implements SceneElements, Serializable {
     public abstract void Move();
     public abstract void Play();
     public abstract void Pause();
+    public abstract double getCurrentTime();
+    public abstract void setCurrentTime(double millis);
 }
