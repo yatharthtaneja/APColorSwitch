@@ -22,6 +22,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -423,7 +426,26 @@ public class Game extends Application{
         if(GameOver){
             PlaySound("GameOver.wav");
             Root.getChildren().remove(ColorSwitchLabel);
+            Root.getChildren().remove(Ball); // figure out why this is not getting removed
             Timer.pause();
+            Image image = null;
+            image = new Image("sample/Assets/burst.gif");
+            ImageView imageView = new ImageView(image);
+            imageView.setX(0);
+            imageView.setY(Ball.getYpos()-225);
+            imageView.setFitHeight(450);
+            imageView.setFitWidth(450);
+            imageView.setPreserveRatio(true);
+            Root.getChildren().add(imageView);
+            FadeTransition fade = new FadeTransition();
+            fade.setNode(imageView);
+            fade.setFromValue(10);
+            fade.setToValue(0.1);
+            fade.setDuration(Duration.seconds(0.8));
+            fade.setOnFinished(event -> {
+                Root.getChildren().remove(imageView);
+            });
+            fade.play();
             GameOverLabel.setText("Game Over");
             GameOverLabel.setLayoutX(MainStage.getWidth()/2-35);GameOverLabel.setLayoutY(MainStage.getHeight()/2-50);
             TotalStarLabel.setText(Integer.toString(Integer.parseInt(Score.getStar())+Integer.parseInt(ScoreLabel.getText())));
@@ -467,8 +489,6 @@ public class Game extends Application{
                     fade.setDuration(Duration.seconds(1));
                     fade.setFromValue(10);
                     fade.setToValue(0.1);
-                    fade.setCycleCount(1000);
-                    fade.setAutoReverse(true);
                     fade.setNode(plus1);
                     temp.setOnFinished(new EventHandler<ActionEvent>() {
                         @Override
