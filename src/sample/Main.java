@@ -35,6 +35,7 @@ public class Main extends Application {
         primaryStage.show();
         AudioClip Background=new AudioClip(this.getClass().getResource("Background.wav").toString());
         Background.setCycleCount(AudioClip.INDEFINITE);
+        Background.setVolume(0.5);
         Background.play();
     }
 
