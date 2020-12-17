@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Player implements Serializable {
     private double ballY;
     private int balance;
     private Date DateTime;
+    private int Colour;
 
     public ArrayList<Integer> ObstacleType= new ArrayList<>();
     public ArrayList<Double> ObsatcleXcord = new ArrayList<>();
@@ -21,6 +23,7 @@ public class Player implements Serializable {
     public ArrayList<Integer> PowerupType= new ArrayList<>();
     public ArrayList<Double> PowerupYcord = new ArrayList<>();
     public ArrayList<Double> CurrentTime =new ArrayList<>();
+
     public int getBalance(){ return balance; }
     public void setBalance(int Balance){this.balance= Balance;}
     public double getBallX() {
@@ -64,4 +67,6 @@ public class Player implements Serializable {
     public void setSaveGame(boolean saveGame){ SaveGame=saveGame; }
     public Date getDateTime(){return DateTime;}
     public void setDateTime(Date datetime){ DateTime=datetime; }
+    public int getColour() { return Colour; }
+    public void setColour(int colour) { Colour = colour; }
 }

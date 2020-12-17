@@ -21,6 +21,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.Exceptions.CollectStarException;
+import sample.Exceptions.GameEndException;
+import sample.Exceptions.GamePauseException;
+import sample.Exceptions.InsufficientStarException;
 import sample.SceneElement.Ball;
 import sample.SceneElement.Obstacles.*;
 import sample.SceneElement.Powerup.ColourBooster;
@@ -97,18 +101,15 @@ public class Game extends Application{
             ScoreLabel.setTextFill(Color.valueOf("#141518"));
             plus1.setTextFill(Color.valueOf("#141518"));
             devlable.setTextFill(Color.valueOf("#141518"));
-
         }
         else {
             ScoreLabel.setTextFill(Color.WHITESMOKE);
             plus1.setTextFill(Color.WHITESMOKE);
             devlable.setTextFill(Color.WHITESMOKE);
-
         }
         ScoreLabel.setFont(new Font("Cambria", 36));
         plus1.setFont(new Font("Cambria", 36));
         devlable.setFont(new Font("Cambria", 36));
-
         Root.getChildren().add(ScoreLabel);
         Ball=new Ball(225,535,12,Colors[(int)Math.random()*4]);
         Obstacles=new ArrayList<>();Powerups=new ArrayList<>();
@@ -166,7 +167,11 @@ public class Game extends Application{
                     Root.getChildren().add(devlable);
                 if(!devmode && Root.getChildren().contains(devlable))
                     Root.getChildren().remove(devlable);
-                CheckPowerupCollision();
+                try {
+                    CheckPowerupCollision();
+                } catch (CollectStarException e) {
+                    e.printStackTrace();
+                }
                 if(GameOver){
                     for (int i=0;i<Obstacles.size();i++){
                         Obstacles.get(i).Pause();
@@ -176,8 +181,7 @@ public class Game extends Application{
                         Root.getChildren().addAll(GameOverLabel,Restart,Reincarnate,TotalStarLabel,star_3);
                     }
                     if(!ScoreUpdated) {
-                        Score updateScore= new Score();
-                        updateScore.writeStats(Integer.parseInt(ScoreLabel.getText()));
+                        Score.writeStats(Integer.parseInt(ScoreLabel.getText()));
                         ScoreUpdated = true;
                     }
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -188,16 +192,21 @@ public class Game extends Application{
                             StartGame();
                         }
                     });
+                    Reincarnate.setText("Revive");
                     Reincarnate.setOnMouseClicked(new EventHandler<MouseEvent>(){
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             PlaySound("Audio/Button.wav");
                             int available = Integer.parseInt(Score.getStar());
                             if(available>=balance){
-                            Root.getChildren().remove(Restart);
-                            Root.getChildren().remove(GameOverLabel);
-                            Root.getChildren().remove(Reincarnate);
-                            Reincarnate();
+                                Root.getChildren().remove(Restart);
+                                Root.getChildren().remove(GameOverLabel);
+                                Root.getChildren().remove(Reincarnate);
+                                try {
+                                    Reincarnate();
+                                } catch (InsufficientStarException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             else {
                                 Reincarnate.setText("Insufficient Stars");
@@ -289,17 +298,31 @@ public class Game extends Application{
 
         MainScene.setOnKeyReleased(keyEvent -> {
             String code=keyEvent.getCode().toString();
-            if(code.equals("UP")){
+            if(code.equals("UP")) {
                 Root.getChildren().remove(StartGameLabel);
                 Timer.play();
+                if (GameOver) {
+                    try {
+                        throw new GameEndException();
+                    } catch (GameEndException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            else if(code.equals("P")||code.equals("p"))
+            else if(code.equals("P")||code.equals("p")) {
                 PauseMenu();
+                try {
+                    throw new GameEndException();
+                } catch (GameEndException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
     public void ResumeGame(){//Used for Saved Games
         ScoreUpdated= false;
         Ball.setXpos(CurrentPlayer.getBallX());Ball.setYpos(CurrentPlayer.getBallY());
+        Ball.getBall().setFill(Colors[CurrentPlayer.getColour()]);Ball.getBall().setStroke(Colors[CurrentPlayer.getColour()]);
         reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallX();
         balance=CurrentPlayer.getBalance();
         GameOver=false;
@@ -377,23 +400,36 @@ public class Game extends Application{
                 for (int i=0;i<Obstacles.size();i++)
                     Obstacles.get(i).Move();
                 Timer.play();
+                if(GameOver){
+                    try {
+                        throw new GameEndException();
+                    } catch (GameEndException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            else if(code.equals("P")||code.equals("p"))
+            else if(code.equals("P")||code.equals("p")) {
                 PauseMenu();
+                if(GameOver){
+                    try {
+                        throw new GamePauseException();
+                    } catch (GamePauseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         });
     }
 
-    public void Reincarnate(){//Used for Reincarnated Gamed through coins
-        Score updateScore= new Score();
-        int available=Integer.parseInt(updateScore.getStar());
+    public void Reincarnate() throws InsufficientStarException {//Used for Reincarnated Gamed through coins
+        int available=Integer.parseInt(Score.getStar());
         if(available>=balance) {
             // multiply balance by 2 to decrease amount of revive.
-            updateScore.updateStars(-balance);
+            Score.writeStats(-balance);
             balance*=2;
             for (int i = 0; i < Obstacles.size(); i++)
                 Obstacles.get(i).Move();
-
-            updateScore.writeStats(-Integer.parseInt(ScoreLabel.getText()));//Subtracting current stars from total
+            Score.writeStats(-Integer.parseInt(ScoreLabel.getText()));//Subtracting current stars from total
             ScoreUpdated = false;
             Ball.setXpos(reviveX);
             if (reviveY > 725)
@@ -420,10 +456,27 @@ public class Game extends Application{
                 if (code.equals("UP")) {
                     Root.getChildren().remove(StartGameLabel);
                     Timer.play();
-                } else if (code.equals("P") || code.equals("p"))
+                    if(GameOver){
+                        try {
+                            throw new GameEndException();
+                        } catch (GameEndException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else if (code.equals("P") || code.equals("p")) {
                     PauseMenu();
+                    if(GameOver){
+                        try {
+                            throw new GamePauseException();
+                        } catch (GamePauseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             });
         }
+        else if(available<0)
+            throw new InsufficientStarException();
     }
     private void MoveAhead() {
         if (!GameOver) {
@@ -486,7 +539,7 @@ public class Game extends Application{
             TotalStarLabel.setScaleX(5);TotalStarLabel.setScaleY(5);
         }
     }
-    public void CheckPowerupCollision(){
+    public void CheckPowerupCollision()throws CollectStarException {
         if(Powerups.size()>0){
             Shape s1=Powerups.get(0).getObject();
             if (Shape.intersect(Ball.getBall(), s1).getBoundsInLocal().getWidth()!=-1){
@@ -522,9 +575,9 @@ public class Game extends Application{
                     });
                     temp.play();
                     fade.play();
-
-
                 }
+                else
+                    throw new CollectStarException();
                 Root.getChildren().remove(Powerups.get(0).getObject());
                 Powerups.remove(0);
 
@@ -774,6 +827,12 @@ public class Game extends Application{
             P.setBalance(balance);
             P.setSaveGame(true);
             P.setDateTime(new Date());
+            for(int i=0;i<4;i++){
+                if(Colors[i]==Ball.getBall().getFill()) {
+                    P.setColour(i);
+                    break;
+                }
+            }
             for(int i =0 ;i< Obstacles.size();i++){
                 Obstacle obs = Obstacles.get(i);
                 P.setObsType(getTypeofObstacle(obs));
