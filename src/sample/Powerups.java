@@ -9,7 +9,7 @@ public abstract class Powerups implements SceneElements, Serializable {
     private double Xpos;
     private double Ypos;
     private Shape Object;
-    static boolean SoundOn=true;
+    public static boolean SoundOn=true;
     @Override
     public double getXpos(){
         return Xpos;

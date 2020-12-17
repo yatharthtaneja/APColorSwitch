@@ -62,7 +62,7 @@ public class Stats implements Initializable {
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("GameMenu.fxml");
+                loadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -88,7 +88,7 @@ public class Stats implements Initializable {
         stage.show();
     }
     private void ButtonSound(){
-        AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+        AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
         Button.play();
     }
 }

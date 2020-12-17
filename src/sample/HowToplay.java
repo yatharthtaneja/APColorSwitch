@@ -43,9 +43,9 @@ public class HowToplay implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addImage(hbutton,"sample/Assets/back_white.png");
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
-
+            ButtonSound();
             try {
-                loadButton("GameSettings.fxml");
+                loadButton("FXML/GameSettings.fxml");
 
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -72,12 +72,12 @@ public class HowToplay implements Initializable {
     }
     private void ButtonSound(){
         if (SoundOn){
-            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
             Button.play();
         }
     }
     public void loadButton(String s) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameSettings.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML/GameSettings.fxml"));
         Parent root =loader.load();
         GameSettings controller = (GameSettings) loader.getController();
         controller.setStage(stage);

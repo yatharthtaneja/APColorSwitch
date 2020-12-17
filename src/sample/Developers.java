@@ -41,24 +41,20 @@ public class Developers implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        addImage(hbutton,"sample/Assets/back_white.png");
         if(!DarkTheme){
             developerPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton,"sample/Assets/back-arrow.png");
             text.setFill(Color.valueOf("#141518"));
-
         }
         else{
-
             developerPane.setStyle("-fx-background-color: #141518");
             addImage(hbutton,"sample/Assets/back_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
-
-
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
+            ButtonSound();
             try {
-                loadButton("GameSettings.fxml");
+                loadButton("FXML/GameSettings.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -66,7 +62,7 @@ public class Developers implements Initializable {
     }
     private void ButtonSound(){
         if (SoundOn){
-            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
             Button.play();
         }
     }
@@ -78,7 +74,7 @@ public class Developers implements Initializable {
         b1.setGraphic(view);
     }
     public void loadButton(String s) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameSettings.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root =loader.load();
         GameSettings controller = (GameSettings) loader.getController();
         controller.setStage(stage);

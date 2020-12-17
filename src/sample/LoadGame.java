@@ -52,7 +52,7 @@ public class LoadGame implements Initializable {
         player p1 = null,p2=null,p3=null,p4=null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            p1 = (player) resourceManager.loadData("1.save");
+            p1 = (player) ColorSwitch.Deseriallise("1.save");
             if(p1.SaveGame){
                 Label1.setText("Score");
                 Score1.setText(Integer.toString(p1.getcurrScore()));
@@ -63,7 +63,7 @@ public class LoadGame implements Initializable {
                 Score1.setText("");
                 Time1.setText("");
             }
-            p2 = (player) resourceManager.loadData("2.save");
+            p2 = (player) ColorSwitch.Deseriallise("2.save");
             if(p2.SaveGame){
                 Label2.setText("Score");
                 Score2.setText(Integer.toString(p2.getcurrScore()));
@@ -74,7 +74,7 @@ public class LoadGame implements Initializable {
                 Score2.setText("");
                 Time2.setText("");
             }
-            p3 = (player) resourceManager.loadData("3.save");
+            p3 = (player) ColorSwitch.Deseriallise("3.save");
             if(p3.SaveGame){
                 Label3.setText("Score");
                 Score3.setText(Integer.toString(p3.getcurrScore()));
@@ -85,7 +85,7 @@ public class LoadGame implements Initializable {
                 Score3.setText("");
                 Time3.setText("");
             }
-            p4 = (player) resourceManager.loadData("4.save");
+            p4 = (player) ColorSwitch.Deseriallise("4.save");
             if(p4.SaveGame){
                 Label4.setText("Score");
                 Score4.setText(Integer.toString(p4.getcurrScore()));
@@ -114,7 +114,7 @@ public class LoadGame implements Initializable {
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("GameMenu.fxml");
+                loadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -128,6 +128,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP1);
                     game.setSaveLocation(1);
                     game.setStage(stage);
+                    game.setSoundOn(SoundOn);
                     game.setTheme(DarkTheme);
                     game.start(stage);
                 }
@@ -145,6 +146,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP2);
                     game.setSaveLocation(2);
                     game.setStage(stage);
+                    game.setSoundOn(SoundOn);
                     game.setTheme(DarkTheme);
                     game.start(stage);
                 }
@@ -162,6 +164,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP3);
                     game.setSaveLocation(3);
                     game.setStage(stage);
+                    game.setSoundOn(SoundOn);
                     game.setTheme(DarkTheme);
                     game.start(stage);
                 }
@@ -179,6 +182,7 @@ public class LoadGame implements Initializable {
                     game.setCurrentPlayer(finalP4);
                     game.setSaveLocation(4);
                     game.setStage(stage);
+                    game.setSoundOn(SoundOn);
                     game.setTheme(DarkTheme);
                     game.start(stage);
                 }
@@ -220,7 +224,7 @@ public class LoadGame implements Initializable {
     }
     private void ButtonSound(){
         if(SoundOn){
-            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
             Button.play();
         }
     }

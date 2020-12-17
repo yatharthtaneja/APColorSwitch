@@ -9,6 +9,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
+import sample.Powerups;
 
 public class Star extends Powerups {
     public Star(double y,boolean darktheme){
@@ -28,7 +29,7 @@ public class Star extends Powerups {
     @Override
     public void Collide() {
         if(SoundOn){
-            AudioClip sound = new AudioClip(this.getClass().getResource("Star.wav").toString());
+            AudioClip sound = new AudioClip(this.getClass().getResource("Audio/Star.wav").toString());
             sound.play();
         }
     }

@@ -12,7 +12,7 @@
             <Font name="Futura Light BT" size="49.0" />
          </font>
       </Text>
-      <Button fx:id="hbutton" layoutX="39.0" layoutY="82.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" stylesheets="@button.css" />
+      <Button fx:id="hbutton" layoutX="39.0" layoutY="82.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" stylesheets="@../button.css" />
       <Rectangle fx:id="l1" arcHeight="5.0" arcWidth="5.0" fill="#d41e8d" height="108.0" layoutX="70.0" layoutY="221.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="325.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#962357" height="82.0" layoutX="87.0" layoutY="233.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="291.0" />
       <Label id="Label1" fx:id="Label1" layoutX="100.0" layoutY="243.0" text="Score" textFill="WHITE">

@@ -76,8 +76,8 @@ public class GameMenu implements Initializable {
             PlayButton.setFill(Color.valueOf("#FFFFFF"));
         }
         try {
-            ThemeChanger("Stats.fxml");
-            ThemeChanger("LoadGame.fxml");
+            ThemeChanger("FXML/Stats.fxml");
+            ThemeChanger("FXML/LoadGame.fxml");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class GameMenu implements Initializable {
         SettingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                LoadButton("GameSettings.fxml");
+                LoadButton("FXML/GameSettings.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -108,7 +108,7 @@ public class GameMenu implements Initializable {
         StatisticsButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                LoadButton("Stats.fxml");
+                LoadButton("FXML/Stats.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -116,7 +116,7 @@ public class GameMenu implements Initializable {
         LoadButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                LoadButton("LoadGame.fxml");
+                LoadButton("FXML/LoadGame.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -160,16 +160,16 @@ public class GameMenu implements Initializable {
     public void LoadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("GameSettings.fxml")){
+        if(s.equals("FXML/GameSettings.fxml")){
             GameSettings controller = (GameSettings) loader.getController();
             controller.setStage(this.Currentstage);
             controller.setBackground(Background);
         }
-        else if(s.equals("LoadGame.fxml")){
+        else if(s.equals("FXML/LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
             controller.setStage(this.Currentstage);
         }
-        else if(s.equals("Stats.fxml")){
+        else if(s.equals("FXML/Stats.fxml")){
             Stats controller = (Stats) loader.getController();
             controller.setStage(this.Currentstage);
         }
@@ -181,12 +181,12 @@ public class GameMenu implements Initializable {
     public void ThemeChanger(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("LoadGame.fxml")){
+        if(s.equals("FXML/LoadGame.fxml")){
             LoadGame controller = (LoadGame) loader.getController();
             controller.setTheme(DarkTheme);
             controller.setSoundOn(SoundOn);
         }
-        else if(s.equals("Stats.fxml")){
+        else if(s.equals("FXML/Stats.fxml")){
             Stats controller = (Stats) loader.getController();
             controller.setTheme(DarkTheme);
             controller.setSoundOn(SoundOn);
@@ -194,7 +194,7 @@ public class GameMenu implements Initializable {
     }
     private void ButtonSound(){
         if (SoundOn){
-            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
             Button.play();
         }
     }

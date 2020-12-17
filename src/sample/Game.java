@@ -19,12 +19,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,7 +74,7 @@ public class Game extends Application{
             AddImage(PauseButton,"sample/Assets/pause_white.png");
         PauseButton.setId("pauseButton");
         PauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
-            PlaySound("Button.wav");
+            PlaySound("Audio/Button.wav");
             PauseMenu();
         });
         Root.getStylesheets().add("sample/button.css");
@@ -142,7 +139,7 @@ public class Game extends Application{
                         String code=keyEvent.getCode().toString();
                         if(code.equals("UP")){
                             MoveAhead();
-                            PlaySound("Jumping.wav");
+                            PlaySound("Audio/Jumping.wav");
                         }
                         else if(code.equals("P")||code.equals("p")){
                             PauseMenu();
@@ -180,7 +177,7 @@ public class Game extends Application{
                     Restart.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            PlaySound("Button.wav");
+                            PlaySound("Audio/Button.wav");
                             Root.getChildren().removeAll(Restart,GameOverLabel,Reincarnate);
                             StartGame();
                         }
@@ -188,7 +185,7 @@ public class Game extends Application{
                     Reincarnate.setOnMouseClicked(new EventHandler<MouseEvent>(){
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            PlaySound("Button.wav");
+                            PlaySound("Audio/Button.wav");
                             int available = Integer.parseInt(Score.getStar());
                             if(available>=balance){
                             Root.getChildren().remove(Restart);
@@ -444,7 +441,7 @@ public class Game extends Application{
         if(Ball.getYpos()>788||Ball.getYpos()<12)
             GameOver=true;
         if(GameOver){
-            PlaySound("GameOver.wav");
+            PlaySound("Audio/GameOver.wav");
             Root.getChildren().remove(ColorSwitchLabel);
             Root.getChildren().remove(Ball); // figure out why this is not getting removed
             Timer.pause();
@@ -704,7 +701,7 @@ public class Game extends Application{
             PauseScene.setFill(Color.valueOf("#141518"));
         MainStage.setScene(PauseScene);
         ResumeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e3)->{
-            PlaySound("Button.wav");
+            PlaySound("Audio/Button.wav");
             MainStage.setScene(CurrentScene);
             for (int i=0;i<Obstacles.size();i++){
                 Obstacles.get(i).Play();
@@ -712,18 +709,18 @@ public class Game extends Application{
             Timer.play();
         });
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
-            PlaySound("Button.wav");
+            PlaySound("Audio/Button.wav");
             try {
-                LoadButton("GameMenu.fxml");
+                LoadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
         SaveButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e5)->{
-            PlaySound("Button.wav");
+            PlaySound("Audio/Button.wav");
             SaveCurrentGame();
             try {
-                LoadButton("GameMenu.fxml");
+                LoadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -789,7 +786,7 @@ public class Game extends Application{
             player temp=null;
             if(SavedGame&&SaveLocation==1){
                 try {
-                    resourceManager.save(P,"1.save");
+                    ColorSwitch.Serialise(P,"1.save");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -802,18 +799,18 @@ public class Game extends Application{
                     i=3;
                 for(;i>=1;i--){
                     try {
-                        temp = (player) resourceManager.loadData(i+".save");
+                        temp = (player) ColorSwitch.Deseriallise(i+".save");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     try {
-                        resourceManager.save(temp,(i+1)+".save");
+                        ColorSwitch.Serialise(temp,(i+1)+".save");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
                 try {
-                    resourceManager.save(P,"1.save");
+                    ColorSwitch.Serialise(P,"1.save");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -824,12 +821,12 @@ public class Game extends Application{
         player temp=null;
         for(int i=SaveLocation+1;i<=4;i++){
             try {
-                temp = (player) resourceManager.loadData(i+".save");
+                temp = (player) ColorSwitch.Deseriallise(i+".save");
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                resourceManager.save(temp,(i-1)+".save");
+                ColorSwitch.Serialise(temp,(i-1)+".save");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -837,12 +834,12 @@ public class Game extends Application{
         temp=new player();
         temp.SaveGame=false;
         try {
-            resourceManager.save(temp,"4.save");
+            ColorSwitch.Serialise(temp,"4.save");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public int getTypeofObstacle(Obstacle obs){
+    private int getTypeofObstacle(Obstacle obs){
         int type =-1;
         if(obs.getClass()==Ring.class)
             type=0;

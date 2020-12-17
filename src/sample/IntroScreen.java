@@ -93,7 +93,7 @@ public class IntroScreen implements Initializable {
     }
 
     public void LoadMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML/GameMenu.fxml"));
         Parent root =loader.load();
         GameMenu controller = (GameMenu) loader.getController();
         controller.setBackground(Background);

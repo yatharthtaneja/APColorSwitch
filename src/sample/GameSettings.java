@@ -115,9 +115,9 @@ public void  setTheme(boolean darktheme){
             SoundOn=!SoundOn;
             try {
                 Powerups.setSoundOn(SoundOn);
-                themeChanger("HowToplay.fxml");
-                themeChanger("Developers.fxml");
-                themeChanger("GameMenu.fxml");
+                themeChanger("FXML/HowToplay.fxml");
+                themeChanger("FXML/Developers.fxml");
+                themeChanger("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -140,9 +140,9 @@ public void  setTheme(boolean darktheme){
             }
             MusicOn=!MusicOn;
             try {
-                themeChanger("HowToplay.fxml");
-                themeChanger("Developers.fxml");
-                themeChanger("GameMenu.fxml");
+                themeChanger("FXML/HowToplay.fxml");
+                themeChanger("FXML/Developers.fxml");
+                themeChanger("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -150,7 +150,7 @@ public void  setTheme(boolean darktheme){
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("GameMenu.fxml");
+                loadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -158,7 +158,7 @@ public void  setTheme(boolean darktheme){
         DeveloperButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("Developers.fxml");
+                loadButton("FXML/Developers.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -171,7 +171,7 @@ public void  setTheme(boolean darktheme){
             p1.SaveGame=false;
             for(int i=0;i<=4;i++){
                 try {
-                    resourceManager.save(p1,i+".save");
+                    ColorSwitch.Serialise(p1,i+".save");
                 } catch (IOException ee) {
                     ee.printStackTrace();
                 }
@@ -180,7 +180,7 @@ public void  setTheme(boolean darktheme){
         HowButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
                 ButtonSound();
-                loadButton("HowToplay.fxml");
+                loadButton("FXML/HowToplay.fxml");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -207,9 +207,9 @@ public void  setTheme(boolean darktheme){
                 Music.setTextFill(Color.valueOf("#141518"));
                 Sound.setTextFill(Color.valueOf("#141518"));
                 try {
-                    themeChanger("HowToplay.fxml");
-                    themeChanger("Developers.fxml");
-                    themeChanger("GameMenu.fxml");
+                    themeChanger("FXML/HowToplay.fxml");
+                    themeChanger("FXML/Developers.fxml");
+                    themeChanger("FXML/GameMenu.fxml");
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -232,9 +232,9 @@ public void  setTheme(boolean darktheme){
                 Sound.setTextFill(Color.valueOf("#FFFFFF"));
                 Music.setTextFill(Color.valueOf("#FFFFFF"));
                 try {
-                    themeChanger("HowToplay.fxml");
-                    themeChanger("Developers.fxml");
-                    themeChanger("GameMenu.fxml");
+                    themeChanger("FXML/HowToplay.fxml");
+                    themeChanger("FXML/Developers.fxml");
+                    themeChanger("FXML/GameMenu.fxml");
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -253,15 +253,15 @@ public void  setTheme(boolean darktheme){
     public void loadButton(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("GameMenu.fxml")){
+        if(s.equals("FXML/GameMenu.fxml")){
             GameMenu controller = (GameMenu) loader.getController();
             controller.setStage(this.stage);
         }
-        else if(s.equals("HowToplay.fxml")){
+        else if(s.equals("FXML/HowToplay.fxml")){
             HowToplay controller = (HowToplay) loader.getController();
             controller.setStage(this.stage);
         }
-        else if(s.equals("Developers.fxml")){
+        else if(s.equals("FXML/Developers.fxml")){
             Developers controller = (Developers) loader.getController();
             controller.setStage(this.stage);
         }
@@ -274,17 +274,17 @@ public void  setTheme(boolean darktheme){
     public void themeChanger(String s) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
         Parent root = loader.load();
-        if(s.equals("GameMenu.fxml")){
+        if(s.equals("FXML/GameMenu.fxml")){
             GameMenu controller = (GameMenu) loader.getController();
             controller.setTheme(DarkTheme);
             controller.setSoundOn(SoundOn);
         }
-        else if(s.equals("HowToplay.fxml")){
+        else if(s.equals("FXML/HowToplay.fxml")){
             HowToplay controller = (HowToplay) loader.getController();
             controller.setTheme(DarkTheme);
             controller.setSoundOn(SoundOn);
         }
-        else if(s.equals("Developers.fxml")){
+        else if(s.equals("FXML/Developers.fxml")){
             Developers controller = (Developers) loader.getController();
             controller.setTheme(DarkTheme);
             controller.setSoundOn(SoundOn);
@@ -292,7 +292,7 @@ public void  setTheme(boolean darktheme){
     }
     private void ButtonSound(){
         if (SoundOn){
-            AudioClip Button=new AudioClip(this.getClass().getResource("Button.wav").toString());
+            AudioClip Button=new AudioClip(this.getClass().getResource("Audio/Button.wav").toString());
             Button.play();
         }
     }
