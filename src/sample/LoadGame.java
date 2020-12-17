@@ -1,4 +1,4 @@
-package sample.Screens;
+package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sample.Screens.ColorSwitch;
-import sample.Screens.Game;
-import sample.Screens.GameMenu;
-import sample.player;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,47 +49,47 @@ public class LoadGame implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player p1 = null,p2=null,p3=null,p4=null;
+        Player p1 = null,p2=null,p3=null,p4=null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
-            p1 = (player) ColorSwitch.Deseriallise("1.save");
-            if(p1.SaveGame){
+            p1 = (Player) ColorSwitch.Deseriallise("1.save");
+            if(p1.getSaveGame()){
                 Label1.setText("Score");
-                Score1.setText(Integer.toString(p1.getcurrScore()));
-                Time1.setText(formatter.format(p1.DateTime));
+                Score1.setText(Integer.toString(p1.getScore()));
+                Time1.setText(formatter.format(p1.getDateTime()));
             }
             else {
                 Label1.setText("No Game Saved");
                 Score1.setText("");
                 Time1.setText("");
             }
-            p2 = (player) ColorSwitch.Deseriallise("2.save");
-            if(p2.SaveGame){
+            p2 = (Player) ColorSwitch.Deseriallise("2.save");
+            if(p2.getSaveGame()){
                 Label2.setText("Score");
-                Score2.setText(Integer.toString(p2.getcurrScore()));
-                Time2.setText(formatter.format(p2.DateTime));
+                Score2.setText(Integer.toString(p2.getScore()));
+                Time2.setText(formatter.format(p2.getDateTime()));
             }
             else {
                 Label2.setText("No Game Saved");
                 Score2.setText("");
                 Time2.setText("");
             }
-            p3 = (player) ColorSwitch.Deseriallise("3.save");
-            if(p3.SaveGame){
+            p3 = (Player) ColorSwitch.Deseriallise("3.save");
+            if(p3.getSaveGame()){
                 Label3.setText("Score");
-                Score3.setText(Integer.toString(p3.getcurrScore()));
-                Time3.setText(formatter.format(p3.DateTime));
+                Score3.setText(Integer.toString(p3.getScore()));
+                Time3.setText(formatter.format(p3.getDateTime()));
             }
             else {
                 Label3.setText("No Game Saved");
                 Score3.setText("");
                 Time3.setText("");
             }
-            p4 = (player) ColorSwitch.Deseriallise("4.save");
-            if(p4.SaveGame){
+            p4 = (Player) ColorSwitch.Deseriallise("4.save");
+            if(p4.getSaveGame()){
                 Label4.setText("Score");
-                Score4.setText(Integer.toString(p4.getcurrScore()));
-                Time4.setText(formatter.format(p4.DateTime));
+                Score4.setText(Integer.toString(p4.getScore()));
+                Time4.setText(formatter.format(p4.getDateTime()));
             }
             else {
                 Label4.setText("No Game Saved");
@@ -103,16 +99,16 @@ public class LoadGame implements Initializable {
         } catch (Exception exc) {
             exc.printStackTrace();
         }
-        addImage(hbutton,"sample/Assets/home_white.png");
+        addImage(hbutton, "sample/Assets/home_white.png");
         addShadow(l1);addShadow(l2);addShadow(l3);addShadow(l4);
         if(!DarkTheme){
             loadPane.setStyle("-fx-background-color: #FFFFF0");
-            addImage(hbutton,"sample/Assets/home.png");
+            addImage(hbutton, "sample/Assets/home.png");
             text.setFill(Color.valueOf("#141518"));
         }
         else{
             loadPane.setStyle("-fx-background-color: #141518");
-            addImage(hbutton,"sample/Assets/home_white.png");
+            addImage(hbutton, "sample/Assets/home_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
@@ -123,10 +119,10 @@ public class LoadGame implements Initializable {
                 ioException.printStackTrace();
             }
         });
-        player finalP1 = p1,finalP2 = p2,finalP3 = p3,finalP4 = p4;
+        Player finalP1 = p1,finalP2 = p2,finalP3 = p3,finalP4 = p4;
         l1.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                if(finalP1.SaveGame){
+                if(finalP1.getSaveGame()){
                     ButtonSound();
                     Game game = new Game();
                     game.setCurrentPlayer(finalP1);
@@ -144,7 +140,7 @@ public class LoadGame implements Initializable {
         });
         l2.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                if(finalP2.SaveGame){
+                if(finalP2.getSaveGame()){
                     ButtonSound();
                     Game game = new Game();
                     game.setCurrentPlayer(finalP2);
@@ -162,7 +158,7 @@ public class LoadGame implements Initializable {
         });
         l3.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                if(finalP3.SaveGame){
+                if(finalP3.getSaveGame()){
                     ButtonSound();
                     Game game = new Game();
                     game.setCurrentPlayer(finalP3);
@@ -180,7 +176,7 @@ public class LoadGame implements Initializable {
         });
         l4.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
             try {
-                if(finalP4.SaveGame){
+                if(finalP4.getSaveGame()){
                     ButtonSound();
                     Game game = new Game();
                     game.setCurrentPlayer(finalP4);

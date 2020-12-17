@@ -1,4 +1,4 @@
-package sample.Screens;
+package sample;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -15,7 +15,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.Screens.GameMenu;
 
 import java.io.IOException;
 import java.net.URL;

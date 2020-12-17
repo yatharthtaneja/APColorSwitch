@@ -1,4 +1,4 @@
-package sample.Screens;
+package sample;
 
 import javafx.animation.*;
 import javafx.application.Application;
@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.*;
 import sample.SceneElement.Ball;
 import sample.SceneElement.Obstacles.*;
 import sample.SceneElement.Powerup.ColourBooster;
@@ -48,7 +47,7 @@ public class Game extends Application{
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
     private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3,plus1,devlable;
     private static boolean DarkTheme=true;
-    private player CurrentPlayer;
+    private Player CurrentPlayer;
     private sample.Score Score= new Score();
     private boolean GameOver,ScoreUpdated ,devmode=false;
     private Button Restart;
@@ -66,8 +65,8 @@ public class Game extends Application{
         this.SaveLocation=loc;
         this.SavedGame=true;
     }
-    public void setCurrentPlayer(player Player){
-        this.CurrentPlayer=Player;
+    public void setCurrentPlayer(Player player){
+        this.CurrentPlayer=player;
     }
     @Override
     public void start(Stage stage) throws Exception {
@@ -76,9 +75,9 @@ public class Game extends Application{
         PauseButton.setPrefHeight(50);PauseButton.setPrefWidth(50);
         PauseButton.setLayoutX(375);PauseButton.setLayoutY(10);
         if(!DarkTheme)
-            AddImage(PauseButton,"sample/Assets/pause.png");
+            AddImage(PauseButton, "sample/Assets/pause.png");
         else
-            AddImage(PauseButton,"sample/Assets/pause_white.png");
+            AddImage(PauseButton, "sample/Assets/pause_white.png");
         PauseButton.setId("pauseButton");
         PauseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e2)->{
             PlaySound("Audio/Button.wav");
@@ -358,7 +357,7 @@ public class Game extends Application{
             Powerups.add(powerup);
             Root.getChildren().add(powerup.getObject());
         }
-        ScoreLabel.setText(Integer.toString(CurrentPlayer.getcurrScore()));
+        ScoreLabel.setText(Integer.toString(CurrentPlayer.getScore()));
         StartGameLabel.setText("Press Up key to start");
         StartGameLabel.setScaleX(2);
         StartGameLabel.setScaleY(2);
@@ -680,9 +679,9 @@ public class Game extends Application{
         Button HomeButton= MakeButton(50,50,35,100,"","pauseButton");
         Timer.pause();
         if(!DarkTheme)
-            AddImage(HomeButton,"sample/Assets/home.png");
+            AddImage(HomeButton, "sample/Assets/home.png");
         else
-            AddImage(HomeButton,"sample/Assets/home_white.png");
+            AddImage(HomeButton, "sample/Assets/home_white.png");
         Label PauseLabel= new Label();
         PauseLabel.setText("Pause Menu");
         PauseLabel.setFont(Font.font("Futura Light BT"));
@@ -768,18 +767,18 @@ public class Game extends Application{
     }
     private void SaveCurrentGame(){
         if(!GameOver){
-            player P = new player();
+            Player P = new Player();
             P.setScore(Integer.parseInt(ScoreLabel.getText()));
             P.setBallX(Ball.getXpos());
             P.setBallY(Ball.getYpos());
             P.setBalance(balance);
-            P.SaveGame=true;
-            P.DateTime=new Date();
+            P.setSaveGame(true);
+            P.setDateTime(new Date());
             for(int i =0 ;i< Obstacles.size();i++){
                 Obstacle obs = Obstacles.get(i);
-                P.addType(getTypeofObstacle(obs));
-                P.addXcord(obs.getXpos());
-                P.addYcord(obs.getYpos());
+                P.setObsType(getTypeofObstacle(obs));
+                P.setXcord(obs.getXpos());
+                P.setYcord(obs.getYpos());
                 P.CurrentTime.add(obs.getCurrentTime());
             }
             for(int i =0 ;i< Powerups.size();i++){
@@ -790,7 +789,7 @@ public class Game extends Application{
                     P.PowerupType.add(2);
                 P.PowerupYcord.add(pow.getYpos());
             }
-            player temp=null;
+            Player temp=null;
             if(SavedGame&&SaveLocation==1){
                 try {
                     ColorSwitch.Serialise(P,"1.save");
@@ -806,7 +805,7 @@ public class Game extends Application{
                     i=3;
                 for(;i>=1;i--){
                     try {
-                        temp = (player) ColorSwitch.Deseriallise(i+".save");
+                        temp = (Player) ColorSwitch.Deseriallise(i+".save");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -825,10 +824,10 @@ public class Game extends Application{
         }
     }
     private void ReorderGameData(){
-        player temp=null;
+        Player temp=null;
         for(int i=SaveLocation+1;i<=4;i++){
             try {
-                temp = (player) ColorSwitch.Deseriallise(i+".save");
+                temp = (Player) ColorSwitch.Deseriallise(i+".save");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -838,8 +837,8 @@ public class Game extends Application{
                 e.printStackTrace();
             }
         }
-        temp=new player();
-        temp.SaveGame=false;
+        temp=new Player();
+        temp.setSaveGame(false);
         try {
             ColorSwitch.Serialise(temp,"4.save");
         } catch (IOException e) {

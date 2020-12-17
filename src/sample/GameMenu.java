@@ -1,4 +1,4 @@
-package sample.Screens;
+package sample;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

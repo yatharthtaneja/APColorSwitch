@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="developerPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Screens.Developers">
+<AnchorPane fx:id="developerPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Developers">
    <children>
       <Text fx:id="text" fill="WHITE" layoutX="123.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About Us" textAlignment="CENTER" wrappingWidth="223.0504150390625">
          <font>

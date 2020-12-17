@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.SceneElement.Obstacles.Cross;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -42,5 +43,27 @@ public class Testing extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        Player P=new Player();
+        P.setSaveGame(false);
+        try {
+            ColorSwitch.Serialise(P,"1.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ColorSwitch.Serialise(P,"2.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ColorSwitch.Serialise(P,"3.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ColorSwitch.Serialise(P,"4.save");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

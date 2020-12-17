@@ -1,4 +1,4 @@
-package sample.Screens;
+package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,12 +42,12 @@ public class Developers implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(!DarkTheme){
             developerPane.setStyle("-fx-background-color: #FFFFF0");
-            addImage(hbutton,"sample/Assets/back-arrow.png");
+            addImage(hbutton, "sample/Assets/back-arrow.png");
             text.setFill(Color.valueOf("#141518"));
         }
         else{
             developerPane.setStyle("-fx-background-color: #141518");
-            addImage(hbutton,"sample/Assets/back_white.png");
+            addImage(hbutton, "sample/Assets/back_white.png");
             text.setFill(Color.valueOf("#FFFFFF"));
         }
         hbutton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{

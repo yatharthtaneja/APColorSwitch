@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="howPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Screens.HowToplay">
+<AnchorPane fx:id="howPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.HowToplay">
    <children>
       <Text fx:id="text" fill="WHITE" layoutX="116.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How To Play" textAlignment="CENTER" wrappingWidth="223.0504150390625">
          <font>
