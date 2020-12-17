@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.SceneElement.Obstacles.Cross;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

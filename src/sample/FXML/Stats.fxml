@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="statsPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Stats">
+<AnchorPane fx:id="statsPane" prefHeight="800.0" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Screens.Stats">
    <children>
       <Text fx:id="text" fill="WHITE" layoutX="123.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER" wrappingWidth="223.0504150390625">
          <font>

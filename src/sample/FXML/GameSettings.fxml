@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="settingsPane" prefHeight="800" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GameSettings">
+<AnchorPane fx:id="settingsPane" prefHeight="800" prefWidth="450.0" style="-fx-background-color: #141518;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Screens.GameSettings">
    <children>
       <Text fx:id="text" fill="WHITE" layoutX="113.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTINGS" textAlignment="CENTER" wrappingWidth="223.0504150390625">
          <font>
