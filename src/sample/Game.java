@@ -49,6 +49,7 @@ public class Game extends Application{
     private double Gravity;
     private long Ticks;
     private Color Colors[]={Color.web("#35e2f2"),Color.web("#f6df0e"),Color.web("#8c13fb"),Color.web("#ff0080")};
+    private int CurrentCol;
     private Label StartGameLabel,GameOverLabel,ScoreLabel,ColorSwitchLabel,TotalStarLabel,star_3,plus1,devlable;
     private static boolean DarkTheme=true;
     private Player CurrentPlayer;
@@ -111,7 +112,8 @@ public class Game extends Application{
         plus1.setFont(new Font("Cambria", 36));
         devlable.setFont(new Font("Cambria", 36));
         Root.getChildren().add(ScoreLabel);
-        Ball=new Ball(225,535,12,Colors[(int)Math.random()*4]);
+        CurrentCol=(int)Math.random()*4;
+        Ball=new Ball(225,535,12,Colors[CurrentCol]);
         Obstacles=new ArrayList<>();Powerups=new ArrayList<>();
         Timer=new Timeline();
         Timer.setCycleCount(Animation.INDEFINITE);
@@ -156,7 +158,6 @@ public class Game extends Application{
                                 devmode=false;
                             else {
                                 devmode = true;
-                                System.out.println("Devmode");
                             }
                         }
                     }
@@ -258,6 +259,8 @@ public class Game extends Application{
         ScoreUpdated = false;
         balance=5;
         Ball.setXpos(225);Ball.setYpos(535);
+        CurrentCol=(int)(Math.random()*4);
+        Ball.getBall().setFill(Colors[CurrentCol]);Ball.getBall().setStroke((Colors[CurrentCol]));
         reviveX = 225;reviveY = 535;
         GameOver = false;
         Gravity = 0;Ticks = 0;
@@ -322,7 +325,8 @@ public class Game extends Application{
     public void ResumeGame(){//Used for Saved Games
         ScoreUpdated= false;
         Ball.setXpos(CurrentPlayer.getBallX());Ball.setYpos(CurrentPlayer.getBallY());
-        Ball.getBall().setFill(Colors[CurrentPlayer.getColour()]);Ball.getBall().setStroke(Colors[CurrentPlayer.getColour()]);
+        CurrentCol=CurrentPlayer.getColour();
+        Ball.getBall().setFill(Colors[CurrentCol]);Ball.getBall().setStroke(Colors[CurrentCol]);
         reviveY=CurrentPlayer.getBallY();reviveX=CurrentPlayer.getBallX();
         balance=CurrentPlayer.getBalance();
         GameOver=false;
@@ -435,6 +439,7 @@ public class Game extends Application{
             if (reviveY > 725)
                 reviveY = 725;
             Ball.setYpos(reviveY);
+            Ball.getBall().setFill(Colors[CurrentCol]);Ball.getBall().setStroke((Colors[CurrentCol]));
             GameOver = false;
             Gravity = 0;
             Ticks = 0;
@@ -482,7 +487,7 @@ public class Game extends Application{
         if (!GameOver) {
             if (Gravity > 0)
                 Gravity = 0;
-            Gravity -= 9;
+            Gravity -= 8;
         }
     }
     public void CheckObstacleCollision(){
@@ -530,10 +535,12 @@ public class Game extends Application{
             if(!DarkTheme) {
                 GameOverLabel.setTextFill(Color.valueOf("#141518"));
                 TotalStarLabel.setTextFill(Color.valueOf("#141518"));
+                Ball.getBall().setFill(Color.valueOf("#FFFFF0"));Ball.getBall().setStroke(Color.valueOf("#FFFFF0"));
             }
             else {
                 GameOverLabel.setTextFill(Color.WHITESMOKE);
                 TotalStarLabel.setTextFill(Color.WHITESMOKE);
+                Ball.getBall().setFill(Color.valueOf("#141518"));Ball.getBall().setStroke(Color.valueOf("#141518"));
             }
             GameOverLabel.setScaleY(4);GameOverLabel.setScaleX(4);
             TotalStarLabel.setScaleX(5);TotalStarLabel.setScaleY(5);
@@ -546,10 +553,11 @@ public class Game extends Application{
                 Powerups.get(0).Collide();
                 if (Powerups.get(0).getClass()==ColourBooster.class){
                     int index=(int)(Math.random()*4);
-                    while(Ball.getBall().getFill()==Colors[index]){//Checking if same colour is alotted again
+                    while(CurrentCol==index){//Checking if same colour is alotted again
                         index=(int)(Math.random()*4);
                     }
-                    Ball.getBall().setFill(Colors[index]);Ball.getBall().setStroke(Colors[index]);
+                    CurrentCol=index;
+                    Ball.getBall().setFill(Colors[CurrentCol]);Ball.getBall().setStroke(Colors[CurrentCol]);
                 }
                 else if(Powerups.get(0).getClass()==Star.class){
                     ScoreLabel.setText(Integer.toString(Integer.parseInt(ScoreLabel.getText())+1));
@@ -588,7 +596,7 @@ public class Game extends Application{
         int maxindex=3*((Integer.parseInt(ScoreLabel.getText())/4)+1);
         if(maxindex>11)
             maxindex=11;
-        int index= (int)(Math.random()*maxindex);
+        int index=(int)(Math.random()*maxindex);
         double y=50;
         Star star = null;
         ColourBooster colourbooster=null;
@@ -597,6 +605,8 @@ public class Game extends Application{
             if(Obstacles.size()!=0) {
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-450;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
@@ -608,28 +618,34 @@ public class Game extends Application{
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
             star=new Star(y-65,DarkTheme);
-            colourbooster=new ColourBooster(y-125);
+            colourbooster=new ColourBooster(y-140);
             obstacle=new UnidirectionalLine(y,false);
         }
         else if(index==2){//Unidirectional Line Left
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
             star=new Star(y-65,DarkTheme);
-            colourbooster=new ColourBooster(y-125);
+            colourbooster=new ColourBooster(y-140);
             obstacle=new UnidirectionalLine(y,true);
         }
         else if(index==3){//Cross Clockwise
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-450;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
@@ -641,6 +657,8 @@ public class Game extends Application{
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-550;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
@@ -652,6 +670,8 @@ public class Game extends Application{
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-450;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
@@ -663,6 +683,8 @@ public class Game extends Application{
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-550;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
             }
@@ -674,28 +696,40 @@ public class Game extends Application{
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-250;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-350;
             }
             star=new Star(y-65,DarkTheme);
-            colourbooster=new ColourBooster(y-125);
+            colourbooster=new ColourBooster(y-140);
             obstacle=new BidirectionalLine(y);
         }
         else if(index==8){//DiamondOfDots
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-650;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-600;
             }
             star=new Star(y,DarkTheme);
-            colourbooster=new ColourBooster(y-250);
+            colourbooster=new ColourBooster(y-275);
             obstacle=new DiamondOfDots(225,y);
         }
         else if(index==9){//Horizontal DoubleRing
             if(Obstacles.size()!=0){
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DoubleRing)
+                    y = Obstacles.get(Obstacles.size() - 1).getYpos() - 450;
+                else if(Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y = Obstacles.get(Obstacles.size() - 1).getYpos() - 450;
+                else if(Obstacles.get(Obstacles.size()-1) instanceof RectangleOfDots)
+                    y = Obstacles.get(Obstacles.size() - 1).getYpos() - 450;
+                else if(Obstacles.get(Obstacles.size()-1) instanceof Trilateral)
+                    y = Obstacles.get(Obstacles.size() - 1).getYpos() - 450;
                 else
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
             }
@@ -707,8 +741,10 @@ public class Game extends Application{
             if(Obstacles.size()!=0) {
                 if (Obstacles.get(Obstacles.size()-1) instanceof Line)
                     y=Obstacles.get(Obstacles.size()-1).getYpos()-300;
+                else if (Obstacles.get(Obstacles.size()-1) instanceof DiamondOfDots)
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-500;
                 else
-                    y=Obstacles.get(Obstacles.size()-1).getYpos()-400;
+                    y=Obstacles.get(Obstacles.size()-1).getYpos()-450;
             }
             star=new Star(y,DarkTheme);
             colourbooster=new ColourBooster(y-200);
@@ -820,6 +856,8 @@ public class Game extends Application{
     }
     private void SaveCurrentGame(){
         if(!GameOver){
+            if(Integer.parseInt(Score.getStar())<0)
+                Score.setStars(0);
             Player P = new Player();
             P.setScore(Integer.parseInt(ScoreLabel.getText()));
             P.setBallX(Ball.getXpos());
@@ -827,12 +865,7 @@ public class Game extends Application{
             P.setBalance(balance);
             P.setSaveGame(true);
             P.setDateTime(new Date());
-            for(int i=0;i<4;i++){
-                if(Colors[i]==Ball.getBall().getFill()) {
-                    P.setColour(i);
-                    break;
-                }
-            }
+            P.setColour(CurrentCol);
             for(int i =0 ;i< Obstacles.size();i++){
                 Obstacle obs = Obstacles.get(i);
                 P.setObsType(getTypeofObstacle(obs));

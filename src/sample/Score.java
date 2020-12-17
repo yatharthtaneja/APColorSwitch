@@ -51,6 +51,21 @@ public class Score {
         }
         return total_stars;
     }
+    public void setStars(int stars){
+        int highscore=Integer.parseInt(getScore());
+        int totalStar=stars;
+        try{
+            String test = Integer.toString(totalStar)+"\n"+Integer.toString(highscore);
+            File file = new File("output.txt");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(test);
+            bw.close();
+            fw.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     public void writeStats(int score){
         int highscore=Integer.parseInt(getScore());
         int totalStar=Integer.parseInt(getStar());
