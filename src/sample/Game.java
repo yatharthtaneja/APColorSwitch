@@ -94,9 +94,9 @@ public class Game extends Application{
         ScoreLabel.setLayoutX(10);ScoreLabel.setLayoutY(15);
         plus1= new Label("+1");
         plus1.prefHeight(50);
-        devlable= new Label("You are in dev-Mode");
-        devlable.setLayoutX(10);
-        devlable.setLayoutY(760);
+        devlable= new Label("Developer Mode");
+        devlable.setLayoutX(105);
+        devlable.setLayoutY(750);
         if(!DarkTheme) {
             ScoreLabel.setTextFill(Color.valueOf("#141518"));
             plus1.setTextFill(Color.valueOf("#141518"));
@@ -219,15 +219,15 @@ public class Game extends Application{
         KeyFrame KF2 =new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(Ball.getYpos()<390) {
+                if(Ball.getYpos()<480) {
                     for (int i=0;i<Obstacles.size();i++){
-                        Obstacles.get(i).incrementYpos(3.5);
+                        Obstacles.get(i).incrementYpos(1.5);
                     }
                     for (int i=0;i<Powerups.size();i++){
-                        Powerups.get(i).incrementYpos(3.5);
+                        Powerups.get(i).incrementYpos(1.5);
                     }
-                    reviveY+=3.5;
-                    ColorSwitchLabel.setLayoutY(ColorSwitchLabel.getLayoutY()+3.5);
+                    reviveY+=1.5;
+                    ColorSwitchLabel.setLayoutY(ColorSwitchLabel.getLayoutY()+1.5);
                 }
                 if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
