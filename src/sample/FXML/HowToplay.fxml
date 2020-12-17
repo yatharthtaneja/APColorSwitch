@@ -14,8 +14,8 @@
             <Font name="Futura Light BT" size="49.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cbd420" height="390.0" layoutX="63.0" layoutY="293.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="325.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b2ac3c" height="347.0" layoutX="80.0" layoutY="311.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="291.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cbd420" height="457.0" layoutX="63.0" layoutY="293.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="325.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b2ac3c" height="417.0" layoutX="80.0" layoutY="311.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 50;" width="291.0" />
       <Label layoutX="167.0" layoutY="384.0" text="How to Play" textFill="WHITE">
          <font>
             <Font size="22.0" />
@@ -27,12 +27,12 @@
          </font>
       </Label>
       <Button fx:id="hbutton" layoutX="41.0" layoutY="99.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" stylesheets="@../button.css" />
-      <Label alignment="TOP_LEFT" layoutX="101.0" layoutY="439.0" prefHeight="115.0" prefWidth="251.0" text="Move ahead by correctly aligning the colour of the ball and the obstacles to earn stars in the game." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+      <Label alignment="TOP_LEFT" layoutX="101.0" layoutY="439.0" prefHeight="155.0" prefWidth="251.0" text="Move ahead by correctly aligning the colour of the ball and the obstacles to earn stars in the game and avoid getting out of the screen." textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="102.0" layoutY="554.0" prefHeight="89.0" prefWidth="251.0" text="If you get out, use the stars wisely to have a chance to revive in the game." textFill="WHITE" wrapText="true">
+      <Label alignment="TOP_LEFT" layoutX="102.0" layoutY="586.0" prefHeight="89.0" prefWidth="251.0" text="If you get out, use the stars wisely to have a chance to revive in the game." textFill="WHITE" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>

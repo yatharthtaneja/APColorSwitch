@@ -222,13 +222,13 @@ public class Game extends Application{
             public void handle(ActionEvent actionEvent) {
                 if(Ball.getYpos()<480) {
                     for (int i=0;i<Obstacles.size();i++){
-                        Obstacles.get(i).incrementYpos(1.5);
+                        Obstacles.get(i).incrementYpos(1.75);
                     }
                     for (int i=0;i<Powerups.size();i++){
-                        Powerups.get(i).incrementYpos(1.5);
+                        Powerups.get(i).incrementYpos(1.75);
                     }
-                    reviveY+=1.5;
-                    ColorSwitchLabel.setLayoutY(ColorSwitchLabel.getLayoutY()+1.5);
+                    reviveY+=1.75;
+                    ColorSwitchLabel.setLayoutY(ColorSwitchLabel.getLayoutY()+1.75);
                 }
                 if(Obstacles.get(0).getYpos()>950) {
                     Root.getChildren().remove(Obstacles.get(0).getObstacle());
