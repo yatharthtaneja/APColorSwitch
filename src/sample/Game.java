@@ -805,6 +805,8 @@ public class Game extends Application{
         });
         HomeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e4)->{
             PlaySound("Audio/Button.wav");
+            Score.writeStats(Integer.parseInt(ScoreLabel.getText()));
+
             try {
                 LoadButton("FXML/GameMenu.fxml");
             } catch (IOException ioException) {
@@ -856,8 +858,8 @@ public class Game extends Application{
     }
     private void SaveCurrentGame(){
         if(!GameOver){
-            if(Integer.parseInt(Score.getStar())<0)
-                Score.setStars(0);
+//            if(Integer.parseInt(Score.getStar())<0)
+//                Score.setStars(0);
             Player P = new Player();
             P.setScore(Integer.parseInt(ScoreLabel.getText()));
             P.setBallX(Ball.getXpos());

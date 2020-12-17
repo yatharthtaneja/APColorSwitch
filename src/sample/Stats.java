@@ -48,7 +48,10 @@ public class Stats implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Score score= new Score();
         highlabel.setText(score.getScore());
-        starlabel.setText(score.getStar());
+        if(Integer.parseInt(score.getStar())<0)
+            starlabel.setText("0");
+        else
+            starlabel.setText(score.getStar());
         if(!DarkTheme){
             statsPane.setStyle("-fx-background-color: #FFFFF0");
             addImage(hbutton, "sample/Assets/home.png");
